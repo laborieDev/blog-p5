@@ -2,7 +2,7 @@
 class class_pdo{
       	private static $serveur='mysql:host=localhost';
 
-      	private static $bdd='dbname=portfolio';   		
+      	private static $bdd='dbname=openclassrooms_p5';   		
       	private static $user='root' ;    		
       	private static $mdp='root' ;	
 

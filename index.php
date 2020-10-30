@@ -10,5 +10,7 @@ $loader = new FilesystemLoader(__DIR__ . '/templates');
 $twig = new Environment($loader);
 
 // Connexion BDD
-    require_once("modele/mdl_data_base.php");
-    $pdo = mdl_data_base::getclass_pdo();
+require_once("modele/mdl_data_base.php");
+$pdo = mdl_data_base::getclass_pdo();
+
+echo $twig->render('layout.html.twig');
