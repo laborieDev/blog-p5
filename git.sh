@@ -23,7 +23,7 @@ then
     echo "Git commit '$commitMessage'"
     git commit --m "$commitMessage"
     echo "Git push ..."
-    git push origin dev
+    git push origin master
 else
     getError
 fi
