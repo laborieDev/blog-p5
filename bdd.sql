@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  ven. 30 oct. 2020 à 16:51
+-- Généré le :  sam. 31 oct. 2020 à 19:55
 -- Version du serveur :  5.7.26
--- Version de PHP :  7.4.2
+-- Version de PHP :  7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,8 @@ CREATE TABLE `blog_post` (
   `extract` mediumtext NOT NULL,
   `content` longtext NOT NULL,
   `add_at` date NOT NULL,
-  `last_edit_at` date NOT NULL
+  `last_edit_at` date NOT NULL,
+  `id_author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -88,7 +89,8 @@ CREATE TABLE `user` (
 -- Index pour la table `blog_post`
 --
 ALTER TABLE `blog_post`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_author` (`id_author`);
 
 --
 -- Index pour la table `category`
@@ -141,11 +143,17 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `blog_post`
+--
+ALTER TABLE `blog_post`
+  ADD CONSTRAINT `blog_post_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `category_blog_post`
