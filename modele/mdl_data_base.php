@@ -9,6 +9,5 @@ class mdl_data_base extends class_pdo{
 		return class_pdo::$monclass_pdo;
     }
 
-
 }
 ?>
