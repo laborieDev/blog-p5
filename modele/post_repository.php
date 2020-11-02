@@ -1,10 +1,11 @@
 <?php
-include_once("modele/class_pdo.php");
-class PostRepository extends class_pdo{
+include_once("modele/mdl_data_base.php");
+
+class PostRepository extends mdl_data_base{
 
 	public  static function getclass_pdo(){
 		if(class_pdo::$monclass_pdo==null){
-			class_pdo::$monclass_pdo= new UserRepository();
+			class_pdo::$monclass_pdo= new PostRepository();
 		}
 		return class_pdo::$monclass_pdo;
     }

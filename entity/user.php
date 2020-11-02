@@ -9,11 +9,15 @@ class User{
     private $password;
     private $addAt;
     private $userType;
+    private $postsID;
 
     private $userRepository;
 
-    public function __construct($id){
+    public function __construct($id=-1){
         $this->userRepository = UserRepository::getclass_pdo();
+        if($id == -1){
+            $id = $this->userRepository->newUser();
+        }
         $this->id = $id;
         $this->lastName = $this->userRepository->getLastName($id);
         $this->firstName = $this->userRepository->getFirstName($id);
@@ -21,6 +25,11 @@ class User{
         $this->password = $this->userRepository->getPassword($id);
         $this->addAt = $this->userRepository->getAddAt($id);
         $this->userType = $this->userRepository->isAdmin($id);
+        $this->postsID = $this->userRepository->getAllPosts($id);
+    }
+
+    public function getId(){
+        return $this->id;
     }
 
     public function getLastName(){
@@ -64,13 +73,19 @@ class User{
     }
 
     public function isAdmin(){
-        if($userType == "admin")
-            return true;
-        return false;
+        return $this->userType;
     }
 
     public function setIsAdmin($new){
         $this->userType = $new;
         $this->userRepository->setIsAdmin($new, $this->id);
+    }
+
+    public function getPostsID(){
+        return $this->postsID;
+    }
+
+    public function deleteUser(){
+        $this->userRepository->deleteUser($this->id);
     }
 }

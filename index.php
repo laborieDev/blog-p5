@@ -11,14 +11,20 @@ $twig = new Environment($loader);
 
 // Connexion BDD
 
-require_once("entity/all_entity.php");
+include("entity/all_entity.php");
 
-$user = new User(1);
+$user = new User(11);
 
-$user->setLastName('LABORIE');
-$user->setFirstName('Anthony');
+echo $user->getLastName()." ";
+if($user->isAdmin())
+    echo "true";
+else
+    echo "false";
 
-echo $user->getLastName()." ".$user->getFirstName();
-
-
+// $posts = $user->getPostsID();
+// for($i=0; $i<sizeof($posts); $i++){
+//     $post = new Post($posts[$i]);
+//     $post = new Post(1);
+//     echo $post->getTitle();
+// }
 echo $twig->render('layout.html.twig');

@@ -1,6 +1,6 @@
 <?php
 require_once("modele/post_repository.php");
-require_once("entity/user.php");
+// include("entity/user.php");
     
 class Post{
     private $id;
@@ -18,11 +18,11 @@ class Post{
         $this->postRepository = PostRepository::getclass_pdo();
         $this->id = $id;
         $this->title = $this->postRepository->getTitle($id);
-        $this->extract = $this->postRepository->getExtract($id);
-        $this->content = $this->postRepository->getContent($id);
-        $this->addAt = $this->postRepository->getAddAt($id);
-        $this->lastEditAt = $this->postRepository->getLastEditAt($id);
-        $this->author = new User($this->postRepository->getAuthor($id)); // A VOIR SI CA MARCHE
+        // $this->extract = $this->postRepository->getExtract($id);
+        // $this->content = $this->postRepository->getContent($id);
+        // $this->addAt = $this->postRepository->getAddAt($id);
+        // $this->lastEditAt = $this->postRepository->getLastEditAt($id);
+        // $this->author = new User($this->postRepository->getAuthor($id)); // A VOIR SI CA MARCHE
 
         // A VOIR AVEC L'ENTITE CATEGORY
         // $categoriesId = $this->postRepository->getAllCategory($id);
@@ -59,28 +59,28 @@ class Post{
     }
 
         /// A MODIFIER A PARTIR D'ICI
-        
-    public function getPassword(){
-        return $this->password;
-    }
 
-    public function setPassword($new){
-        $this->password = $new;
-        $this->postRepository->setPassword($new, $this->id);
-    }
+    // public function getPassword(){
+    //     return $this->password;
+    // }
 
-    public function getAddAt(){
-        return $this->addAt;
-    }
+    // public function setPassword($new){
+    //     $this->password = $new;
+    //     $this->postRepository->setPassword($new, $this->id);
+    // }
 
-    public function isAdmin(){
-        if($userType == "admin")
-            return true;
-        return false;
-    }
+    // public function getAddAt(){
+    //     return $this->addAt;
+    // }
 
-    public function setIsAdmin($new){
-        $this->userType = $new;
-        $this->postRepository->setIsAdmin($new, $this->id);
-    }
+    // public function isAdmin(){
+    //     if($userType == "admin")
+    //         return true;
+    //     return false;
+    // }
+
+    // public function setIsAdmin($new){
+    //     $this->userType = $new;
+    //     $this->postRepository->setIsAdmin($new, $this->id);
+    // }
 }
