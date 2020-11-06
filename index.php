@@ -11,20 +11,28 @@ $twig = new Environment($loader);
 
 // Connexion BDD
 
-include("entity/all_entity.php");
+require_once("modele/UserRepository.php");
+require_once("modele/PostRepository.php");
+require_once("modele/CategoryRepository.php");
+require_once("modele/CommentRepository.php");
 
-$user = new User(11);
+$postRepo = new PostRepository;
+$userRepo = new UserRepository;
+$catRepo = new CategoryRepository;
+$commentRepo = new CommentRepository;
 
-echo $user->getLastName()." ";
-if($user->isAdmin())
-    echo "true";
-else
-    echo "false";
 
-// $posts = $user->getPostsID();
-// for($i=0; $i<sizeof($posts); $i++){
-//     $post = new Post($posts[$i]);
-//     $post = new Post(1);
-//     echo $post->getTitle();
-// }
+$comment = $commentRepo->newComment(1);
+$comment->setAuthorName('Anna-Clara SALESSE');
+$commentRepo->updateComment($comment);
+
+$post = $postRepo->getPost(1);
+$allComments = $commentRepo->getComments();
+
+foreach($allComments as $comment){
+    echo $comment->getCommentStatus()."<br>";
+}
+
+print_r($commentRepo->getComments());
+
 echo $twig->render('layout.html.twig');

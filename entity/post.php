@@ -1,7 +1,5 @@
 <?php
-require_once("modele/post_repository.php");
-// include("entity/user.php");
-    
+
 class Post{
     private $id;
     private $title;
@@ -10,77 +8,75 @@ class Post{
     private $addAt;
     private $lastEditAt;
     private $author;
-    private $categories = [];
 
-    private $postRepository;
 
-    public function __construct($id){
-        $this->postRepository = PostRepository::getclass_pdo();
-        $this->id = $id;
-        $this->title = $this->postRepository->getTitle($id);
-        // $this->extract = $this->postRepository->getExtract($id);
-        // $this->content = $this->postRepository->getContent($id);
-        // $this->addAt = $this->postRepository->getAddAt($id);
-        // $this->lastEditAt = $this->postRepository->getLastEditAt($id);
-        // $this->author = new User($this->postRepository->getAuthor($id)); // A VOIR SI CA MARCHE
-
-        // A VOIR AVEC L'ENTITE CATEGORY
-        // $categoriesId = $this->postRepository->getAllCategory($id);
-        // for($i=0; $i<sizeof($categoriesId); $i++)
-        //     $this->categories[$i] = new Category($categoriesId[$i]);
+    public function getID()
+    {
+        return $this->id;
     }
 
+    public function setID($new)
+    {
+        $this->id = $new;
+    }
 
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function setTitle($new){
+    public function setTitle($new)
+    {
         $this->title = $new;
-        $this->postRepository->setTitle($new, $this->id);
     }
     
-    public function getExtract(){
+    public function getExtract()
+    {
         return $this->extract;
     }
 
-    public function setExtract($new){
+    public function setExtract($new)
+    {
         $this->extract = $new;
-        $this->postRepository->setExtract($new, $this->id);
     }
 
-    public function getContent(){
+    public function getContent()
+    {
         return $this->content;
     }
 
-    public function setContent($new){
+    public function setContent($new)
+    {
         $this->content = $new;
-        $this->postRepository->setContent($new, $this->id);
     }
 
-        /// A MODIFIER A PARTIR D'ICI
+    public function getAddAt()
+    {
+        return $this->addAt;
+    }
 
-    // public function getPassword(){
-    //     return $this->password;
-    // }
+    public function setAddAt($new)
+    {
+        $this->addAt = $new;
+    }
 
-    // public function setPassword($new){
-    //     $this->password = $new;
-    //     $this->postRepository->setPassword($new, $this->id);
-    // }
+    public function getLastEditAt()
+    {
+        return $this->lastEditAt;
+    }
 
-    // public function getAddAt(){
-    //     return $this->addAt;
-    // }
-
-    // public function isAdmin(){
-    //     if($userType == "admin")
-    //         return true;
-    //     return false;
-    // }
-
-    // public function setIsAdmin($new){
-    //     $this->userType = $new;
-    //     $this->postRepository->setIsAdmin($new, $this->id);
-    // }
+    public function setLastEditAt($new)
+    {
+        $this->lastEditAt = $new;
+    }
+    
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+    
+    public function setAuthor($new)
+    {
+        $this->author = $new;
+    }
 }
