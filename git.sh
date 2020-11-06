@@ -13,7 +13,7 @@ read choice
 if [ $choice = 1 ]
 then 
     echo "Git pull ..."
-    git pull origin master
+    git pull origin dev
 elif [ $choice = 2 ]
 then
     echo "Git add"
