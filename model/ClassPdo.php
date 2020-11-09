@@ -19,6 +19,5 @@ class ClassPdo{
 	public function _destruct(){
 		ClassPdo::$monPdo = null;
 	}
-
 }
 ?>

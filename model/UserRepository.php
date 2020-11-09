@@ -4,7 +4,6 @@ include_once("entity/User.php");
 
 class UserRepository extends ClassPdo
 {
-
     public  static function getClassPdo()
     {
 		if(ClassPdo::$monClassPdo==null){
