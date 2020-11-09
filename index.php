@@ -21,4 +21,4 @@ $userRepo = new UserRepository;
 $catRepo = new CategoryRepository;
 $commentRepo = new CommentRepository;
 
-echo $twig->render('layout.html.twig');
+echo $twig->render('website/home.html.twig');

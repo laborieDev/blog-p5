@@ -1,4 +1,41 @@
 body{
     --agl-primary-color: #286ADE;
+    --agl-second-blue: #5193f4;
 }
 
+/* HOME - QUOTATION AND LANGAGES */
+.single-service:hover circle, .single-service:hover rect{fill: white;}
+.single-service:hover .text{fill: #286ade !important;}
+.quote{
+    position: absolute;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* HOME - ABOUT ME */
+#about .profil{
+    position: relative;
+}
+#about .profil-img{
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: solid 8px var(--agl-primary-color);
+    border-radius: 50%;
+    margin: 0 auto;
+}
+#about .profil-img::after{
+    content: "";
+    height: 10px;
+    width: 200vw;
+    position: absolute;
+    left: -100vw;
+    background-color: var(--agl-second-blue);
+    top: 50%;
+    z-index: -1;
+}
