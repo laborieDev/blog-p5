@@ -1,16 +1,213 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-</head>
+<html class="no-js" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>LABORIE Anthony</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png"/>
+    <!-- Place favicon.ico in the root directory -->
 
-<body>
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-alpha-2.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    {% block stylesheets %}{% endblock %}
+  </head>
+  <body>
+    <!-- ========================= preloader start ========================= -->
+    <div class="preloader">
+      <div class="loader">
+      <h1 style="position:absolute; top:100px; left: 0; text-align:center;width:100%;">laborie anthony</h1>
+        <div class="ytp-spinner">
+          <div class="ytp-spinner-container">
+            <div class="ytp-spinner-rotator">
+              <div class="ytp-spinner-left">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+              <div class="ytp-spinner-right">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- preloader end -->
 
-   <h1>Hello World</h1>
-   <p>Anthony LABORIE - nov.2020</p>
+    <!-- ========================= header start ========================= -->
+    <header class="header">
+      <div class="navbar-area">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                </button>
 
-</body>
+                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                  <ul id="nav" class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#home"><i class="lni lni-home"></i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#about">A propos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#skills">Compétences</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#blog">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#contact"><i class="lni lni-telegram-original"></i></a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- navbar collapse -->
+              </nav>
+              <!-- navbar -->
+            </div>
+          </div>
+          <!-- row -->
+        </div>
+        <!-- container -->
+      </div>
+      <!-- navbar area -->
+    </header>
+    <!-- ========================= header end ========================= -->
 
+
+      {% block body %}{% endblock %}
+
+
+    <!-- ========================= footer start ========================= -->
+		<footer id="footer" class="footer mt-150 pt-90">
+				<div class="widget-wrapper">
+					<div class="row">
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer-widget">
+								<div class="logo">
+									<h3 class="text-white">Me suivre</h3>
+								</div>
+								<ul class="socials">
+									<li>
+										<a href="https://twitter.com/AnthonyLABORIE" target="_blank"> <i class="lni lni-twitter-filled"></i> </a>
+									</li>
+									<li>
+										<a href="https://www.linkedin.com/in/anthony-laborie-667782169/" target="_blank"> <i class="lni lni-linkedin-original"></i> </a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer-widget">
+								<h3 class="text-white">Mes Articles</h3>
+								<ul class="links">
+									<li>
+										<a href="javascript:void(0)">Veille Technologique </a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">Veille Juridique </a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">Mes travaux </a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer-widget">
+								<h3 class="text-white">Liens Utiles</h3>
+								<ul class="links">
+									<li>
+										<a href="javascript:void(0)">Accueil</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">A propos</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">Mes articles</a>
+									</li>
+									<li>
+										<a href="#footer" onclick="getLoginModal()">Connexion</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer-widget">
+								<h3 class="text-white">Me contacter</h3>
+								<ul class="links">
+									<li>
+										<a href="tel:0677888708">0 677 888 708</a>
+									</li>
+									<li>
+										<a href="mailto:acs.agl46@gmail.com">acs.agl46@gmail.com</a>
+									</li>
+									<li>
+										<a>87 000 LIMOGES</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+									<p class="text-center pb-30" style="color: #fff">Réalisé par Anthony Laborie - 2020</p>
+
+					</div>
+				</div>
+			</div>
+		</footer>
+    <!-- ========================= footer end ========================= -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top btn-hover">
+      <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= modal login ========================= -->
+    <div id="modal-login" style="display: none">
+      <div class="contact-wrapper content">
+        <div class="structure">
+            <i class="lni lni-close" onclick="getLoginModal()"></i>
+            <div class="content-form">
+              <h1>Se connecter</h1>
+              <form action="#" method="POST" id="login-form" class="contact-form">
+				      	<div class="row">
+				      		<div class="col-md-12">
+				      			<div class="single-form">
+				      				<input type="email" name="email" id="modal-email" class="form-input" placeholder="Adresse e-mail">
+				      			</div>
+				      		</div>
+				      		<div class="col-md-12">
+				      			<div class="single-form password-input-section">
+				      				<input type="password" name="password" id="modal-password" class="form-input" placeholder="Mot de passe">
+                      <span class="eye" onclick="seePassword()"><i id="eye-btn-icon" class="lni lni-eye"></i></span>
+				      			</div>
+				      		</div>
+				      		<div class="col-md-12">
+				      			<div class="submit-btn">
+				      				<button class="main-btn btn-hover" type="submit">Se connecter</button>
+				      			</div>
+				      		</div>
+				      	</div>
+				      </form>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="assets/js/bootstrap.5.0.0.alpha-2-min.js"></script>
+    <script src="assets/js/count-up.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/modal-login.js"></script>
+    {% block javascripts %}{% endblock %}
+  </body>
 </html>

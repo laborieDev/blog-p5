@@ -12,8 +12,10 @@ echo -e "Tapez 2 pour ajouter vos données au serveur"
 read choice
 if [ $choice = 1 ]
 then 
+    echo -e "Saisir la branche concernée"
+    read branche
     echo "Git pull ..."
-    git pull origin dev
+    git pull origin $branche
 elif [ $choice = 2 ]
 then
     echo "Git add"
@@ -22,8 +24,11 @@ then
     read commitMessage
     echo "Git commit '$commitMessage'"
     git commit --m "$commitMessage"
+    echo -e "Saisir la branche concernée"
+    read branche
     echo "Git push ..."
-    git push origin dev
+    git checkout $branche
+    git push origin $branche
 else
     getError
 fi
