@@ -1,5 +1,5 @@
 <?php
-include_once("modele/ClassPdo.php");
+include_once("model/ClassPdo.php");
 include_once("entity/Comment.php");
 
 class CommentRepository extends ClassPdo

@@ -21,6 +21,7 @@
     <!-- ========================= preloader start ========================= -->
     <div class="preloader">
       <div class="loader">
+      <h1 style="position:absolute; top:100px; left: 0; text-align:center;width:100%;">laborie anthony</h1>
         <div class="ytp-spinner">
           <div class="ytp-spinner-container">
             <div class="ytp-spinner-rotator">
@@ -56,13 +57,13 @@
                       <a class="page-scroll" href="#home"><i class="lni lni-home"></i></a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="#features">Features</a>
+                      <a class="page-scroll" href="#about">A propos</a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="#about">About</a>
+                      <a class="page-scroll" href="#skills">Compétences</a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="#pricing">Pricing</a>
+                      <a class="page-scroll" href="#blog">Articles</a>
                     </li>
                     <li class="nav-item">
                       <a class="page-scroll" href="#contact"><i class="lni lni-telegram-original"></i></a>
@@ -87,7 +88,7 @@
 
 
     <!-- ========================= footer start ========================= -->
-		<footer class="footer mt-150 pt-90">
+		<footer id="footer" class="footer mt-150 pt-90">
 				<div class="widget-wrapper">
 					<div class="row">
 						<div class="col-lg-3 col-sm-6">
@@ -97,64 +98,61 @@
 								</div>
 								<ul class="socials">
 									<li>
-										<a href="javascript:void(0)"> <i class="lni lni-facebook-filled"></i> </a>
+										<a href="https://twitter.com/AnthonyLABORIE" target="_blank"> <i class="lni lni-twitter-filled"></i> </a>
 									</li>
 									<li>
-										<a href="javascript:void(0)"> <i class="lni lni-twitter-filled"></i> </a>
-									</li>
-									<li>
-										<a href="javascript:void(0)"> <i class="lni lni-instagram-filled"></i> </a>
-									</li>
-									<li>
-										<a href="javascript:void(0)"> <i class="lni lni-linkedin-original"></i> </a>
+										<a href="https://www.linkedin.com/in/anthony-laborie-667782169/" target="_blank"> <i class="lni lni-linkedin-original"></i> </a>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6">
 							<div class="footer-widget">
-								<h3 class="text-white">Explore</h3>
+								<h3 class="text-white">Mes Articles</h3>
 								<ul class="links">
 									<li>
-										<a href="javascript:void(0)">About </a>
+										<a href="javascript:void(0)">Veille Technologique </a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Our Team </a>
+										<a href="javascript:void(0)">Veille Juridique </a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Features </a>
+										<a href="javascript:void(0)">Mes travaux </a>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6">
 							<div class="footer-widget">
-								<h3 class="text-white">Terms</h3>
+								<h3 class="text-white">Liens Utiles</h3>
 								<ul class="links">
 									<li>
-										<a href="javascript:void(0)">Refund Policy</a>
+										<a href="javascript:void(0)">Accueil</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Terms of Service</a>
+										<a href="javascript:void(0)">A propos</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Support Policy</a>
+										<a href="javascript:void(0)">Mes articles</a>
+									</li>
+									<li>
+										<a href="#footer" onclick="getLoginModal()">Connexion</a>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6">
 							<div class="footer-widget">
-								<h3 class="text-white">Links</h3>
+								<h3 class="text-white">Me contacter</h3>
 								<ul class="links">
 									<li>
-										<a href="javascript:void(0)">Help </a>
+										<a href="tel:0677888708">0 677 888 708</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Support </a>
+										<a href="mailto:acs.agl46@gmail.com">acs.agl46@gmail.com</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Contact </a>
+										<a>87 000 LIMOGES</a>
 									</li>
 								</ul>
 							</div>
@@ -172,11 +170,44 @@
       <i class="lni lni-chevron-up"></i>
     </a>
 
+    <!-- ========================= modal login ========================= -->
+    <div id="modal-login" style="display: none">
+      <div class="contact-wrapper content">
+        <div class="structure">
+            <i class="lni lni-close" onclick="getLoginModal()"></i>
+            <div class="content-form">
+              <h1>Se connecter</h1>
+              <form action="#" method="POST" id="login-form" class="contact-form">
+				      	<div class="row">
+				      		<div class="col-md-12">
+				      			<div class="single-form">
+				      				<input type="email" name="email" id="modal-email" class="form-input" placeholder="Adresse e-mail">
+				      			</div>
+				      		</div>
+				      		<div class="col-md-12">
+				      			<div class="single-form password-input-section">
+				      				<input type="password" name="password" id="modal-password" class="form-input" placeholder="Mot de passe">
+                      <span class="eye" onclick="seePassword()"><i id="eye-btn-icon" class="lni lni-eye"></i></span>
+				      			</div>
+				      		</div>
+				      		<div class="col-md-12">
+				      			<div class="submit-btn">
+				      				<button class="main-btn btn-hover" type="submit">Se connecter</button>
+				      			</div>
+				      		</div>
+				      	</div>
+				      </form>
+            </div>
+          </div>
+      </div>
+    </div>
+
     <!-- ========================= JS here ========================= -->
     <script src="assets/js/bootstrap.5.0.0.alpha-2-min.js"></script>
     <script src="assets/js/count-up.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/modal-login.js"></script>
     {% block javascripts %}{% endblock %}
   </body>
 </html>
