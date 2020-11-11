@@ -1,5 +1,5 @@
 <?php
-include_once("modele/ClassPdo.php");
+include_once("model/ClassPdo.php");
 include_once("entity/Category.php");
 
 class CategoryRepository extends ClassPdo
