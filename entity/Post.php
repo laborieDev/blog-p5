@@ -1,13 +1,14 @@
 <?php
 
 class Post{
-    private $id;
-    private $title;
-    private $extract;
-    private $content;
-    private $addAt;
-    private $lastEditAt;
-    private $author;
+    public $id;
+    public $title;
+    public $extract;
+    public $content;
+    public $img;
+    public $addAt;
+    public $lastEditAt;
+    public $author;
 
 
     public function getID()
@@ -48,6 +49,16 @@ class Post{
     public function setContent($new)
     {
         $this->content = $new;
+    }
+
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    public function setImg($new)
+    {
+        $this->img = $new;
     }
 
     public function getAddAt()
