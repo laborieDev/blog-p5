@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_home.html.twig' %}
 
 {% block body %}
     <!-- ========================= Start first section ========================= -->
@@ -217,71 +217,38 @@
 				<div class="row justify-content-center">
 					<h1>Mes articles</h1>
 					<div class="cats">
-						<div class="see-cats-btn main-btn border-btn wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Catégories <i class="lni lni-list"></i></div>
+						<div class="see-cats-btn main-btn border-btn wow fadeInUp" id="cat-blog-btn" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Catégories <i class="lni lni-list"></i></div>
 						<div id="blog-cats">
-							<a href="" onclick="">Mes travaux <i class="lni lni-chevron-right"></i></a>
-							<a href="#" onclick="">Veille technologique <i class="lni lni-chevron-right"></i></a>
-							<a href="#" onclick="">Veille juridique <i class="lni lni-chevron-right"></i></a>
+							{% for cat in cats %}
+								<a onclick="setCatPost(this)" categoryid="{{ cat.id }}" class="set_cat_btn" id="set-cat-btn-{{ cat.id }}">{{ cat.name }} <i class="lni lni-chevron-right"></i></a>
+							{% endfor %}
 						</div>
 						<div class="blog-cats mobile">
 							<h3 class="main-btn border-btn wow fadeInUp" data-wow-delay=".6s">Catégories <i class="lni lni-list"></i></h3><br>
-							<a href="" onclick="">Mes travaux <i class="lni lni-chevron-right"></i></a><br>
-							<a href="#" onclick="">Veille technologique <i class="lni lni-chevron-right"></i></a><br>
-							<a href="#" onclick="">Veille juridique <i class="lni lni-chevron-right"></i></a><br>
+							{% for cat in cats %}
+								<a onclick="setCatPost(this)" categoryid="{{ cat.id }}" class="set_cat_btn" id="set-cat-btn-mobile-{{ cat.id }}">{{ cat.name }} <i class="lni lni-chevron-right"></i></a><br>
+							{% endfor %}
 						</div>
 					</div>
 					<div id="blog-list" class="list row wow fadeInLeft" data-wow-delay=".5s">
-						<div class="single single-1 col-lg-6" style="background-image:url('assets/img/hero/hero-bg.svg')">
+					{% set i = 1 %}
+					{% set minID = 0 %}
+					{% for post in posts %}
+						<div class="single single-{{ i }} col-lg-6" style="background-image:url('{{domain}}/assets/img/single_post/{{ post.img }}')">
 							<div class="infos">
 								<div>
-									<h2>Title Post</h2>
-									<p class="cat">Category Name</p>
-									<p class="extract">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ultrices urna. Fusce id metus tempus, porttitor lorem vitae, dapibus tellus. Maecenas placerat ligula urna, sit amet mollis sapien suscipit eget. Aenean lacus ex, cursus eu dolor eu, hendrerit tempor lectus. Quisque ac purus in ligula porttitor luctus.
-									</p>
-									<a href="#" class="btn view-more">En voir plus</a>
+									<h2>{{ post.title }}</h2>
+									<p class="extract">{{ post.extract }}</p>
+									<a href="{{ domain }}/article/{{ post.id }}" class="btn view-more">En voir plus</a>
 								</div>
 							</div>
 						</div>
-						<div class="single single-2 col-lg-6" style="background-image:url('assets/img/hero/hero-bg.svg')">
-							<div class="infos">
-								<div>
-									<h2>Title Post</h2>
-									<p class="cat">Category Name</p>
-									<p class="extract">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ultrices urna. Fusce id metus tempus, porttitor lorem vitae, dapibus tellus. Maecenas placerat ligula urna, sit amet mollis sapien suscipit eget. Aenean lacus ex, cursus eu dolor eu, hendrerit tempor lectus. Quisque ac purus in ligula porttitor luctus.
-									</p>
-									<a href="#" class="btn view-more">En voir plus</a>
-								</div>
-							</div>
-						</div>
-						<div class="single single-3 col-lg-6" style="background-image:url('assets/img/hero/hero-bg.svg')">
-							<div class="infos">
-								<div>
-									<h2>Title Post</h2>
-									<p class="cat">Category Name</p>
-									<p class="extract">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ultrices urna. Fusce id metus tempus, porttitor lorem vitae, dapibus tellus. Maecenas placerat ligula urna, sit amet mollis sapien suscipit eget. Aenean lacus ex, cursus eu dolor eu, hendrerit tempor lectus. Quisque ac purus in ligula porttitor luctus.
-									</p>
-									<a href="#" class="btn view-more">En voir plus</a>
-								</div>
-							</div>
-						</div>
-						<div class="single single-4 col-lg-6" style="background-image:url('assets/img/hero/hero-bg.svg')">
-							<div class="infos">
-								<div>
-									<h2>Title Post</h2>
-									<p class="cat">Category Name</p>
-									<p class="extract">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ultrices urna. Fusce id metus tempus, porttitor lorem vitae, dapibus tellus. Maecenas placerat ligula urna, sit amet mollis sapien suscipit eget. Aenean lacus ex, cursus eu dolor eu, hendrerit tempor lectus. Quisque ac purus in ligula porttitor luctus.
-									</p>
-									<a href="#" class="btn view-more">En voir plus</a>
-								</div>
-							</div>
-						</div>
+						{% set minID = post.id %}
+						{% set i = i+1 %}
+					{% endfor %}
 					</div>
 					<div style="clear:both"></div>
-					<a href="javascript:void(0)" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
+					<a onclick="seeMorePosts({{ minID }})" id="see-more-post-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
 				</div>
 			</div>
 		</section>
@@ -349,4 +316,8 @@
 		</section>
 		<!-- ========================= contact-section end ========================= -->
 
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{domain}}/assets/js/ajax-home.js"></script>
 {% endblock %}

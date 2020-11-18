@@ -14,9 +14,17 @@ class PostRepository extends ClassPdo
 		return ClassPdo::$monClassPdo;
     }
 
-    public function getPosts()
+    public function getPosts($limit = 0, $maxID = 0)
     {
-        $req = "SELECT id FROM blog_post";
+        if ($maxID != 0) { 
+            $req = "SELECT id FROM blog_post WHERE id < $maxID ORDER BY id DESC LIMIT $limit";
+        }
+        elseif ($limit != 0) {
+            $req = "SELECT id FROM blog_post ORDER BY id DESC LIMIT $limit";
+        }
+        else {
+            $req = "SELECT id FROM blog_post";
+        }
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 
@@ -40,11 +48,36 @@ class PostRepository extends ClassPdo
         $post->setTitle($value['title']);
         $post->setExtract($value['extract']);
         $post->setContent($value['content']);
+        $post->setImg($value['img']);
         $post->setAddAt($value['add_at']);
         $post->setLastEditAt($value['last_edit_at']);
         $post->setAuthor($value['id_author']);
 
         return $post;
+    }
+
+    public function getCatPosts($catID, $limit = 0, $maxID = 0)
+    {
+        if ($maxID != 0) { 
+            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID AND p.id < $maxID ORDER BY p.id DESC LIMIT $limit";
+        }
+        elseif ($limit != 0) {
+            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID ORDER BY p.id DESC LIMIT $limit";
+        }
+        else {
+            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID";
+        }
+        
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetchAll();
+
+        $allPosts = [];
+
+        foreach($value as $post){
+            array_push($allPosts, $this->getPost($post['id']));
+        }
+
+        return $allPosts;
     }
 
     public function getAllCategories($post)
@@ -79,7 +112,7 @@ class PostRepository extends ClassPdo
     
     public function newPost($idAuthor)
     {
-        $req = "INSERT INTO blog_post(title, extract, content, add_at, last_edit_at, id_author) VALUES ('','','',NOW(),NOW(), $idAuthor)";
+        $req = "INSERT INTO blog_post(title, extract, content, img, add_at, last_edit_at, id_author) VALUES ('','','','',NOW(),NOW(), $idAuthor)";
         $rs = ClassPdo::$monPdo->query($req);
 
         $req = "SELECT id, add_at, last_edit_at, id_author FROM blog_post WHERE id = (SELECT MAX(id) FROM blog_post)";
@@ -102,9 +135,10 @@ class PostRepository extends ClassPdo
         $title = $post->getTitle();
         $extract = $post->getExtract();
         $content = $post->getContent();
+        $img = $post->getImg();
         $author = $post->getAuthor();
 
-        $req = "UPDATE blog_post SET title = '$title', extract = '$extract', content = '$content', id_author = '$author', last_edit_at = NOW() WHERE id = $id ";
+        $req = "UPDATE blog_post SET title = '$title', extract = '$extract', content = '$content', img = '$img', id_author = '$author', last_edit_at = NOW() WHERE id = $id ";
         ClassPdo::$monPdo->query($req);
     }
 
