@@ -4,7 +4,9 @@ include_once("entity/Category.php");
 
 class CategoryRepository extends ClassPdo
 {
-
+    /**
+     * @return ClassPdo ClassPdo for database connection
+     */
     public  static function getClassPdo()
     {
 		if(ClassPdo::$monClassPdo==null){
@@ -14,6 +16,9 @@ class CategoryRepository extends ClassPdo
 		return ClassPdo::$monClassPdo;
     }
 
+    /**
+     * @return array allCat All Categories
+     */
     public function getCategories()
     {
         $req = "SELECT id FROM category";
@@ -29,6 +34,10 @@ class CategoryRepository extends ClassPdo
         return $allCat;
     }
 
+    /**
+     * @param int id Category's ID
+     * @return Category cat
+     */
     public function getCategory($id)
     {
         $req = "SELECT * FROM category WHERE id = $id";
@@ -42,6 +51,9 @@ class CategoryRepository extends ClassPdo
         return $cat;
     }
     
+    /**
+     * @return Category 
+     */
     public function newCategory()
     {
         $req = "INSERT INTO category(name) VALUES ('')";
@@ -57,6 +69,10 @@ class CategoryRepository extends ClassPdo
         return $cat;
     }
 
+    /**
+     * @param Catgeory cat
+     * @return array allPosts category's posts
+     */
     public function getAllPosts($cat)
     {
         $catID = $cat->getID();
@@ -72,6 +88,9 @@ class CategoryRepository extends ClassPdo
         return $allPosts;
     }
 
+    /**
+     * @param Category cat 
+     */
     public function updateCategory($cat)
     {
         $id = $cat->getID();
@@ -81,6 +100,9 @@ class CategoryRepository extends ClassPdo
         ClassPdo::$monPdo->query($req);
     }
 
+    /**
+     * @param Category cat 
+     */
     public function deleteCategory($cat){
         $id = $cat->getID();
         $req = "DELETE FROM category WHERE id=$id";

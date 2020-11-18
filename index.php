@@ -1,18 +1,21 @@
 <?php
-//TWIG init
+//Twig init
 require __DIR__ . '/vendor/autoload.php';
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
-$loader = new FilesystemLoader(__DIR__ . '/templates');
-$twig = new Environment($loader);
+//Router and Controllers init
+require __DIR__ . '/router/Router.php';
+require __DIR__ . '/controller/PostController.php';
+require __DIR__ . '/controller/RequestController.php';
 
-// Connexion BDD
+//Repositories Init
+require __DIR__ . '/model/UserRepository.php';
+require __DIR__ . '/model/PostRepository.php';
+require __DIR__ . '/model/CategoryRepository.php';
+require __DIR__ . '/model/CommentRepository.php';
 
-require_once("model/UserRepository.php");
-require_once("model/PostRepository.php");
-require_once("model/CategoryRepository.php");
-require_once("model/CommentRepository.php");
+
+$router = new Router;
+
 
 $postRepo = new PostRepository;
 $userRepo = new UserRepository;
@@ -20,4 +23,7 @@ $catRepo = new CategoryRepository;
 $commentRepo = new CommentRepository;
 
 
-echo $twig->render('website/home.html.twig');
+$router->getRoute();
+
+
+// echo $twig->render('website/home.html.twig');
