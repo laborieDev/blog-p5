@@ -4,7 +4,9 @@ include_once("entity/Post.php");
 
 class PostRepository extends ClassPdo
 {
-
+    /**
+     * @return ClassPdo ClassPdo for database connection
+     */
     public  static function getClassPdo()
     {
 		if(ClassPdo::$monClassPdo==null){
@@ -14,15 +16,18 @@ class PostRepository extends ClassPdo
 		return ClassPdo::$monClassPdo;
     }
 
+    /**
+     * @param int limit Limit of posts
+     * @param int maxID max of post ID
+     * @return array allPosts 
+     */
     public function getPosts($limit = 0, $maxID = 0)
     {
         if ($maxID != 0) { 
             $req = "SELECT id FROM blog_post WHERE id < $maxID ORDER BY id DESC LIMIT $limit";
-        }
-        elseif ($limit != 0) {
+        } elseif ($limit != 0) {
             $req = "SELECT id FROM blog_post ORDER BY id DESC LIMIT $limit";
-        }
-        else {
+        } else {
             $req = "SELECT id FROM blog_post";
         }
         $rs = ClassPdo::$monPdo->query($req);
@@ -37,6 +42,10 @@ class PostRepository extends ClassPdo
         return $allPosts;
     }
 
+    /**
+     * @param int id post's ID
+     * @return Post post
+     */
     public function getPost($id)
     {
         $req = "SELECT * FROM blog_post WHERE id = $id";
@@ -56,30 +65,38 @@ class PostRepository extends ClassPdo
         return $post;
     }
 
+    /**
+     * @param int catID ID of category
+     * @param int limit Limit of posts
+     * @param int maxID max of post ID 
+     * @return array posts Posts of this Category
+     */
     public function getCatPosts($catID, $limit = 0, $maxID = 0)
     {
+        $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID";
+        
         if ($maxID != 0) { 
-            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID AND p.id < $maxID ORDER BY p.id DESC LIMIT $limit";
-        }
-        elseif ($limit != 0) {
-            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID ORDER BY p.id DESC LIMIT $limit";
-        }
-        else {
-            $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID";
+            $req .= " AND p.id < $maxID ORDER BY p.id DESC LIMIT $limit";
+        } elseif ($limit != 0) {
+            $req .= " ORDER BY p.id DESC LIMIT $limit";
         }
         
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 
-        $allPosts = [];
+        $posts = [];
 
         foreach($value as $post){
-            array_push($allPosts, $this->getPost($post['id']));
+            array_push($posts, $this->getPost($post['id']));
         }
 
-        return $allPosts;
+        return $posts;
     }
 
+    /**
+     * @param Post post
+     * @return array allCats Categories of this post
+     */
     public function getAllCategories($post)
     {
         $postID = $post->getID();
@@ -95,6 +112,10 @@ class PostRepository extends ClassPdo
         return $allCats;
     }
 
+    /**
+     * @param Post post
+     * @return array allComments Comments of this Post
+     */
     public function getAllComments($post)
     {
         $postID = $post->getID();
@@ -109,7 +130,30 @@ class PostRepository extends ClassPdo
 
         return $allComments;
     }
+
+    /**
+     * @param Post post
+     * @return array allComments Valid Comments of this Post
+     */
+    public function getAllValidComments($post)
+    {
+        $postID = $post->getID();
+        $req = "SELECT id FROM comment WHERE comment_status = 'isValid' AND id_blog_post = $postID";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetchAll();
+
+        $allComments = [];
+        foreach($value as $catID){
+            array_push($allComments, $catID['id']);
+        }
+
+        return $allComments;
+    }
     
+    /**
+     * @param int idAuthor
+     * @return Post post Post which is created
+     */
     public function newPost($idAuthor)
     {
         $req = "INSERT INTO blog_post(title, extract, content, img, add_at, last_edit_at, id_author) VALUES ('','','','',NOW(),NOW(), $idAuthor)";
@@ -128,7 +172,9 @@ class PostRepository extends ClassPdo
         return $post;
     }
     
-
+    /**
+     * @param Post post
+     */
     public function updatePost($post)
     {
         $id = $post->getID();
@@ -142,8 +188,11 @@ class PostRepository extends ClassPdo
         ClassPdo::$monPdo->query($req);
     }
 
-    public function deletePost($user){
-        $id = $user->getID();
+    /**
+     * @param Post post
+     */
+    public function deletePost($post){
+        $id = $post->getID();
         $req = "DELETE FROM blog_post WHERE id=$id";
         ClassPdo::$monPdo->query($req);
     }

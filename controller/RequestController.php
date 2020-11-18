@@ -4,24 +4,25 @@ use Twig\Loader\FilesystemLoader;
 
 class RequestController
 {
-    private $loader;
     private $twig;
 
     public function __construct()
     {
-        $this->loader = new FilesystemLoader('templates');
-        $this->twig = new Environment($this->loader);
+        $this->twig = new Environment(new FilesystemLoader('templates'));
     }
 
 
-    /*** AJAX REQUEST ***/
+    /********* AJAX REQUEST *********/
+
+    /**
+     * @param int maxID minimum ID of actual posts
+     * @return string data html with posts datas
+     * @return int minID minimum ID of this posts
+     */
     public function seeMorePost($maxID = 0){
         $postRepo = new PostRepository;
 
-        if($maxID != 0)
-            $posts = $postRepo->getPosts(4, $maxID);
-        else
-            $posts = $postRepo->getPosts(4);
+        $posts = $postRepo->getPosts(4, $maxID);
 
         $section = "";
         $i = 1;
@@ -48,18 +49,20 @@ class RequestController
         
         if ($i < 4) {
             return json_encode(array('data' => $section, 'minID' => -1));
-        }
-        else{ 
+        } else { 
             return json_encode(array('data' => $section, 'minID' => $minID));
         }
     }
 
+    /**
+     * @param int catID ID of category
+     * @param int maxID minimum ID of actual posts
+     * @return string data html with posts datas
+     * @return int minID minimum ID of this posts
+     */
     public function seeCatPost($catID, $maxID = 0){
         $postRepo = new PostRepository;
-        if($maxID != 0)
-            $posts = $postRepo->getCatPosts($catID, 4, $maxID);
-        else
-            $posts = $postRepo->getCatPosts($catID, 4);
+        $posts = $postRepo->getCatPosts($catID, 4, $maxID);
 
         $section = "";
         $i = 1;
@@ -86,16 +89,18 @@ class RequestController
         
         if ($i < 4) {
             return json_encode(array('data' => $section, 'minID' => -1));
-        }
-        else{ 
+        } else { 
             return json_encode(array('data' => $section, 'minID' => $minID));
         }
     }
 
     /*** BAD REQUEST ***/
+
+    /**
+     * @return twigRender template of 404 Page
+     */
     public function get404Error()
     {
         return $this->twig->render('website/error_404.html.twig');
     }
-
 }
