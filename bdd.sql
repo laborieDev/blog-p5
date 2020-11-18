@@ -2,22 +2,22 @@
 -- version 4.9.3
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le :  ven. 06 nov. 2020 à 16:13
--- Version du serveur :  5.7.26
--- Version de PHP :  7.4.2
+-- Host: localhost:8889
+-- Generation Time: Nov 18, 2020 at 01:35 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de données :  `openclassrooms_p5`
+-- Database: `openclassrooms_p5`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `blog_post`
+-- Table structure for table `blog_post`
 --
 
 CREATE TABLE `blog_post` (
@@ -25,15 +25,31 @@ CREATE TABLE `blog_post` (
   `title` varchar(100) NOT NULL,
   `extract` mediumtext NOT NULL,
   `content` longtext NOT NULL,
+  `img` varchar(255) NOT NULL,
   `add_at` date NOT NULL,
   `last_edit_at` date NOT NULL,
   `id_author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `blog_post`
+--
+
+INSERT INTO `blog_post` (`id`, `title`, `extract`, `content`, `img`, `add_at`, `last_edit_at`, `id_author`) VALUES
+(1, 'Le parralax', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', '2020-11-16', '2020-11-16', 1),
+(2, 'Le smartphone', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', '2020-11-16', '2020-11-16', 1),
+(3, 'Le disque dur', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', '2020-11-16', '2020-11-16', 1),
+(4, 'Le mac', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', '2020-11-16', '2020-11-16', 1),
+(5, 'Le clavier', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', '2020-11-16', '2020-11-16', 1),
+(6, 'Le téléphone', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', '2020-11-16', '2020-11-16', 1),
+(7, 'L\'iMac', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', '2020-11-16', '2020-11-16', 1),
+(8, 'iPod', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', '2020-11-16', '2020-11-16', 1),
+(9, 'iPad', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', '2020-11-16', '2020-11-16', 1);
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -41,10 +57,19 @@ CREATE TABLE `category` (
   `name` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Mes travaux'),
+(2, 'Veille technologique'),
+(3, 'Veille juridique');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `category_blog_post`
+-- Table structure for table `category_blog_post`
 --
 
 CREATE TABLE `category_blog_post` (
@@ -52,10 +77,25 @@ CREATE TABLE `category_blog_post` (
   `id_blog_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `category_blog_post`
+--
+
+INSERT INTO `category_blog_post` (`id_category`, `id_blog_post`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(1, 5),
+(1, 6),
+(2, 7),
+(2, 8),
+(3, 9);
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE `comment` (
@@ -67,10 +107,20 @@ CREATE TABLE `comment` (
   `id_blog_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `author_name`, `content`, `comment_status`, `add_at`, `id_blog_post`) VALUES
+(1, 'Michel BLANE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'waiting', '2020-11-18', 1),
+(2, 'Anna SALESSE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'waiting', '2020-11-18', 1),
+(3, 'Michelle BLIVE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'isValid', '2020-11-18', 1),
+(4, 'Paul DALON', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'isReject', '2020-11-18', 1);
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -84,89 +134,96 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Index pour les tables déchargées
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `last_name`, `first_name`, `email`, `password`, `add_at`, `user_type`) VALUES
+(1, 'LABORIE', 'Anthony', 'acs.agl46@gmail.com', 'admin', '2020-11-16', 'admin');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `blog_post`
+-- Indexes for table `blog_post`
 --
 ALTER TABLE `blog_post`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_author` (`id_author`);
 
 --
--- Index pour la table `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `category_blog_post`
+-- Indexes for table `category_blog_post`
 --
 ALTER TABLE `category_blog_post`
   ADD PRIMARY KEY (`id_category`,`id_blog_post`),
   ADD KEY `id_blog_post` (`id_blog_post`);
 
 --
--- Index pour la table `comment`
+-- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_blog_post` (`id_blog_post`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `blog_post`
+-- AUTO_INCREMENT for table `blog_post`
 --
 ALTER TABLE `blog_post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT pour la table `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `comment`
+-- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT pour la table `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `blog_post`
+-- Constraints for table `blog_post`
 --
 ALTER TABLE `blog_post`
   ADD CONSTRAINT `blog_post_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `user` (`id`);
 
 --
--- Contraintes pour la table `category_blog_post`
+-- Constraints for table `category_blog_post`
 --
 ALTER TABLE `category_blog_post`
   ADD CONSTRAINT `category_blog_post_ibfk_1` FOREIGN KEY (`id_blog_post`) REFERENCES `blog_post` (`id`),
   ADD CONSTRAINT `category_blog_post_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
 
 --
--- Contraintes pour la table `comment`
+-- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_blog_post`) REFERENCES `blog_post` (`id`);

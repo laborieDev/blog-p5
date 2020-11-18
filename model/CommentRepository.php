@@ -4,7 +4,9 @@ include_once("entity/Comment.php");
 
 class CommentRepository extends ClassPdo
 {
-
+    /**
+     * @return ClassPdo ClassPdo for database connection
+     */
     public  static function getClassPdo()
     {
 		if(ClassPdo::$monClassPdo==null){
@@ -14,6 +16,9 @@ class CommentRepository extends ClassPdo
 		return ClassPdo::$monClassPdo;
     }
 
+    /**
+     * @return array allComments
+     */
     public function getComments()
     {
         $req = "SELECT id FROM comment";
@@ -29,6 +34,10 @@ class CommentRepository extends ClassPdo
         return $allComments;
     }
 
+    /**
+     * @param int id Comment's ID
+     * @return Comment comment
+     */
     public function getComment($id)
     {
         $req = "SELECT * FROM comment WHERE id = $id";
@@ -46,6 +55,10 @@ class CommentRepository extends ClassPdo
         return $comment;
     }
     
+    /**
+     * @param int postID 
+     * @return Comment comment which is created
+     */
     public function newComment($postID)
     {
         $req = "INSERT INTO comment(author_name, content, comment_status, add_at, id_blog_post) VALUES ('', '', 'waiting', NOW(), $postID)";
@@ -64,7 +77,9 @@ class CommentRepository extends ClassPdo
         return $comment;
     }
 
-
+    /**
+     * @param Comment comment
+     */
     public function updateComment($comment)
     {
         $id = $comment->getID();
@@ -76,6 +91,9 @@ class CommentRepository extends ClassPdo
         ClassPdo::$monPdo->query($req);
     }
 
+    /**
+     * @param Comment comment
+     */
     public function deleteComment($comment){
         $id = $comment->getID();
         $req = "DELETE FROM comment WHERE id=$id";

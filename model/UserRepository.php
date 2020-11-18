@@ -4,6 +4,9 @@ include_once("entity/User.php");
 
 class UserRepository extends ClassPdo
 {
+    /**
+     * @return ClassPdo ClassPdo for database connection
+     */
     public  static function getClassPdo()
     {
 		if(ClassPdo::$monClassPdo==null){
@@ -13,6 +16,9 @@ class UserRepository extends ClassPdo
 		return ClassPdo::$monClassPdo;
     }
 
+    /**
+     * @return array allUsers
+     */
     public function getUsers()
     {
         $req = "SELECT id FROM user";
@@ -28,6 +34,10 @@ class UserRepository extends ClassPdo
         return $allUsers;
     }
 
+    /**
+     * @param int id User's ID
+     * @return User user
+     */
     public function getUser($id)
     {
         $req = "SELECT * FROM user WHERE id = $id";
@@ -46,6 +56,10 @@ class UserRepository extends ClassPdo
         return $user;
     }
 
+    /**
+     * @param User user
+     * @return array allPosts User's posts
+     */
     public function getAllPosts($user)
     {
         $userID = $user->getID();
@@ -61,6 +75,9 @@ class UserRepository extends ClassPdo
         return $allPosts;
     }
 
+    /**
+     * @return User user which is created
+     */
     public function newUser()
     {
         $req = "INSERT INTO user(last_name, first_name, email, password, add_at, user_type) VALUES ('','','','',NOW(),'author')";
@@ -77,6 +94,9 @@ class UserRepository extends ClassPdo
         return $user;
     }
 
+    /**
+     * @param User user 
+     */
     public function updateUser($user)
     {
         $id = $user->getID();
@@ -90,14 +110,14 @@ class UserRepository extends ClassPdo
         ClassPdo::$monPdo->query($req);
     }
 
+    /**
+     * @param User user 
+     */
     public function deleteUser($user)
     {
         $id = $user->getID();
         $req = "DELETE FROM user WHERE id=$id";
         ClassPdo::$monPdo->query($req);
     }
-
-
-
 }
 ?>
