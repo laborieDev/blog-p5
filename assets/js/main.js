@@ -1,3 +1,4 @@
+let thisAglDomain = "http://localhost:8888/blog-p5/";
 
 (function() {
 //===== Prealoder

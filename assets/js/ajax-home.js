@@ -1,4 +1,3 @@
-
 function seeMorePosts(minID){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {

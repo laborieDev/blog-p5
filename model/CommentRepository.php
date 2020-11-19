@@ -49,8 +49,8 @@ class CommentRepository extends ClassPdo
         $comment->setAuthorName($value['author_name']);
         $comment->setContent($value['content']);
         $comment->setCommentStatus($value['comment_status']);
-        $comment->setAddAt($value['addAt']);
-        $comment->setPost($value['id_post']);
+        $comment->setAddAt($value['add_at']);
+        $comment->setPost($value['id_blog_post']);
 
         return $comment;
     }
