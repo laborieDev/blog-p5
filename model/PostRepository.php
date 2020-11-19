@@ -142,7 +142,7 @@ class PostRepository extends ClassPdo
     public function getAllValidComments($post)
     {
         $postID = $post->getID();
-        $req = "SELECT id FROM comment WHERE comment_status = 'isValid' AND id_blog_post = $postID";
+        $req = "SELECT id FROM comment WHERE comment_status = 'isValid' AND id_blog_post = $postID ORDER BY id DESC";
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 

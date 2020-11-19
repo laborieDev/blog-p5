@@ -16,10 +16,10 @@ class RequestController
 
     /**
      * @param int maxID minimum ID of actual posts
-     * @return string data html with posts datas
-     * @return int minID minimum ID of this posts
+     * @return json A Json Array with posts datas and minID of this posts
      */
-    public function seeMorePost($maxID = 0){
+    public function seeMorePost($maxID = 0)
+    {
         $postRepo = new PostRepository;
 
         $posts = $postRepo->getPosts(4, $maxID);
@@ -57,10 +57,10 @@ class RequestController
     /**
      * @param int catID ID of category
      * @param int maxID minimum ID of actual posts
-     * @return string data html with posts datas
-     * @return int minID minimum ID of this posts
+     * @return json A Json Array with posts datas and minID of this posts
      */
-    public function seeCatPost($catID, $maxID = 0){
+    public function seeCatPost($catID, $maxID = 0)
+    {
         $postRepo = new PostRepository;
         $posts = $postRepo->getCatPosts($catID, 4, $maxID);
 
@@ -92,6 +92,23 @@ class RequestController
         } else { 
             return json_encode(array('data' => $section, 'minID' => $minID));
         }
+    }
+
+    /**
+     * @param int postID ID of comment's post
+     * @param string authorName Name of comment's author
+     * @param string content Comment's content
+     * @return int status Status of request 
+     */
+    public function saveNewComment($postID, $authorName, $content)
+    {
+        $commentRepo = new CommentRepository;
+        $comment = $commentRepo->newComment($postID);
+        $comment->setAuthorName($authorName);
+        $comment->setContent($content);
+        $commentRepo->updateComment($comment);
+
+        return 200;
     }
 
     /*** BAD REQUEST ***/

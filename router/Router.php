@@ -37,6 +37,10 @@ class Router
                     echo $requestController->seeCatPost($url[2]);
                 }
             }
+            /**** NEW COMMENT SINGLE POST ****/
+            elseif ($url[1] == 'new-comment' && !empty($url[2]) && !empty($url[3]) && !empty($url[4])) {
+                echo $requestController->saveNewComment($url[2], $url[3], $url[4]);
+            }
         } else {
             echo $requestController->get404Error();
         }
