@@ -53,14 +53,15 @@
                                 </div>
 								<div class="col-md-12">
 									<div class="submit-btn">
-										<button class="main-btn btn-hover" onclick="sendCommentForm()">Ajouter</button>
+										<button class="main-btn btn-hover" onclick="sendCommentForm(this)">Ajouter</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-                    <div class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
+                    <div id="all-comments-single-post" class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
+					{% set minID = 0 %}
                     {% for comment in comments %}
                         <div class="comment-single row">
                             <div class="col-md-9 author-name">
@@ -73,8 +74,32 @@
                             <p>{{ comment.content }}</p>
                             </div>
                         </div>
+						{% set minID = comment.id %}
                     {% endfor %}
+
+						{# PRELOADER AJAX #}
+						 <div class="ajax-preloader" id="preloader-comments-post">
+    					  <div class="preloader">
+    					    <div class="loader">
+    					      <div class="ytp-spinner">
+    					        <div class="ytp-spinner-container">
+    					          <div class="ytp-spinner-rotator">
+    					            <div class="ytp-spinner-left">
+    					              <div class="ytp-spinner-circle"></div>
+    					            </div>
+    					            <div class="ytp-spinner-right">
+    					              <div class="ytp-spinner-circle"></div>
+    					            </div>
+    					          </div>
+    					        </div>
+    					      </div>
+    					    </div>
+    					  </div>
+    					</div>
                     </div>
+					{% if minID != 0 %}
+						<a onclick="seeMoreComments({{minID}})" id="see-more-comment-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="display: block; visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
+					{% endif %}
 				</div>
                 
 

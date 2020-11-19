@@ -95,20 +95,69 @@ class RequestController
     }
 
     /**
-     * @param int postID ID of comment's post
-     * @param string authorName Name of comment's author
-     * @param string content Comment's content
-     * @return int status Status of request 
+     * Save New Comment - Ajax Request
+     * @return Response 
      */
-    public function saveNewComment($postID, $authorName, $content)
+    public function saveNewComment()
     {
-        $commentRepo = new CommentRepository;
-        $comment = $commentRepo->newComment($postID);
-        $comment->setAuthorName($authorName);
-        $comment->setContent($content);
-        $commentRepo->updateComment($comment);
+        try {
+            $commentRepo = new CommentRepository;
+            $comment = $commentRepo->newComment($_POST['postID']);
+            $comment->setAuthorName($_POST['authorName']);
+            $comment->setContent($_POST['message']);
+            $commentRepo->updateComment($comment);
+            http_response_code(200);
+        }
+        catch (\Exception $e) {
+            http_response_code(500);
+            echo "Attention : " . $e->getMessage();
+        }
+    }
 
-        return 200;
+     /**
+     * @param int maxID minimum ID of actual comments
+     * @return json A Json Array with posts datas and minID of this posts
+     */
+    public function seeMoreComment($postID, $maxID = 0)
+    {
+        $postRepo = new PostRepository;
+        $commentRepo = new CommentRepository;
+
+        $post = $postRepo->getPost($postID);
+        $allCommentsID = $postRepo->getAllValidComments($post, 5, $maxID);
+
+        $section = "";
+        $i = 1;
+        $minID;
+        foreach ($allCommentsID as $commentID) {
+            $comment = $commentRepo->getComment($commentID);
+            $id = $comment->getID();
+            $date = date_create($comment->getAddAt());
+            $date = date_format($date, 'd.m.Y');
+            $authorName = $comment->getAuthorName();
+            $content = $comment->getContent();
+            $section .= "
+                <div class='comment-single row'>
+                    <div class='col-md-9 author-name'>
+                        <p>$authorName</p>
+                    </div>
+                    <div class='col-md-3 date'>
+                        <p>$date</p>
+                    </div>
+                    <div class='col-md-12 content'>
+                    <p>$content</p>
+                    </div>
+                </div>
+            ";
+            $i++;
+            $minID = $id;
+        }
+        
+        if ($i < 5) {
+            return json_encode(array('data' => $section, 'minID' => -1));
+        } else { 
+            return json_encode(array('data' => $section, 'minID' => $minID));
+        }
     }
 
     /*** BAD REQUEST ***/

@@ -43,7 +43,7 @@ class PostController
             return $this->twig->render('website/error_404.html.twig');
         }
 
-        $allCommentsID = $this->postRepo->getAllValidComments($post);
+        $allCommentsID = $this->postRepo->getAllValidComments($post, 5);
         $allComments = [];
         foreach ($allCommentsID as $commentID) {
             array_push($allComments, $this->commentRepo->getComment($commentID));
@@ -56,5 +56,4 @@ class PostController
             'author' => $author
         ]);
     }
-
 }

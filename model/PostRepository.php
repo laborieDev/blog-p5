@@ -52,7 +52,7 @@ class PostRepository extends ClassPdo
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetch();
 
-        if(!isset($value['id'])){
+        if (!isset($value['id'])) {
             return null;
         }
 
@@ -139,10 +139,17 @@ class PostRepository extends ClassPdo
      * @param Post post
      * @return array allComments Valid Comments of this Post
      */
-    public function getAllValidComments($post)
+    public function getAllValidComments($post, $limit = 0, $maxID = 0)
     {
         $postID = $post->getID();
-        $req = "SELECT id FROM comment WHERE comment_status = 'isValid' AND id_blog_post = $postID ORDER BY id DESC";
+        $req = "SELECT id FROM comment WHERE comment_status = 'isValid' AND id_blog_post = $postID";
+
+        if ($maxID != 0) { 
+            $req .= " AND id < $maxID ORDER BY id DESC LIMIT $limit";
+        } elseif ($limit != 0) {
+            $req .= " ORDER BY id DESC LIMIT $limit";
+        }
+
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 

@@ -19,7 +19,7 @@ class Router
         }
 
         //ARTICLE SINGLE
-        elseif($url[0] == 'article' && !empty($url[1])){
+        elseif ($url[0] == 'article' && !empty($url[1])) {
             echo $postController->getArticleContent($url[1]);
         }
 
@@ -28,6 +28,8 @@ class Router
             /**** BLOG POSTS HOME PAGE ****/
             if ($url[1] == 'more-post' && !empty($url[2])) {
                 echo $requestController->seeMorePost($url[2]);
+            } elseif ($url[1] == 'more-comment' && !empty($url[2]) && !empty($url[3])) {
+                echo $requestController->seeMoreComment($url[2], $url[3]);
             } elseif ($url[1] == 'see-all-post') {
                 echo $requestController->seeMorePost();
             } elseif ($url[1] == 'see-cat-post' && !empty($url[2])) {
@@ -38,8 +40,8 @@ class Router
                 }
             }
             /**** NEW COMMENT SINGLE POST ****/
-            elseif ($url[1] == 'new-comment' && !empty($url[2]) && !empty($url[3]) && !empty($url[4])) {
-                echo $requestController->saveNewComment($url[2], $url[3], $url[4]);
+            elseif ($url[1] == 'new-comment') {
+                echo $requestController->saveNewComment();
             }
         } else {
             echo $requestController->get404Error();
