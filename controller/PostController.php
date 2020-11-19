@@ -38,6 +38,11 @@ class PostController
     public function getArticleContent($id)
     {
         $post = $this->postRepo->getPost($id);
+        
+        if ($post == null) {
+            return $this->twig->render('website/error_404.html.twig');
+        }
+
         $allCommentsID = $this->postRepo->getAllValidComments($post);
         $allComments = [];
         foreach ($allCommentsID as $commentID) {

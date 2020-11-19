@@ -52,6 +52,10 @@ class PostRepository extends ClassPdo
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetch();
 
+        if(!isset($value['id'])){
+            return null;
+        }
+
         $post = new Post();
         $post->setID($value['id']);
         $post->setTitle($value['title']);
