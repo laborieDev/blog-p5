@@ -52,7 +52,7 @@ class PostRepository extends ClassPdo
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetch();
 
-        if(!isset($value['id'])){
+        if (!isset($value['id'])) {
             return null;
         }
 

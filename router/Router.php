@@ -19,7 +19,7 @@ class Router
         }
 
         //ARTICLE SINGLE
-        elseif($url[0] == 'article' && !empty($url[1])){
+        elseif ($url[0] == 'article' && !empty($url[1])) {
             echo $postController->getArticleContent($url[1]);
         }
 
