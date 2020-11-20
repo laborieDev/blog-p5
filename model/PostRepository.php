@@ -30,6 +30,7 @@ class PostRepository extends ClassPdo
         } else {
             $req = "SELECT id FROM blog_post";
         }
+
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 
@@ -61,6 +62,7 @@ class PostRepository extends ClassPdo
         $post->setTitle($value['title']);
         $post->setExtract($value['extract']);
         $post->setContent($value['content']);
+        $post->setViews($value['views']);
         $post->setImg($value['img']);
         $post->setAddAt($value['add_at']);
         $post->setLastEditAt($value['last_edit_at']);
@@ -153,6 +155,18 @@ class PostRepository extends ClassPdo
 
         return $allComments;
     }
+
+    /**
+     * @return int number of all views
+     */
+    public function getAllViews()
+    {
+        $req = "SELECT SUM(views) FROM blog_post";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetch();
+
+        return $value[0];
+    }
     
     /**
      * @param int idAuthor
@@ -160,15 +174,16 @@ class PostRepository extends ClassPdo
      */
     public function newPost($idAuthor)
     {
-        $req = "INSERT INTO blog_post(title, extract, content, img, add_at, last_edit_at, id_author) VALUES ('','','','',NOW(),NOW(), $idAuthor)";
+        $req = "INSERT INTO blog_post(title, extract, content, img, views, add_at, last_edit_at, id_author) VALUES ('','','','', 0, NOW(),NOW(), $idAuthor)";
         $rs = ClassPdo::$monPdo->query($req);
 
-        $req = "SELECT id, add_at, last_edit_at, id_author FROM blog_post WHERE id = (SELECT MAX(id) FROM blog_post)";
+        $req = "SELECT id, views, add_at, last_edit_at, id_author FROM blog_post WHERE id = (SELECT MAX(id) FROM blog_post)";
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetch();
 
         $post = new Post();
         $post->setID($value['id']);
+        $post->setViews($value['views']);
         $post->setAddAt($value['add_at']);
         $post->setLastEditAt($value['last_edit_at']);
         $post->setAuthor($value['id_author']);
@@ -186,9 +201,10 @@ class PostRepository extends ClassPdo
         $extract = $post->getExtract();
         $content = $post->getContent();
         $img = $post->getImg();
+        $views = $post->getViews();
         $author = $post->getAuthor();
 
-        $req = "UPDATE blog_post SET title = '$title', extract = '$extract', content = '$content', img = '$img', id_author = '$author', last_edit_at = NOW() WHERE id = $id ";
+        $req = "UPDATE blog_post SET title = '$title', extract = '$extract', content = '$content', img = '$img', views = '$views', id_author = '$author', last_edit_at = NOW() WHERE id = $id ";
         ClassPdo::$monPdo->query($req);
     }
 

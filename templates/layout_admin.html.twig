@@ -1,0 +1,110 @@
+{% set domain = 'http://localhost:8888/blog-p5' %}
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>LABORIE Anthony</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{domain}}/assets/img/favicon.png"/>
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="{{domain}}/assets/css/bootstrap-5.0.0-alpha-2.min.css" />
+    <link rel="stylesheet" href="{{domain}}/assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="{{domain}}/assets/css/animate.css" />
+    <link rel="stylesheet" href="{{domain}}/assets/css/main.css" />
+    <link rel="stylesheet" href="{{domain}}/assets/css/custom-admin.css" />
+    {% block stylesheets %}{% endblock %}
+  </head>
+  <body>
+    <!-- ========================= preloader start ========================= -->
+    <div class="preloader">
+      <div class="loader">
+      <h1 style="position:absolute; top:100px; left: 0; text-align:center;width:100%;">laborie anthony</h1>
+      <h1 style="position:absolute; top:150px; left: 0; text-align:center;width:100%;">Espace admin</h1>
+        <div class="ytp-spinner">
+          <div class="ytp-spinner-container">
+            <div class="ytp-spinner-rotator">
+              <div class="ytp-spinner-left">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+              <div class="ytp-spinner-right">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- preloader end -->
+
+    <!-- ========================= header start ========================= -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Espace admin</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Articles
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Liste des articles <i class="lni lni-list"></i></a>
+                  <a class="dropdown-item" href="#">Ajouter un article <i class="lni lni-add-files"></i></a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Commentaires</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Utilisateurs
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Liste des utilisateurs <i class="lni lni-list"></i></a>
+                  <a class="dropdown-item" href="#">Ajouter un utilisateur <i class="lni lni-users"></i></a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ domain }}">Retour sur le site</a>
+              </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+              <a href="{{domain}}/admin/disconnection">Déconnexion <i class="lni lni-exit"></i></a>
+            </div>
+          </div>
+        </nav>
+              <!-- navbar -->
+      <!-- navbar area -->
+    </header>
+    <!-- ========================= header end ========================= -->
+
+
+      {% block body %}{% endblock %}
+
+
+    <!-- ========================= footer start ========================= -->
+		<footer id="footer" class="footer mt-150 pt-30">
+			<p class="text-center pb-30" style="color: #fff">Réalisé par Anthony Laborie - 2020</p>
+		</footer>
+    <!-- ========================= footer end ========================= -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top btn-hover">
+      <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="{{domain}}/assets/js/bootstrap.5.0.0.alpha-2-min.js"></script>
+    <script src="{{domain}}/assets/js/count-up.min.js"></script>
+    <script src="{{domain}}/assets/js/wow.min.js"></script>
+    <script src="{{domain}}/assets/js/main.js"></script>
+    {% block javascripts %}{% endblock %}
+  </body>
+</html>

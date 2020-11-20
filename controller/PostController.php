@@ -25,6 +25,14 @@ class PostController
         $posts = $this->postRepo->getPosts(4);
         $cats = $this->catRepo->getCategories();
 
+        if (isset($_SESSION['user'])) {
+            return $this->twig->render('website/home.html.twig',[
+                'posts' => $posts,
+                'cats' => $cats,
+                'userConnected' => true
+            ]);
+        }
+
         return $this->twig->render('website/home.html.twig',[
             'posts' => $posts,
             'cats' => $cats
@@ -43,12 +51,25 @@ class PostController
             return $this->twig->render('website/error_404.html.twig');
         }
 
+        //Ajouter une vu à cette article
+        $post->setViews($post->getViews() + 1);
+        $this->postRepo->updatePost($post);
+        
         $allCommentsID = $this->postRepo->getAllValidComments($post);
         $allComments = [];
         foreach ($allCommentsID as $commentID) {
             array_push($allComments, $this->commentRepo->getComment($commentID));
         }
         $author = $this->userRepo->getUser($post->getAuthor());
+
+        if (isset($_SESSION['user'])) {
+            return $this->twig->render('website/single_post.html.twig',[
+                'post' => $post,
+                'comments' => $allComments,
+                'author' => $author,
+                'userConnected' => true
+            ]);
+        }
 
         return $this->twig->render('website/single_post.html.twig',[
             'post' => $post,

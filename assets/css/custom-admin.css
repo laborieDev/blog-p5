@@ -1,0 +1,57 @@
+/********** ALL PAGES ************/
+html{
+    width: 100vw;
+    top: 0;
+    left: 0;
+    overflow-x : hidden;
+}
+body{
+    --agl-primary-color: #286ADE;
+    --agl-second-blue: #5193f4;
+}
+
+.navbar {
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.navbar-nav .nav-item a {
+    color: black !important;
+}
+
+footer{
+    position: fixed;
+    bottom : 0;
+    left: 0;
+    width: 100vw;
+}
+
+
+/********** DASHBOARD ************/
+.title-page, .container{margin-bottom: 100px;}
+.container h1, .container h2{
+    text-align: center;
+}
+.container h2{margin-bottom: 20px;}
+
+.result{
+    text-align: center;
+}
+
+.content-cell{padding: 0.5em 1em !important;}
+
+.buttons-cell a.see:hover{color: grey;}
+.buttons-cell a.valid:hover{color: green;}
+.buttons-cell a.delete:hover{color: red;}
+
+    /** TABLE RESPONSIVE **/
+@media screen and (max-width : 580px){
+    thead, td.author-cell, th.author-cell{display: none !important;}
+    td, th{
+        display: block;
+        width: 100%;
+    }
+    td{border: 0;}
+    .buttons-cell{text-align: center;}
+    .buttons-cell a{margin: 0 10px;}
+    .scroll-top {bottom: 0; right: 0;}
+} 

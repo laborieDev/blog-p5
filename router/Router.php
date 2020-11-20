@@ -7,6 +7,7 @@ class Router
     public function getRoute()
     {  
         $postController = new PostController;
+        $commentController = new CommentController;
         $requestController = new RequestController;
         $url = '';
 
@@ -41,7 +42,39 @@ class Router
             elseif ($url[1] == 'new-comment' && !empty($url[2]) && !empty($url[3]) && !empty($url[4])) {
                 echo $requestController->saveNewComment($url[2], $url[3], $url[4]);
             }
-        } else {
+        }
+
+        //ADMIN CONNECTION - AJAX
+        elseif ($url[0] == 'user-connect'){
+            echo $requestController->connectUser();
+        }
+
+        //ADMIN 
+        elseif ($url[0] == 'admin') {
+            $checkUser = $requestController->checkUser();
+            if ($checkUser != "false") {
+                if (isset($url[1])) {
+                    //CHANGEMENT STATUS COMMENTAIRE
+                    if ($url[1] == "set-comment" && !empty($url[2]) && !empty($url[3])) {
+                        echo $commentController->setCommentStatus($url[2], $url[3]);
+                    }
+                    //DECONNEXION
+                    else if ($url[1] == "disconnection") {
+                        echo $requestController->disconnectAdmin();
+                    }
+                    else {
+                        echo $requestController->getAdminDashboard();
+                    }
+                } else {
+                    echo $requestController->getAdminDashboard();
+                }
+            } else {
+                echo $requestController->getErrorAdminConnection();
+            }
+        }
+
+        //ERROR 404
+        else {
             echo $requestController->get404Error();
         }
     }

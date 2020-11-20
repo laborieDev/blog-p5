@@ -6,6 +6,7 @@ class Post{
     public $extract;
     public $content;
     public $img;
+    public $views;
     public $addAt;
     public $lastEditAt;
     public $author;
@@ -89,6 +90,22 @@ class Post{
     public function setImg($new)
     {
         $this->img = $new;
+    }
+
+    /**
+     * @return int Post's number of view
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param string new New Post's number of view
+     */
+    public function setViews($new)
+    {
+        $this->views = $new;
     }
 
     /**
