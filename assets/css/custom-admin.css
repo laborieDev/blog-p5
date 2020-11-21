@@ -23,11 +23,11 @@ footer{
     bottom : 0;
     left: 0;
     width: 100vw;
+    z-index: 10;
 }
 
-
 /********** DASHBOARD ************/
-.title-page, .container{margin-bottom: 100px;}
+.title-page, .container{margin-bottom: 50px;}
 .container h1, .container h2{
     text-align: center;
 }
@@ -55,3 +55,29 @@ footer{
     .buttons-cell a{margin: 0 10px;}
     .scroll-top {bottom: 0; right: 0;}
 } 
+
+
+/*** FORMS ****/
+select {
+    width: 100% !important;
+    border-radius: 30px !important;
+    background: #fff !important;
+    box-shadow: 0px 0px 45px rgba(181, 181, 181, 0.16) !important;
+    padding: 18px 30px !important;
+    line-height: 1.25 !important;
+    color: #5B657E !important;
+    border: 1px solid transparent !important;
+    transition: all 0.3s ease-out 0s !important;
+}
+
+#cat-selected span{
+    background-color: var(--agl-second-blue);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 10px;
+    display: inline-block;
+}
+
+#cat-selected span .lni-close{margin-left: 5px; cursor: pointer;}
+#cat-selected span .lni-close:hover{color: rgba(225,0,0,0.5);}

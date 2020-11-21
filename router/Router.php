@@ -1,81 +1,113 @@
 <?php
 class Router
 {
+    public $postController;
+    public $commentController;
+    public $requestController;
+    public $url;
+
+    public function __construct()
+    {
+        $this->postController = new PostController;
+        $this->commentController = new CommentController;
+        $this->requestController = new RequestController;
+
+        $this->url = '';
+
+        if (isset($_GET['url'])) {
+            $this->url = explode('/', $_GET['url']);
+        }
+    }
+
     /**
      * Get Route and Display good page 
      */
     public function getRoute()
-    {  
-        $postController = new PostController;
-        $commentController = new CommentController;
-        $requestController = new RequestController;
-        $url = '';
+    { 
 
-        if (isset($_GET['url'])) {
-            $url = explode('/', $_GET['url']);
-        }
-
-        if ($url == '') {
-            echo $postController->getHomePage();
+        if ($this->url == '') {
+            echo $this->postController->getHomePage();
         }
 
         //ARTICLE SINGLE
-        elseif ($url[0] == 'article' && !empty($url[1])) {
-            echo $postController->getArticleContent($url[1]);
+        elseif ($this->url[0] == 'article' && !empty($this->url[1])) {
+            echo $this->postController->getArticleContent($this->url[1]);
         }
 
         //AJAX REQUEST
-        elseif ($url[0] == 'ajax' && !empty($url[1])) {
-            /**** BLOG POSTS HOME PAGE ****/
-            if ($url[1] == 'more-post' && !empty($url[2])) {
-                echo $requestController->seeMorePost($url[2]);
-            } elseif ($url[1] == 'see-all-post') {
-                echo $requestController->seeMorePost();
-            } elseif ($url[1] == 'see-cat-post' && !empty($url[2])) {
-                if (!empty($url[3])) {
-                    echo $requestController->seeCatPost($url[2], $url[3]);
-                } else {
-                    echo $requestController->seeCatPost($url[2]);
-                }
-            }
-            /**** NEW COMMENT SINGLE POST ****/
-            elseif ($url[1] == 'new-comment' && !empty($url[2]) && !empty($url[3]) && !empty($url[4])) {
-                echo $requestController->saveNewComment($url[2], $url[3], $url[4]);
-            }
+        elseif ($this->url[0] == 'ajax' && !empty($this->url[1])) {
+            $this->ajaxRoutes();
         }
 
         //ADMIN CONNECTION - AJAX
-        elseif ($url[0] == 'user-connect'){
-            echo $requestController->connectUser();
+        elseif ($this->url[0] == 'user-connect'){
+            echo $this->requestController->connectUser();
         }
 
         //ADMIN 
-        elseif ($url[0] == 'admin') {
-            $checkUser = $requestController->checkUser();
-            if ($checkUser != "false") {
-                if (isset($url[1])) {
-                    //CHANGEMENT STATUS COMMENTAIRE
-                    if ($url[1] == "set-comment" && !empty($url[2]) && !empty($url[3])) {
-                        echo $commentController->setCommentStatus($url[2], $url[3]);
-                    }
-                    //DECONNEXION
-                    else if ($url[1] == "disconnection") {
-                        echo $requestController->disconnectAdmin();
-                    }
-                    else {
-                        echo $requestController->getAdminDashboard();
-                    }
-                } else {
-                    echo $requestController->getAdminDashboard();
-                }
-            } else {
-                echo $requestController->getErrorAdminConnection();
-            }
+        elseif ($this->url[0] == 'admin') {
+            $this->adminRoutes();
         }
 
         //ERROR 404
         else {
-            echo $requestController->get404Error();
+            echo $this->requestController->get404Error();
+        }
+    }   
+
+    /**
+     * Get all Admin Routes
+     */
+    public function adminRoutes()
+    {
+        $checkUser = $this->requestController->checkUser();
+        if ($checkUser != "false") {
+            if (isset($this->url[1])) {
+                //CHANGEMENT STATUS COMMENTAIRE
+                if ($this->url[1] == "set-comment" && !empty($this->url[2]) && !empty($this->url[3])) {
+                    echo $this->commentController->setCommentStatus($this->url[2], $this->url[3]);
+                }
+                //ARTICLE
+                else if ($this->url[1] == "article" && !empty($this->url[2])) {
+                    if ($this->url[2] == "new") {
+                        echo $this->postController->addNewPostPage();
+                    }
+                }
+                //DECONNEXION
+                else if ($this->url[1] == "disconnection") {
+                    echo $this->requestController->disconnectAdmin();
+                }
+                else {
+                    echo $this->requestController->getAdminDashboard();
+                }
+            } else {
+                echo $this->requestController->getAdminDashboard();
+            }
+        } else {
+            echo $this->requestController->getErrorAdminConnection();
+        }
+    }
+
+    /**
+     * Get all Ajax Routes
+     */
+    public function ajaxRoutes()
+    {
+        /**** BLOG POSTS HOME PAGE ****/
+        if ($this->url[1] == 'more-post' && !empty($this->url[2])) {
+            echo $this->requestController->seeMorePost($this->url[2]);
+        } elseif ($this->url[1] == 'see-all-post') {
+            echo $this->requestController->seeMorePost();
+        } elseif ($this->url[1] == 'see-cat-post' && !empty($this->url[2])) {
+            if (!empty($this->url[3])) {
+                echo $this->requestController->seeCatPost($this->url[2], $this->url[3]);
+            } else {
+                echo $this->requestController->seeCatPost($this->url[2]);
+            }
+        }
+        /**** NEW COMMENT SINGLE POST ****/
+        elseif ($this->url[1] == 'new-comment' && !empty($this->url[2]) && !empty($this->url[3]) && !empty($this->url[4])) {
+            echo $this->requestController->saveNewComment($this->url[2], $this->url[3], $this->url[4]);
         }
     }
 }

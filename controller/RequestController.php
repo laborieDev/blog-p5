@@ -39,6 +39,7 @@ class RequestController
         
         $_SESSION['user'] = $user->getLastName()." ".$user->getFirstName();
         $_SESSION['user-type'] = $user->getUserType();
+        $_SESSION['user-id'] = $user->getID();
             
         return "Connected";
     }

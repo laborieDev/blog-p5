@@ -77,4 +77,17 @@ class PostController
             'author' => $author
         ]);
     }
+
+    /**
+     * Page for to create a post
+     * @return twigRender New Post Form
+     */
+    public function addNewPostPage()
+    {
+        $cats = $this->catRepo->getCategories();
+
+        return $this->twig->render('admin/new_post.html.twig', [
+            'categories' => $cats
+        ]);
+    }
 }
