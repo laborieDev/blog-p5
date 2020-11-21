@@ -23,7 +23,7 @@ function removeThisCat(thisCatID){
 }
 
 /** ENVOYER LE FORMULAIRE **/
-function sendNewPostForm(){
+async function sendNewPostForm(){
     let alertSection = document.getElementById('alert-message');
     let allInputs = document.getElementsByClassName('new-post-input');
     for(let i = 0; i < allInputs.length; i++){
@@ -34,12 +34,34 @@ function sendNewPostForm(){
 
             return ;
         }
-    }
+    } 
 
-    alertSection.classList.remove("alert-danger");
-    alertSection.classList.add("alert-success");
-    alertSection.style.display = "block";
-    alertSection.innerText = "L'article a bien été ajouté !";
+    let title = document.getElementById('title').value;
+    let extract = document.getElementById('extract').value;
+    let content = document.getElementById('content').value;
+    // let img = document.getElementById('img').files[0];
 
-    return ;
+    var formData = new FormData();
+    formData.append("file", img.files[0]);
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "Added") {
+                alertSection.classList.remove("alert-danger");
+                alertSection.classList.add("alert-success");
+                alertSection.style.display = "block";
+                alertSection.innerText = "L'article a bien été ajouté !";
+            } else {
+                alertSection.classList.add("alert-danger");
+                alertSection.style.display = "block";
+                alertSection.innerText = "Une erreur est survenue !";
+            }
+        }
+    };
+
+    request.open("POST", thisAglDomain+"admin/article/add", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.send("title="+title+"&extract="+extract+"&content="+content+"&img="+formData+"&cats="+allCats);
+    // request.send("formData="+form+"&allCats="+allCats);
 }

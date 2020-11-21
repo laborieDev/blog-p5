@@ -18,6 +18,10 @@ body{
     color: black !important;
 }
 
+.space{
+    height: 100px;
+}
+
 footer{
     position: fixed;
     bottom : 0;

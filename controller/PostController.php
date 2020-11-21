@@ -90,4 +90,29 @@ class PostController
             'categories' => $cats
         ]);
     }
+
+    /**
+     * AJAX -- Add New Post
+     * @return string Ajax response
+     */
+    public function addNewPost()
+    {
+        // if (!isset($_POST['title'])) {
+        //     return "Error";
+        // }
+
+        // $post = $this->postRepo->newPost($_SESSION['user-id']);
+        // $post->setTitle($_POST['title']);
+        // $post->setExtract($_POST['extract']);
+        // $post->setContent($_POST['content']);
+
+        print_r($_FILES['file']);
+
+        // $cats = explode("," , $_POST['cats']);
+        // foreach ($cats as $cat) {
+        //     echo $cat;
+        // }
+        
+        return "Added";
+    }
 }

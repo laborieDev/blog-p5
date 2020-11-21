@@ -71,6 +71,8 @@ class Router
                 else if ($this->url[1] == "article" && !empty($this->url[2])) {
                     if ($this->url[2] == "new") {
                         echo $this->postController->addNewPostPage();
+                    } elseif ($this->url[2] == "add") {
+                        echo $this->postController->addNewPost();
                     }
                 }
                 //DECONNEXION
