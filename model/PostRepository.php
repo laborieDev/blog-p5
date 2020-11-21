@@ -167,6 +167,18 @@ class PostRepository extends ClassPdo
 
         return $value[0];
     }
+
+    /**
+     * Add Post's category
+     * @param Post post 
+     * @param int catID 
+     */
+    public function addPostCategory($post, $catID)
+    {
+        $postID = $post->getID();
+        $req = "INSERT INTO category_blog_post VALUES ($catID, $postID)";
+        ClassPdo::$monPdo->query($req);
+    }
     
     /**
      * @param int idAuthor
@@ -197,9 +209,9 @@ class PostRepository extends ClassPdo
     public function updatePost($post)
     {
         $id = $post->getID();
-        $title = $post->getTitle();
-        $extract = $post->getExtract();
-        $content = $post->getContent();
+        $title = addslashes($post->getTitle());
+        $extract = addslashes($post->getExtract());
+        $content = addslashes($post->getContent());
         $img = $post->getImg();
         $views = $post->getViews();
         $author = $post->getAuthor();

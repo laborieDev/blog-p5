@@ -36,12 +36,12 @@ async function sendNewPostForm(){
         }
     } 
 
-    let title = document.getElementById('title').value;
-    let extract = document.getElementById('extract').value;
-    let content = document.getElementById('content').value;
-    // let img = document.getElementById('img').files[0];
-
-    var formData = new FormData();
+    // AJOUT DE L'IMAGE SUR LE SERVEUR
+    let formData = new FormData();           
+    formData.append("title", title.value);
+    formData.append("extract", extract.value);
+    formData.append("content", content.value);
+    formData.append("allCats", allCats);
     formData.append("file", img.files[0]);
 
     var request = new XMLHttpRequest();
@@ -52,6 +52,9 @@ async function sendNewPostForm(){
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
                 alertSection.innerText = "L'article a bien été ajouté !";
+
+                document.getElementById('submit-btn').style.display = "none";
+                document.getElementById('return-home').style.display = "block";
             } else {
                 alertSection.classList.add("alert-danger");
                 alertSection.style.display = "block";
@@ -61,7 +64,5 @@ async function sendNewPostForm(){
     };
 
     request.open("POST", thisAglDomain+"admin/article/add", true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send("title="+title+"&extract="+extract+"&content="+content+"&img="+formData+"&cats="+allCats);
-    // request.send("formData="+form+"&allCats="+allCats);
+    request.send(formData);
 }

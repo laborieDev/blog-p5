@@ -48,7 +48,9 @@ class PostController
         $post = $this->postRepo->getPost($id);
         
         if ($post == null) {
-            return $this->twig->render('website/error_404.html.twig');
+            return $this->twig->render('website/errors_page.html.twig', [
+                "error" => "Cet article n'existe pas !"
+            ]);
         }
 
         //Ajouter une vu à cette article
@@ -97,22 +99,31 @@ class PostController
      */
     public function addNewPost()
     {
-        // if (!isset($_POST['title'])) {
-        //     return "Error";
-        // }
+        if (!isset($_POST['title'])) {
+            return "Error";
+        }
 
-        // $post = $this->postRepo->newPost($_SESSION['user-id']);
-        // $post->setTitle($_POST['title']);
-        // $post->setExtract($_POST['extract']);
-        // $post->setContent($_POST['content']);
+        $filename = $_FILES['file']['name'];
+        $location = "assets/img/single_post/".$filename;
 
-        print_r($_FILES['file']);
+        if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
+          
+            $post = $this->postRepo->newPost($_SESSION['user-id']);
+            $post->setTitle($_POST['title']);
+            $post->setExtract($_POST['extract']);
+            $post->setContent($_POST['content']);
+            $post->setImg($filename);
+            $this->postRepo->updatePost($post);
 
-        // $cats = explode("," , $_POST['cats']);
-        // foreach ($cats as $cat) {
-        //     echo $cat;
-        // }
-        
-        return "Added";
+            $cats = explode("," , $_POST['allCats']);
+            foreach ($cats as $cat) {
+                $this->postRepo->addPostCategory($post, $cat);
+            }
+
+            return "Added";
+            
+        } else { 
+          return "Error";
+        }
     }
 }

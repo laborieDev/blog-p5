@@ -113,8 +113,8 @@ class CommentRepository extends ClassPdo
     public function updateComment($comment)
     {
         $id = $comment->getID();
-        $authorName = $comment->getAuthorName();
-        $content = $comment->getContent();
+        $authorName = addslashes($comment->getAuthorName());
+        $content = addslashes($comment->getContent());
         $commentStatus = $comment->getCommentStatus();
 
         $req = "UPDATE comment SET author_name = '$authorName', content = '$content', comment_status = '$commentStatus' WHERE id = $id ";
