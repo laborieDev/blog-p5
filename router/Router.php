@@ -24,7 +24,6 @@ class Router
      */
     public function getRoute()
     { 
-
         if ($this->url == '') {
             echo $this->postController->getHomePage();
         }
@@ -40,7 +39,7 @@ class Router
         }
 
         //ADMIN CONNECTION - AJAX
-        elseif ($this->url[0] == 'user-connect'){
+        elseif ($this->url[0] == 'user-connect') {
             echo $this->requestController->connectUser();
         }
 
@@ -98,6 +97,8 @@ class Router
         /**** BLOG POSTS HOME PAGE ****/
         if ($this->url[1] == 'more-post' && !empty($this->url[2])) {
             echo $this->requestController->seeMorePost($this->url[2]);
+        } elseif ($this->url[1] == 'more-comment' && !empty($this->url[2]) && !empty($this->url[3])) {
+            echo $this->requestController->seeMoreComment($this->url[2], $this->url[3]);
         } elseif ($this->url[1] == 'see-all-post') {
             echo $this->requestController->seeMorePost();
         } elseif ($this->url[1] == 'see-cat-post' && !empty($this->url[2])) {
@@ -108,8 +109,8 @@ class Router
             }
         }
         /**** NEW COMMENT SINGLE POST ****/
-        elseif ($this->url[1] == 'new-comment' && !empty($this->url[2]) && !empty($this->url[3]) && !empty($this->url[4])) {
-            echo $this->requestController->saveNewComment($this->url[2], $this->url[3], $this->url[4]);
+        elseif ($this->url[1] == 'new-comment') {
+            echo $this->requestController->saveNewComment();
         }
     }
 }

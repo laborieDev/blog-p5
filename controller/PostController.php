@@ -57,7 +57,7 @@ class PostController
         $post->setViews($post->getViews() + 1);
         $this->postRepo->updatePost($post);
         
-        $allCommentsID = $this->postRepo->getAllValidComments($post);
+        $allCommentsID = $this->postRepo->getAllValidComments($post, 5);
         $allComments = [];
         foreach ($allCommentsID as $commentID) {
             array_push($allComments, $this->commentRepo->getComment($commentID));
