@@ -43,9 +43,9 @@ class CommentController
                 <td class=\"author-cell\">$author</td>
                 <td class=\"content-cell\">$content</td>
                 <td class=\"buttons-cell\">
-                  <a class=\"see\" href=\"../article/$postID\" target=\"_blank\"><i class=\"lni lni-eye\"></i></a>
+                  <a class=\"see\" href=\"./article/$postID\" target=\"_blank\"><i class=\"lni lni-eye\"></i></a>
                   <a class=\"valid\" onclick=\"setThisComment('isValid',$id)\" href=\"#\"><i class=\"lni lni-checkmark\"></i></a>
-                  <a class=\"delete\" onclick=\"setThisComment('isReject',$id)\" href=\"#\"><i class=\"lni lni-trash\"></i></a>
+                  <a class=\"delete\" onclick=\"setThisComment('isReject',$id)\" href=\"#\"><i class=\"lni lni-ban\"></i></a>
                 </td>
             </tr>
             ";
