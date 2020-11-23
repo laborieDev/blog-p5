@@ -1,10 +1,12 @@
 <?php
+session_start();
 //Twig init
 require __DIR__ . '/vendor/autoload.php';
 
 //Router and Controllers init
 require __DIR__ . '/router/Router.php';
 require __DIR__ . '/controller/PostController.php';
+require __DIR__ . '/controller/CommentController.php';
 require __DIR__ . '/controller/RequestController.php';
 
 //Repositories Init

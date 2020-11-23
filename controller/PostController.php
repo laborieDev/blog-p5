@@ -25,6 +25,14 @@ class PostController
         $posts = $this->postRepo->getPosts(4);
         $cats = $this->catRepo->getCategories();
 
+        if (isset($_SESSION['user'])) {
+            return $this->twig->render('website/home.html.twig',[
+                'posts' => $posts,
+                'cats' => $cats,
+                'userConnected' => true
+            ]);
+        }
+
         return $this->twig->render('website/home.html.twig',[
             'posts' => $posts,
             'cats' => $cats
@@ -40,9 +48,15 @@ class PostController
         $post = $this->postRepo->getPost($id);
         
         if ($post == null) {
-            return $this->twig->render('website/error_404.html.twig');
+            return $this->twig->render('website/errors_page.html.twig', [
+                "error" => "Cet article n'existe pas !"
+            ]);
         }
 
+        //Ajouter une vu à cette article
+        $post->setViews($post->getViews() + 1);
+        $this->postRepo->updatePost($post);
+        
         $allCommentsID = $this->postRepo->getAllValidComments($post, 5);
         $allComments = [];
         foreach ($allCommentsID as $commentID) {
@@ -50,10 +64,66 @@ class PostController
         }
         $author = $this->userRepo->getUser($post->getAuthor());
 
+        if (isset($_SESSION['user'])) {
+            return $this->twig->render('website/single_post.html.twig',[
+                'post' => $post,
+                'comments' => $allComments,
+                'author' => $author,
+                'userConnected' => true
+            ]);
+        }
+
         return $this->twig->render('website/single_post.html.twig',[
             'post' => $post,
             'comments' => $allComments,
             'author' => $author
         ]);
+    }
+
+    /**
+     * Page for to create a post
+     * @return twigRender New Post Form
+     */
+    public function addNewPostPage()
+    {
+        $cats = $this->catRepo->getCategories();
+
+        return $this->twig->render('admin/new_post.html.twig', [
+            'categories' => $cats
+        ]);
+    }
+
+    /**
+     * AJAX -- Add New Post
+     * @return string Ajax response
+     */
+    public function addNewPost()
+    {
+        if (!isset($_POST['title'])) {
+            return "Error";
+        }
+
+        $filename = $_FILES['file']['name'];
+        $location = "assets/img/single_post/".$filename;
+
+        if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
+          
+            $post = $this->postRepo->newPost($_SESSION['user-id']);
+            $post->setTitle($_POST['title']);
+            $post->setExtract($_POST['extract']);
+            $post->setContent($_POST['content']);
+            $post->setImg($filename);
+            $this->postRepo->updatePost($post);
+
+            $cats = explode("," , $_POST['allCats']);
+            foreach ($cats as $cat) {
+                $this->postRepo->addPostCategory($post, $cat);
+            }
+
+            return "Added";
+            
+        } else { 
+          return "Error";
+        }
     }
 }

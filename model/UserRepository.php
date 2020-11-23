@@ -57,6 +57,27 @@ class UserRepository extends ClassPdo
     }
 
     /**
+     * Get User which dataName's value = dataValue
+     * @param string dataName 
+     * @param string dataValue
+     * @return User user
+     */
+    public function getUserParameter($dataName, $dataValue)
+    {
+        $req = "SELECT id FROM user WHERE $dataName = '$dataValue'";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetchAll();
+
+        if (!isset($value[0]['id'])) {
+            return ;
+        }
+
+        $user = $this->getUser($value[0]['id']);
+
+        return $user;
+    }
+
+    /**
      * @param User user
      * @return array allPosts User's posts
      */

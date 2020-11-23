@@ -1,4 +1,6 @@
 function seeMorePosts(minID){
+    let preloader = document.getElementById('preloader-blog-home');
+    preloader.style.display = "block";
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -6,6 +8,8 @@ function seeMorePosts(minID){
             let btn = document.getElementById("see-more-post-btn");
 
             response = JSON.parse(this.responseText);
+
+            preloader.style.display = "none";
             blogSection.innerHTML = blogSection.innerHTML + response.data;
             
             if (response.minID <= 1) {
@@ -20,6 +24,9 @@ function seeMorePosts(minID){
 }
 
 function setCatPost(element, setOff = false){
+    let preloader = document.getElementById('preloader-blog-home');
+    preloader.style.display = "block";
+
     let catID = element.getAttribute("categoryid");
 
     //Gestion de la classe et du onclick des boutons de catégorie
@@ -53,6 +60,7 @@ function setCatPost(element, setOff = false){
 
             response = JSON.parse(this.responseText);
 
+            preloader.style.display = "none";
             blogSection.innerHTML = response.data;
             
             //Gestion du bouton Charger Plus
@@ -78,7 +86,9 @@ function setCatPost(element, setOff = false){
 }
 
 function setCatMorePost(catID, minID = 0){
-
+    let preloader = document.getElementById('preloader-blog-home');
+    preloader.style.display = "block";
+    
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -87,6 +97,7 @@ function setCatMorePost(catID, minID = 0){
 
             response = JSON.parse(this.responseText);
 
+            preloader.style.display = "none";
             blogSection.innerHTML = blogSection.innerHTML + response.data;
             
             //Gestion du bouton Charger Plus

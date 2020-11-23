@@ -60,22 +60,22 @@
 						</div>
 					</div>
 
-                    <div id="all-comments-single-post" class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
-					{% set minID = 0 %}
-                    {% for comment in comments %}
-                        <div class="comment-single row">
-                            <div class="col-md-9 author-name">
-                                <p>{{ comment.authorName }}</p>
-                            </div>
-                            <div class="col-md-3 date">
-                                <p>{{ comment.addAt|date("d.m.Y") }}</p>
-                            </div>
-                            <div class="col-md-12 content">
-                            <p>{{ comment.content }}</p>
-                            </div>
-                        </div>
-						{% set minID = comment.id %}
-                    {% endfor %}
+          <div id="all-comments-single-post" class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
+					  {% set minID = 0 %}
+            {% for comment in comments %}
+                <div class="comment-single row">
+                    <div class="col-md-9 author-name">
+                        <p>{{ comment.authorName }}</p>
+                    </div>
+                    <div class="col-md-3 date">
+                        <p>{{ comment.addAt|date("d.m.Y") }}</p>
+                    </div>
+                    <div class="col-md-12 content">
+                    <p>{{ comment.content }}</p>
+                    </div>
+                </div>
+						    {% set minID = comment.id %}
+            {% endfor %}
 
 						{# PRELOADER AJAX #}
 						 <div class="ajax-preloader" id="preloader-comments-post">
@@ -96,7 +96,7 @@
     					    </div>
     					  </div>
     					</div>
-                    </div>
+            </div>
 					{% if minID != 0 %}
 						<a onclick="seeMoreComments({{minID}})" id="see-more-comment-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="display: block; visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
 					{% endif %}

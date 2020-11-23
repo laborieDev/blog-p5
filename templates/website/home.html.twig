@@ -1,6 +1,51 @@
-{% extends 'layout_home.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body %}
+<!-- ========================= header start ========================= -->
+    <header class="header">
+      <div class="navbar-area">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                  <ul id="nav" class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#home"><i class="lni lni-home"></i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#about">A propos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#skills">Compétences</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#blog">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="page-scroll" href="#contact"><i class="lni lni-telegram-original"></i></a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- navbar collapse -->
+              </nav>
+              <!-- navbar -->
+            </div>
+          </div>
+          <!-- row -->
+        </div>
+        <!-- container -->
+      </div>
+      <!-- navbar area -->
+    </header>
+    <!-- ========================= header end ========================= -->
+
     <!-- ========================= Start first section ========================= -->
     <section id="home" class="hero-section">
       <div class="container">
@@ -248,6 +293,26 @@
 					{% endfor %}
 					</div>
 					<div style="clear:both"></div>
+					{# PRELOADER AJAX #}
+					 <div class="ajax-preloader" id="preloader-blog-home">
+    				  <div class="preloader">
+    				    <div class="loader">
+    				      <div class="ytp-spinner">
+    				        <div class="ytp-spinner-container">
+    				          <div class="ytp-spinner-rotator">
+    				            <div class="ytp-spinner-left">
+    				              <div class="ytp-spinner-circle"></div>
+    				            </div>
+    				            <div class="ytp-spinner-right">
+    				              <div class="ytp-spinner-circle"></div>
+    				            </div>
+    				          </div>
+    				        </div>
+    				      </div>
+    				    </div>
+    				  </div>
+    				</div>
+	
 					<a onclick="seeMorePosts({{ minID }})" id="see-more-post-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
 				</div>
 			</div>

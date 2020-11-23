@@ -1,0 +1,66 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block body %}
+    <!-- ========================= Start first section ========================= -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h1 class="title-page">Ajouter un article</h1>
+        <div class="row">
+			  	<div class="col-md-12">
+						<div class="contact-wrapper wow fadeInUp" data-wow-delay=".2s">
+							<form action="" id="new-post-form" class="contact-form">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="single-form">
+											<input type="text" name="title" id="title" class="new-post-input form-input" placeholder="Titre">
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="single-form">
+                      						<select class="form-control" onchange="setCats(this)" id="cat-select">
+                      						  <option value="" selected disabled>Ajouter une catégorie</option>
+                      						{% for cat in categories %}
+                      						  <option id="cat-option-{{ cat.id }}" value="{{ cat.id }}">{{ cat.name }}</option>
+                      						{% endfor %}
+                      						</select>
+                      						<div id="cat-selected"></div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="single-form">
+											<textarea name="extract" id="extract" class="new-post-input form-input" rows="3" placeholder="Extrait" maxlength="280"></textarea>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="single-form">
+											<textarea name="content" id="content" class="new-post-input form-input" rows="10" placeholder="Contenu"></textarea>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="single-form">
+                      						<p>Image mise en avant :</p><br>
+											<input type="file" class="new-post-input form-control-file" id="img" name="img" placeholder="Image mise en avant" accept="image/jpeg">
+									</div><br>
+								</div>
+                  				<div id="alert-message" class="alert" role="alert" style="display:none"></div>
+								<div class="col-md-12">
+									<div id="submit-btn" class="submit-btn">
+										<div class="main-btn btn-hover" onclick="sendNewPostForm()">Envoyer</div>
+									</div>
+									<div id="return-home" class="submit-btn" style="display:none">
+										<a href="{{domain}}/admin" class="main-btn btn-hover">Retourner au tableau de bord</a>
+									</div>
+								</div>
+							 </div>
+						</form>
+				</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ========================= End first section ========================= -->
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{domain}}/assets/js/new-post-admin.js"></script>  
+{% endblock %}
