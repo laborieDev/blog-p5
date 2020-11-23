@@ -35,6 +35,24 @@ class CommentRepository extends ClassPdo
     }
 
     /**
+     * @return array allComments Comments which status is Waiting
+     */
+    public function getWaitingComments()
+    {
+        $req = "SELECT id FROM comment WHERE comment_status = 'waiting'";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetchAll();
+
+        $allComments = [];
+
+        foreach($value as $comment){
+            array_push($allComments, $this->getComment($comment['id']));
+        }
+
+        return $allComments;
+    }
+
+    /**
      * @param int id Comment's ID
      * @return Comment comment
      */
@@ -53,6 +71,18 @@ class CommentRepository extends ClassPdo
         $comment->setPost($value['id_blog_post']);
 
         return $comment;
+    }
+
+    /**
+     * @return int number of comments
+     */
+    public function getNumberComment()
+    {
+        $req = "SELECT count(id) FROM comment WHERE comment_status = 'waiting' OR comment_status = 'isValid'";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetch();
+
+        return $value[0];
     }
     
     /**

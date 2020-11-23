@@ -11,6 +11,79 @@ class RequestController
         $this->twig = new Environment(new FilesystemLoader('templates'));
     }
 
+    /********* ADMIN CONNECTION *********/
+
+    /**
+     * @return string return userType if user is connected else return false
+     */
+    public function checkUser()
+    {
+        if (isset($_SESSION['user'])) {
+            return $_SESSION['user-type'];
+        } else {
+            return "false";
+        }
+    }
+
+    /**
+     * Connect user and redirect to dashboard
+     */
+    public function connectUser()
+    {
+        $userRepo = new UserRepository;
+        $user = $userRepo->getUserParameter('email', $_POST['email']);
+
+        if ($user == "" || $user->getPassword() != $_POST['password']) {
+            return "Error";
+        }
+        
+        $_SESSION['user'] = $user->getLastName()." ".$user->getFirstName();
+        $_SESSION['user-type'] = $user->getUserType();
+        $_SESSION['user-id'] = $user->getID();
+            
+        return "Connected";
+    }
+
+    /**
+     * Disconnect user and redirect to home page
+     */
+    public function disconnectAdmin()
+    {
+        session_destroy();
+        echo "<script> document.location.href='/blog-p5'; </script>"; 
+    }
+
+    /**
+     * @return twigRender Error Page --> User isn't connected
+     */
+    public function getErrorAdminConnection()
+    {
+        return $this->twig->render('website/errors_page.html.twig', [
+            "error" => "Une connexion est requise pour accéder à ce site !"
+        ]);
+    }
+
+    /**
+     * @return twigRender Dashboard Admin
+     */
+    public function getAdminDashboard()
+    {
+        $commentRepo = new CommentRepository;
+        $numberComment = $commentRepo->getNumberComment();
+        $comments = $commentRepo->getWaitingComments();
+
+        $postRepo = new PostRepository;
+        $numberViews = $postRepo->getAllViews();
+
+        return $this->twig->render('admin/dashboard.html.twig',[
+            'numberComments' => $numberComment,
+            'numberViews' => $numberViews,
+            'comments' => $comments
+        ]);
+    }
+
+    /********* ADMIN PAGES *********/
+
 
     /********* AJAX REQUEST *********/
 
@@ -114,7 +187,7 @@ class RequestController
         }
     }
 
-     /**
+    /**
      * @param int maxID minimum ID of actual comments
      * @return json A Json Array with posts datas and minID of this posts
      */
@@ -167,6 +240,8 @@ class RequestController
      */
     public function get404Error()
     {
-        return $this->twig->render('website/error_404.html.twig');
+        return $this->twig->render('website/errors_page.html.twig', [
+            "error" => "Cette page n'existe pas !"
+        ]);
     }
 }

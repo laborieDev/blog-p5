@@ -39,51 +39,6 @@
     </div>
     <!-- preloader end -->
 
-    <!-- ========================= header start ========================= -->
-    <header class="header">
-      <div class="navbar-area">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-12">
-              <nav class="navbar navbar-expand-lg">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="toggler-icon"></span>
-                  <span class="toggler-icon"></span>
-                  <span class="toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                  <ul id="nav" class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a href="{{domain}}#home"><i class="lni lni-home"></i></a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{domain}}#about">A propos</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{domain}}#skills">Compétences</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{domain}}#blog">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" href="{{domain}}#contact"><i class="lni lni-telegram-original"></i></a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- navbar collapse -->
-              </nav>
-              <!-- navbar -->
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-      </div>
-      <!-- navbar area -->
-    </header>
-    <!-- ========================= header end ========================= -->
-
 
       {% block body %}{% endblock %}
 
@@ -120,9 +75,15 @@
 									<li>
 										<a href="{{domain}}#blog">Mes articles</a>
 									</li>
+									{% if userConnected is defined %}
+									<li>
+										<a href="{{domain}}/admin">Espace Administrateur</a>
+									</li>
+									{% else %}
 									<li>
 										<a href="#footer" onclick="getLoginModal()">Connexion</a>
 									</li>
+									{% endif %}
 								</ul>
 							</div>
 						</div>
@@ -162,26 +123,27 @@
             <i class="lni lni-close" onclick="getLoginModal()"></i>
             <div class="content-form">
               <h1>Se connecter</h1>
-              <form action="#" method="POST" id="login-form" class="contact-form">
-				      	<div class="row">
-				      		<div class="col-md-12">
-				      			<div class="single-form">
-				      				<input type="email" name="email" id="modal-email" class="form-input" placeholder="Adresse e-mail">
-				      			</div>
-				      		</div>
-				      		<div class="col-md-12">
-				      			<div class="single-form password-input-section">
-				      				<input type="password" name="password" id="modal-password" class="form-input" placeholder="Mot de passe">
-                      <span class="eye" onclick="seePassword()"><i id="eye-btn-icon" class="lni lni-eye"></i></span>
-				      			</div>
-				      		</div>
-				      		<div class="col-md-12">
-				      			<div class="submit-btn">
-				      				<button class="main-btn btn-hover" type="submit">Se connecter</button>
-				      			</div>
-				      		</div>
-				      	</div>
-				      </form>
+              	<div id="login-form" class="contact-form">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="single-form">
+								<input type="email" name="email" id="modal-email" class="form-input" placeholder="Adresse e-mail" required>
+							</div>
+						</div>
+					    <div class="col-md-12">
+					    	<div class="single-form password-input-section">
+					    		<input type="password" name="password" id="modal-password" class="form-input" placeholder="Mot de passe" required>
+                	    		<span class="eye" onclick="seePassword()"><i id="eye-btn-icon" class="lni lni-eye"></i></span>
+					    	</div>
+					    </div>
+						<div id="modal-alert-message" class="alert alert-danger" role="alert" style="display:none"></div>
+					    <div class="col-md-12">
+					    	<div class="submit-btn">
+					    		<button onclick="connectUser()" class="main-btn btn-hover">Se connecter</button>
+					    	</div>
+					    </div>
+					</div>
+				</div>
             </div>
           </div>
       </div>
