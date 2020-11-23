@@ -2,11 +2,12 @@
 
 {% block body %}
     <!-- ========================= Start first section ========================= -->
-    <section id="single_post" class="hero-section" style="background-image: url('{{domain}}/assets/img/single_post/bram-naus-n8Qb1ZAkK88-unsplash.jpg')">
+    <section id="single_post" class="hero-section" style="background-image: url('{{domain}}/assets/img/single_post/{{ post.img }}')">
       <div class="container">
             <div class="content">
-                <h1 class="wow fadeInUp" data-wow-delay=".2s">Article Title</h1>
-                <p>Par Author Name</p>
+                <h1 class="wow fadeInUp" data-wow-delay=".2s">{{ post.title }}</h1>
+                <p>Par {{ author.firstName }} {{ author.lastName }}</p>
+                <p>Ajouté le {{ post.addAt|date("d/m/Y") }} ~  Dernière modification le {{ post.lastEditAt|date("d/m/Y") }}</p>
             </div>
       </div>
     </section>
@@ -16,17 +17,7 @@
     <section id="content" class="pt-130">
 		<div class="container">
 			<div class="row justify-content-center">
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nunc sem, pharetra a augue non, ultrices blandit justo. Nunc quis dapibus libero. Curabitur non urna mi. Integer libero orci, venenatis eu sollicitudin ac, hendrerit nec lectus. Morbi non risus quis purus molestie mollis eget sit amet ante. Vestibulum in orci a odio posuere maximus quis ac metus. Praesent interdum mattis ex, eu pretium sapien dapibus vel. Donec ac erat id dolor suscipit tempus. Phasellus nec lacus nec risus rhoncus auctor eu eget mi.
-
-                In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris iaculis volutpat nulla, et consectetur sem lobortis condimentum. Nulla justo ipsum, bibendum sit amet rutrum varius, mattis sit amet risus. Fusce egestas iaculis elit, quis vulputate neque laoreet et. Donec purus lacus, eleifend ac molestie non, pretium quis nunc. Aliquam erat volutpat. Sed fermentum dui non sem semper, quis vulputate quam malesuada. Aliquam erat volutpat. Nunc tincidunt sapien id suscipit lobortis. Sed non nisl ac arcu vehicula hendrerit et in lectus. Suspendisse ultricies nibh eget eros suscipit, non maximus leo ultrices. Maecenas vel mollis risus.
-
-                Mauris tempor turpis quis dignissim bibendum. Praesent nec lectus iaculis dui scelerisque congue ac at sapien. Vestibulum tempus metus volutpat, viverra tellus et, euismod ex. Curabitur eu nisl metus. Aenean eget massa vitae odio lobortis consectetur id eu leo. Morbi aliquam congue aliquet. Cras egestas pretium sem, at pharetra arcu facilisis et.
-
-                Ut efficitur velit in eros ornare dignissim. Phasellus vel lacinia erat. Aenean vel viverra mauris. Fusce egestas sodales tellus a viverra. Mauris lacinia elit ac mi vehicula scelerisque. Vestibulum nec sem consequat est pellentesque maximus. Morbi ultrices fermentum mi, a malesuada lacus porttitor vel.
-
-                Mauris ut velit erat. Praesent facilisis hendrerit lectus, ac finibus eros gravida venenatis. Vivamus tellus odio, vulputate sit amet elit id, maximus placerat magna. Sed leo nulla, ornare id sem et, molestie pharetra massa. Aenean odio elit, pellentesque sit amet odio porta, sagittis posuere lorem. Vestibulum nec varius lacus, eget consectetur ex. Donec a ante tellus. Morbi tempus at turpis eu placerat. Morbi vel velit commodo, maximus elit nec, blandit quam. Duis quis sem diam. Fusce sed porta purus. Morbi pharetra imperdiet ante, a egestas diam ornare ut.
-                </p>
+                <p>{{ post.content }}</p>
             </div>
         </div>
     </section>
@@ -46,7 +37,7 @@
 			<div class="row">
 				<div class="col-lg-7">
 					<div class="contact-wrapper wow fadeInUp" data-wow-delay=".2s">
-						<form action="#" method="POST" id="contact-form" class="contact-form">
+						<div id="comment-form" class="contact-form">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="single-form">
@@ -55,64 +46,60 @@
 								</div>
 								<div class="col-md-12">
 									<div class="single-form">
-										<textarea name="message" id="message" class="form-input" rows="7" placeholder="Commentaire"></textarea>
+										<textarea name="message" id="message" class="form-input" rows="7" placeholder="Votre Commentaire"></textarea>
 									</div>
 								</div>
+                                <div id="alert-message" class="alert" role="alert" style="display:none">
+                                </div>
 								<div class="col-md-12">
 									<div class="submit-btn">
-										<button class="main-btn btn-hover" type="submit">Ajouter</button>
+										<button class="main-btn btn-hover" onclick="sendCommentForm(this)">Ajouter</button>
 									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
 
-                    <div class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
+                    <div id="all-comments-single-post" class="contact-wrapper wow fadeInUp all-comments" data-wow-delay=".2s">
+					{% set minID = 0 %}
+                    {% for comment in comments %}
                         <div class="comment-single row">
                             <div class="col-md-9 author-name">
-                                <p>Author Name</p>
+                                <p>{{ comment.authorName }}</p>
                             </div>
                             <div class="col-md-3 date">
-                                <p>12.12.2020</p>
+                                <p>{{ comment.addAt|date("d.m.Y") }}</p>
                             </div>
                             <div class="col-md-12 content">
-                            <p>Ut efficitur velit in eros ornare dignissim. Phasellus vel lacinia erat. Aenean vel viverra mauris.</p>
+                            <p>{{ comment.content }}</p>
                             </div>
                         </div>
-                        <div class="comment-single row">
-                            <div class="col-md-9 author-name">
-                                <p>Author Name</p>
-                            </div>
-                            <div class="col-md-3 date">
-                                <p>12.12.2020</p>
-                            </div>
-                            <div class="col-md-12 content">
-                            <p>Ut efficitur velit in eros ornare dignissim. Phasellus vel lacinia erat. Aenean vel viverra mauris.</p>
-                            </div>
-                        </div>
-                        <div class="comment-single row">
-                            <div class="col-md-9 author-name">
-                                <p>Author Name</p>
-                            </div>
-                            <div class="col-md-3 date">
-                                <p>12.12.2020</p>
-                            </div>
-                            <div class="col-md-12 content">
-                            <p>Ut efficitur velit in eros ornare dignissim. Phasellus vel lacinia erat. Aenean vel viverra mauris.</p>
-                            </div>
-                        </div>
-                        <div class="comment-single row">
-                            <div class="col-md-9 author-name">
-                                <p>Author Name</p>
-                            </div>
-                            <div class="col-md-3 date">
-                                <p>12.12.2020</p>
-                            </div>
-                            <div class="col-md-12 content">
-                            <p>Ut efficitur velit in eros ornare dignissim. Phasellus vel lacinia erat. Aenean vel viverra mauris.</p>
-                            </div>
-                        </div>
+						{% set minID = comment.id %}
+                    {% endfor %}
+
+						{# PRELOADER AJAX #}
+						 <div class="ajax-preloader" id="preloader-comments-post">
+    					  <div class="preloader">
+    					    <div class="loader">
+    					      <div class="ytp-spinner">
+    					        <div class="ytp-spinner-container">
+    					          <div class="ytp-spinner-rotator">
+    					            <div class="ytp-spinner-left">
+    					              <div class="ytp-spinner-circle"></div>
+    					            </div>
+    					            <div class="ytp-spinner-right">
+    					              <div class="ytp-spinner-circle"></div>
+    					            </div>
+    					          </div>
+    					        </div>
+    					      </div>
+    					    </div>
+    					  </div>
+    					</div>
                     </div>
+					{% if minID != 0 %}
+						<a onclick="seeMoreComments({{minID}})" id="see-more-comment-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="display: block; visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
+					{% endif %}
 				</div>
                 
 
@@ -126,4 +113,8 @@
 	</section>
 	<!-- ========================= contact-section end ========================= -->
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{domain}}/assets/js/ajax-single-post.js"></script>
 {% endblock %}

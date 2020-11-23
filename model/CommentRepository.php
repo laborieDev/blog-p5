@@ -49,8 +49,8 @@ class CommentRepository extends ClassPdo
         $comment->setAuthorName($value['author_name']);
         $comment->setContent($value['content']);
         $comment->setCommentStatus($value['comment_status']);
-        $comment->setAddAt($value['addAt']);
-        $comment->setPost($value['id_post']);
+        $comment->setAddAt($value['add_at']);
+        $comment->setPost($value['id_blog_post']);
 
         return $comment;
     }
@@ -83,8 +83,8 @@ class CommentRepository extends ClassPdo
     public function updateComment($comment)
     {
         $id = $comment->getID();
-        $authorName = $comment->getAuthorName();
-        $content = $comment->getContent();
+        $authorName = addslashes($comment->getAuthorName());
+        $content = addslashes($comment->getContent());
         $commentStatus = $comment->getCommentStatus();
 
         $req = "UPDATE comment SET author_name = '$authorName', content = '$content', comment_status = '$commentStatus' WHERE id = $id ";

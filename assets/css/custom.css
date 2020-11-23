@@ -434,3 +434,18 @@ body{
     }
     #modal-login .content h1{font-size: 33px;}
 }
+
+/**** AJAX PRELOADER *****/
+.ajax-preloader{
+    position: relative;
+    height: 100px;
+    display: none;
+}
+.ajax-preloader .preloader{
+    position: absolute;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    background: none;
+    z-index: 1;
+}

@@ -13,6 +13,8 @@ class PostController
         $this->twig = new Environment(new FilesystemLoader('templates'));
         $this->postRepo = new PostRepository;
         $this->catRepo = new CategoryRepository;
+        $this->commentRepo = new CommentRepository;
+        $this->userRepo = new UserRepository;
     }
 
     /**
@@ -26,6 +28,32 @@ class PostController
         return $this->twig->render('website/home.html.twig',[
             'posts' => $posts,
             'cats' => $cats
+        ]);
+    }
+
+    /**
+     * @param int id Post's id
+     * @return twigRender Single Post with all post's comments and author datas
+     */
+    public function getArticleContent($id)
+    {
+        $post = $this->postRepo->getPost($id);
+        
+        if ($post == null) {
+            return $this->twig->render('website/error_404.html.twig');
+        }
+
+        $allCommentsID = $this->postRepo->getAllValidComments($post, 5);
+        $allComments = [];
+        foreach ($allCommentsID as $commentID) {
+            array_push($allComments, $this->commentRepo->getComment($commentID));
+        }
+        $author = $this->userRepo->getUser($post->getAuthor());
+
+        return $this->twig->render('website/single_post.html.twig',[
+            'post' => $post,
+            'comments' => $allComments,
+            'author' => $author
         ]);
     }
 }
