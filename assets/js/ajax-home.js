@@ -1,4 +1,4 @@
-function seeMorePosts(minID){
+function seeMorePosts(nbPage){
     let preloader = document.getElementById('preloader-blog-home');
     preloader.style.display = "block";
     var request = new XMLHttpRequest();
@@ -12,14 +12,14 @@ function seeMorePosts(minID){
             preloader.style.display = "none";
             blogSection.innerHTML = blogSection.innerHTML + response.data;
             
-            if (response.minID <= 1) {
+            if (response.nbPage <= 1) {
                 btn.style.display = "none";
             } else {
-                btn.setAttribute("onclick", "seeMorePosts("+response.minID+")");
+                btn.setAttribute("onclick", "seeMorePosts("+response.nbPage+")");
             }
         }
     };
-    request.open("GET", "ajax/more-post/"+minID);
+    request.open("GET", "ajax/more-post/"+nbPage);
     request.send();
 }
 
@@ -64,14 +64,14 @@ function setCatPost(element, setOff = false){
             blogSection.innerHTML = response.data;
             
             //Gestion du bouton Charger Plus
-            if (response.minID <= 1) {
+            if (response.nbPage <= 1) {
                 btn.style.display = "none";
             } else if(setOff == true) {
-                btn.setAttribute("onclick", "seeMorePosts("+response.minID+")");
+                btn.setAttribute("onclick", "seeMorePosts("+response.nbPage+")");
                 btn.style.display = "block";
             } else {
                 btn.style.display = "block";
-                btn.setAttribute("onclick", "setCatMorePost("+catID+","+response.minID+")");
+                btn.setAttribute("onclick", "setCatMorePost("+catID+","+response.nbPage+")");
             }
         }
     };
@@ -85,7 +85,7 @@ function setCatPost(element, setOff = false){
     request.send();
 }
 
-function setCatMorePost(catID, minID = 0){
+function setCatMorePost(catID, nbPage = 1){
     let preloader = document.getElementById('preloader-blog-home');
     preloader.style.display = "block";
     
@@ -101,16 +101,16 @@ function setCatMorePost(catID, minID = 0){
             blogSection.innerHTML = blogSection.innerHTML + response.data;
             
             //Gestion du bouton Charger Plus
-            if (response.minID <= 1) {
+            if (response.nbPage <= 1) {
                 btn.style.display = "none";
             } else {
                 btn.style.display = "block";
-                btn.setAttribute("onclick", "setCatMorePost("+catID+","+response.minID+")");
+                btn.setAttribute("onclick", "setCatMorePost("+catID+","+response.nbPage+")");
             }
         }
     };
     //Gestion de la requête à envoyer
-    request.open("GET", "ajax/see-cat-post/"+catID+"/"+minID);
+    request.open("GET", "ajax/see-cat-post/"+catID+"/"+nbPage);
 
     request.send();
 }

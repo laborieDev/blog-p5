@@ -277,7 +277,6 @@
 					</div>
 					<div id="blog-list" class="list row wow fadeInLeft" data-wow-delay=".5s">
 					{% set i = 1 %}
-					{% set minID = 0 %}
 					{% for post in posts %}
 						<div class="single single-{{ i }} col-lg-6" style="background-image:url('{{domain}}/assets/img/single_post/{{ post.img }}')">
 							<div class="infos">
@@ -288,7 +287,6 @@
 								</div>
 							</div>
 						</div>
-						{% set minID = post.id %}
 						{% set i = i+1 %}
 					{% endfor %}
 					</div>
@@ -313,7 +311,7 @@
     				  </div>
     				</div>
 	
-					<a onclick="seeMorePosts({{ minID }})" id="see-more-post-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
+					<a onclick="seeMorePosts(2)" id="see-more-post-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Charger plus</a>
 				</div>
 			</div>
 		</section>
