@@ -79,6 +79,8 @@ class Router
                             echo $this->postController->editPost($this->url[3]);
                         } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
                             echo $this->postController->deletePost($this->url[3]);
+                        } elseif ($this->url[2] == "see-more" && !empty($this->url[3])) {
+                            echo $this->postController->seeMoreDashboardPosts($this->url[3]);
                         }
                         else{
                             echo $this->requestController->get404Error();

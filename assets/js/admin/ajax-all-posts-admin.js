@@ -31,3 +31,28 @@ function deleteThisPost(){
     request.open("GET", thisAglDomain+"/admin/article/delete/"+postIDDelete);
     request.send();
 }
+
+function seeMorePosts(nbPage){
+    let preloader = document.getElementById('preloader-all-posts');
+    preloader.style.display = "block";
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let postsSection = document.getElementById("posts-data-dashboard");
+            let btn = document.getElementById("see-more-post-btn");
+
+            response = JSON.parse(this.responseText);
+
+            preloader.style.display = "none";
+            postsSection.innerHTML = postsSection.innerHTML + response.data;
+            
+            if (response.nbPage == -1) {
+                btn.style.display = "none";
+            } else {
+                btn.setAttribute("onclick", "seeMorePosts("+response.nbPage+")");
+            }
+        }
+    };
+    request.open("GET", thisAglDomain+"admin/article/see-more/"+nbPage);
+    request.send();
+}

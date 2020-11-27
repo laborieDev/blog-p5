@@ -223,4 +223,50 @@ class PostController
 
         return json_encode(array('message' => $message));
     }
+
+    /**
+     * AJAX -- See More Posts on Dashboard
+     * @param int nbPage
+     * @return JSON Ajax response
+     */
+    public function seeMoreDashboardPosts($nbPage)
+    {
+        $postRepo = new PostRepository;
+
+        $posts = $postRepo->getPosts(10, $nbPage);
+        $allMinID = $postRepo->getPostMinID();
+
+        $section = "";
+        $i = 1;
+        $minID;
+        foreach ($posts as $post) {
+            $id = $post->id;
+            $title = $post->title;
+            $addAt = date_create($post->addAt);
+            $addAt = date_format($addAt,"d.m.Y");
+            $lastEditAt = date_create($post->lastEditAt);
+            $lastEditAt = date_format($lastEditAt,"d.m.Y");
+            $section .= "
+                <tr id='row-post-$id'>
+                    <th scope='row'>$addAt</th>
+                    <td class='title-cell'>$title</td>
+                    <td class='last-edit-cell'>$lastEditAt</td>
+                    <td class='buttons-cell'>
+                      <a class='see' href='../article/$id' target='_blank'><i class='lni lni-eye'></i></a>
+                      <a class='see' href='../admin/article/edit/$id' href='#'><i class='lni lni-pencil-alt'></i></a>
+                      <a class='delete' onclick='getDeleteModal($id)' href='#'><i class='lni lni-trash'></i></a>
+                    </td>
+                </tr>
+            ";
+            $i++;
+            $minID = $id;
+        }
+        $nbPage ++;
+
+        if ($allMinID == $minID) {
+            return json_encode(array('data' => $section, 'nbPage' => -1));
+        } else { 
+            return json_encode(array('data' => $section, 'nbPage' => $nbPage));
+        }
+    }
 }
