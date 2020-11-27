@@ -1,0 +1,107 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block body %}
+    <!-- ========================= Start first section ========================= -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+	  	{% if postEdit is defined %}
+        	<h1 class="title-page">Modifier l'article "{{ postEdit.title }}"</h1>
+		{% else %}
+			<h1 class="title-page">Ajouter un article</h1>
+		{% endif %}
+        <div class="row">
+			  	<div class="col-md-12">
+						<div class="contact-wrapper wow fadeInUp" data-wow-delay=".2s">
+							<form action="" id="new-post-form" class="contact-form">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="single-form">
+											{% if postEdit is defined %}
+												<input type="text" name="title" id="title" class="new-post-input form-input" placeholder="Titre" value="{{ postEdit.title }}">
+											{% else %}
+												<input type="text" name="title" id="title" class="new-post-input form-input" placeholder="Titre">
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-md-12">
+									<div class="single-form">
+                      					<select class="form-control" onchange="setCats(this)" id="cat-select">
+                      					  <option value="" selected disabled>Ajouter une catégorie</option>
+                      					{% for cat in categories %}
+                      					  <option id="cat-option-{{ cat.id }}" value="{{ cat.id }}">{{ cat.name }}</option>
+                      					{% endfor %}
+                      					</select>
+                      					<div id="cat-selected">
+										  	{% if postEdit is defined %}
+												{% for catPost in postCats %}
+													<span id="cat-list-item-{{catPost.id}}">{{catPost.name}}<i class="lni lni-close" onclick="removeThisCat('{{catPost.id}}')"></i></span>
+												{% endfor %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+										{% if postEdit is defined %}
+											<textarea name="extract" id="extract" class="new-post-input form-input" rows="3" placeholder="Extrait" maxlength="280">{{ postEdit.extract }}</textarea>
+										{% else %}
+											<textarea name="extract" id="extract" class="new-post-input form-input" rows="3" placeholder="Extrait" maxlength="280"></textarea>
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+										{% if postEdit is defined %}
+											<textarea name="content" id="content" class="new-post-input form-input" rows="10" placeholder="Contenu">{{ postEdit.content }}</textarea>
+										{% else %}
+											<textarea name="content" id="content" class="new-post-input form-input" rows="10" placeholder="Contenu"></textarea>
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+                      					<p>Image mise en avant :</p><br>
+										{% if postEdit is defined %}
+											<img class="img-mis-en-avant-edit" src="{{domain}}/assets/img/single_post/{{ postEdit.img }}"><br>
+										{% endif %}
+										<input type="file" class="new-post-input form-control-file" id="img" name="img" placeholder="Image mise en avant" accept="image/jpeg" value="1">
+									</div><br>
+								</div>
+                  				<div id="alert-message" class="alert" role="alert" style="display:none"></div>
+								<div class="col-md-12">
+									<div id="submit-btn" class="submit-btn">
+										{% if postEdit is defined %}
+											<input type="hidden" id="post-id-input" value="{{ postEdit.id }}">
+											<div class="main-btn btn-hover" onclick="sendEditPostForm()">Envoyer</div>
+										{% else %}
+											<div class="main-btn btn-hover" onclick="sendNewPostForm()">Envoyer</div>
+										{% endif %}
+									</div>
+									<div id="return-home" class="submit-btn" style="display:none">
+										<a href="{{domain}}/admin/article" class="main-btn btn-hover">Retourner au tableau de bord</a>
+									</div>
+								</div>
+							</form>
+						</div>
+          		</div>
+        	</div>
+      </div>
+    </section>
+    <!-- ========================= End first section ========================= -->
+{% endblock %}
+
+{% block javascripts %}
+	{% set allCatsID = "" %}
+	{% for catPost in postCats %}
+		{% set allCatsID = allCatsID ~ '' ~ catPost.id ~ ',' %}
+	{% endfor %}
+
+  	<script src="{{domain}}/assets/js/admin/new-post-admin.js"></script>  
+	{% if postEdit is defined %}
+		<script>
+			allCatsID = "{{ allCatsID }}";
+			allCats = allCatsID.split(',');
+			allCats.splice(-1,1);
+		</script>
+	{% endif %}
+{% endblock %}

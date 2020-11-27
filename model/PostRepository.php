@@ -21,12 +21,11 @@ class PostRepository extends ClassPdo
      * @param int maxID max of post ID
      * @return array allPosts 
      */
-    public function getPosts($limit = 0, $maxID = 0)
+    public function getPosts($limit = 0, $nbPage = 1)
     {
-        if ($maxID != 0) { 
-            $req = "SELECT id FROM blog_post WHERE id < $maxID ORDER BY id DESC LIMIT $limit";
-        } elseif ($limit != 0) {
-            $req = "SELECT id FROM blog_post ORDER BY id DESC LIMIT $limit";
+        if ($limit != 0) {
+            $page = ($nbPage - 1) * $limit;
+            $req = "SELECT id FROM blog_post ORDER BY id DESC LIMIT $page, $limit";
         } else {
             $req = "SELECT id FROM blog_post";
         }
@@ -77,14 +76,13 @@ class PostRepository extends ClassPdo
      * @param int maxID max of post ID 
      * @return array posts Posts of this Category
      */
-    public function getCatPosts($catID, $limit = 0, $maxID = 0)
+    public function getCatPosts($catID, $limit = 0, $nbPage = 1)
     {
         $req = "SELECT p.id FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID";
         
-        if ($maxID != 0) { 
-            $req .= " AND p.id < $maxID ORDER BY p.id DESC LIMIT $limit";
-        } elseif ($limit != 0) {
-            $req .= " ORDER BY p.id DESC LIMIT $limit";
+        if ($limit != 0) {
+            $page = ($nbPage - 1) * $limit;
+            $req .= " ORDER BY p.id DESC LIMIT $page, $limit";
         }
         
         $rs = ClassPdo::$monPdo->query($req);
@@ -176,6 +174,24 @@ class PostRepository extends ClassPdo
     }
 
     /**
+     * @param int catID 
+     * @return int number of all views
+     */
+    public function getPostMinID($catID = 0)
+    {
+        if ($catID != 0) {
+            $req = "SELECT MIN(p.id) FROM blog_post p, category_blog_post c WHERE p.id = c.id_blog_post AND c.id_category = $catID";
+        } else {
+            $req = "SELECT MIN(id) FROM blog_post";
+        }
+        
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetch();
+
+        return $value[0];
+    }
+
+    /**
      * Add Post's category
      * @param Post post 
      * @param int catID 
@@ -230,7 +246,27 @@ class PostRepository extends ClassPdo
     /**
      * @param Post post
      */
+    public function deleteCatsPostRelation($post){
+        $id = $post->getID();
+        $req = "DELETE FROM category_blog_post WHERE id_blog_post=$id";
+        ClassPdo::$monPdo->query($req);
+    }
+
+    /**
+     * @param Post post
+     */
+    public function deleteAllPostComments($post){
+        $id = $post->getID();
+        $req = "DELETE FROM comment WHERE id_blog_post=$id";
+        ClassPdo::$monPdo->query($req);
+    }
+
+    /**
+     * @param Post post
+     */
     public function deletePost($post){
+        $this->deleteCatsPostRelation($post);
+        $this->deleteAllPostComments($post);
         $id = $post->getID();
         $req = "DELETE FROM blog_post WHERE id=$id";
         ClassPdo::$monPdo->query($req);

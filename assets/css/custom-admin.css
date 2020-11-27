@@ -85,3 +85,128 @@ select {
 
 #cat-selected span .lni-close{margin-left: 5px; cursor: pointer;}
 #cat-selected span .lni-close:hover{color: rgba(225,0,0,0.5);}
+
+img.img-mis-en-avant-edit{
+    max-height: 200px;
+    max-width: 50%;
+    margin-bottom: 20px;
+}
+
+/**** AJAX PRELOADER *****/
+.ajax-preloader{
+    position: relative;
+    height: 100px;
+    display: none;
+}
+.ajax-preloader .preloader{
+    position: absolute;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    background: none;
+    z-index: 1;
+}
+
+/*** BOITES MODAL ***/
+.modal-admin{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 100;
+}
+
+.modal-admin .content{
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    padding: 20px 20px;
+    position: absolute;
+    left: calc(50% - 250px);
+    top: calc(50% - 200px);
+    border-radius: 10px;
+    display: table;
+}
+
+.modal-admin .content .structure{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.modal-admin .content .structure .content-form{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.modal-admin .content .structure .content-form h1{margin-bottom: 20px}
+.modal-admin .content .structure .content-form input[type="sumit"]{margin-top: 20px}
+
+.modal-admin .content .structure .content-form input{
+    width: 100%;
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0px 0px 45px rgba(181, 181, 181, 2.16);
+    padding: 18px 30px;
+    line-height: 1;
+    color: #5B657E;
+    border: 1px solid transparent;
+    transition: all 0.3s ease-out 0s;
+    margin: 10px auto;
+}
+
+.modal-admin .content .structure .content-form .password-input-section{
+    position: relative;
+}
+
+.modal-admin .content .structure .content-form .eye{
+    position: absolute;
+    right: 30px;
+    height: 25px;
+    font-size: 25px;
+    top: calc(50% - 15px);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.modal-admin .content .structure .content-form .eye:hover{
+    color: var(--agl-second-blue);
+}
+
+.modal-admin .content .structure .content-form .eye .lni-eye.active::after{
+    content: "";
+    background-color: #5b657e;
+    width: 25px;
+    height: 2px;
+    display: block;
+    transform: rotate(45deg);
+    top: 16px;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.modal-admin .content .structure .content-form .eye:hover .lni-eye.active::after{
+    background-color: var(--agl-second-blue);
+}
+
+.modal-admin .content .structure .lni-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.modal-admin .content .btn-delete:hover{
+    background-color: #EC7063 !important;
+}
+
+@media screen and (max-width : 555px){
+    .modal-admin .content {
+        width: 250px;
+        left: calc(50% - 125px);
+    }
+    .modal-admin .content h1{font-size: 33px;}
+}

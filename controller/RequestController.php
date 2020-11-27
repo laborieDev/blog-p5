@@ -91,11 +91,12 @@ class RequestController
      * @param int maxID minimum ID of actual posts
      * @return json A Json Array with posts datas and minID of this posts
      */
-    public function seeMorePost($maxID = 0)
+    public function seeMorePost($nbPage=1)
     {
         $postRepo = new PostRepository;
 
-        $posts = $postRepo->getPosts(4, $maxID);
+        $posts = $postRepo->getPosts(4, $nbPage);
+        $allMinID = $postRepo->getPostMinID();
 
         $section = "";
         $i = 1;
@@ -119,11 +120,12 @@ class RequestController
             $i++;
             $minID = $id;
         }
-        
-        if ($i < 4) {
-            return json_encode(array('data' => $section, 'minID' => -1));
+        $nbPage ++;
+
+        if ($allMinID == $minID) {
+            return json_encode(array('data' => $section, 'nbPage' => -1));
         } else { 
-            return json_encode(array('data' => $section, 'minID' => $minID));
+            return json_encode(array('data' => $section, 'nbPage' => $nbPage));
         }
     }
 
@@ -132,10 +134,11 @@ class RequestController
      * @param int maxID minimum ID of actual posts
      * @return json A Json Array with posts datas and minID of this posts
      */
-    public function seeCatPost($catID, $maxID = 0)
+    public function seeCatPost($catID, $nbPage = 1)
     {
         $postRepo = new PostRepository;
-        $posts = $postRepo->getCatPosts($catID, 4, $maxID);
+        $posts = $postRepo->getCatPosts($catID, 4, $nbPage);
+        $allMinID = $postRepo->getPostMinID($catID);
 
         $section = "";
         $i = 1;
@@ -159,11 +162,13 @@ class RequestController
             $i++;
             $minID = $id;
         }
+
+        $nbPage++;
         
-        if ($i < 4) {
-            return json_encode(array('data' => $section, 'minID' => -1));
+        if ($allMinID == $minID) {
+            return json_encode(array('data' => $section, 'nbPage' => -1));
         } else { 
-            return json_encode(array('data' => $section, 'minID' => $minID));
+            return json_encode(array('data' => $section, 'nbPage' => $nbPage));
         }
     }
 

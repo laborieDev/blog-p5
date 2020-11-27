@@ -1,0 +1,84 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block body %}
+    <!-- ========================= Start first section ========================= -->
+    <section>
+      <div class="container">
+        <h1 class="title-page">Tous les articles</h1>
+          <div id="alert-message" class="alert alert-success" role="alert" style="display:none"></div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col" class="title-cell">Titre</th>
+                <th scope="col" class="last-edit-cell">Dernière modification</th>
+                <th scope="col">Gestion</th>
+              </tr>
+            </thead>
+            <tbody id="posts-data-dashboard">
+            {% for post in posts %}
+              <tr id="row-post-{{ post.id }}">
+                <th scope="row">{{ post.addAt|date("d.m.Y") }}</th>
+                <td class="title-cell">{{ post.title }}</td>
+                <td class="last-edit-cell">{{ post.lastEditAt|date("d.m.Y") }}</td>
+                <td class="buttons-cell">
+                  <a class="see" href="{{domain}}/article/{{ post.id }}" target="_blank"><i class="lni lni-eye"></i></a>
+                  <a class="see" href="{{domain}}/admin/article/edit/{{ post.id }}" href="#"><i class="lni lni-pencil-alt"></i></a>
+                  <a class="delete" onclick="getDeleteModal({{ post.id }})" href="#"><i class="lni lni-trash"></i></a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {# PRELOADER AJAX #}
+		     <div class="ajax-preloader" id="preloader-all-posts" >
+    	      <div class="preloader">
+    	        <div class="loader">
+    	          <div class="ytp-spinner">
+    	            <div class="ytp-spinner-container">
+    	              <div class="ytp-spinner-rotator">
+    	                <div class="ytp-spinner-left">
+    	                  <div class="ytp-spinner-circle"></div>
+    	                </div>
+    	                <div class="ytp-spinner-right">
+    	                  <div class="ytp-spinner-circle"></div>
+    	                </div>
+    	              </div>
+    	            </div>
+    	          </div>
+    	        </div>
+    	      </div>
+    	    </div>
+            </div>
+		    <a onclick="seeMorePosts(2)" id="see-more-post-btn" class="see-more-btn main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".2s" style="display: block; visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp; max-width: 500px; margin: 0 auto">Charger plus</a>				
+        </div>
+    </section>
+    <!-- ========================= End first section ========================= -->
+
+     <!-- ========================= modal suppression ========================= -->
+    <div id="modal-delete-post" class="modal-admin" style="display: none">
+      <div class="contact-wrapper content">
+        <div class="structure">
+            <i class="lni lni-close" onclick="getDeleteModal()"></i>
+            <div class="content-form">
+              <h2>Êtes vous sûr de vouloir supprimer cet article ?</h2>
+              	<div id="login-form" class="contact-form">
+                  <br>
+					<div class="row">
+					    <div class="col-md-12">
+					    	<div class="submit-btn">
+					    		<button onclick="deleteThisPost()" class="main-btn btn-hover btn-delete">Oui</button>&nbsp;
+					    		<button onclick="getDeleteModal()" class="main-btn border-btn btn-hover">Non</button>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+            </div>
+          </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{domain}}/assets/js/admin/ajax-all-posts-admin.js"></script>
+{% endblock %}
