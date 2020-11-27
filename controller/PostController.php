@@ -81,6 +81,18 @@ class PostController
     }
 
     /**
+     * @return twigRender Dashboard of Posts
+     */
+    public function getDashboardPosts()
+    {
+        $posts = $this->postRepo->getPosts($limit = 10);
+
+        return $this->twig->render('admin/all_posts.html.twig',[
+            'posts' => $posts
+        ]);
+    }
+
+    /**
      * Page for to create or edit a post
      * @param int idPostEdit = -1 when this function is called for create an article
      * @return twigRender New Post Form
@@ -185,5 +197,30 @@ class PostController
         }
 
         return "Edited";
+    }
+
+    /**
+     * AJAX -- Delete Post
+     * @param int postID
+     * @return JSON Ajax response
+     */
+    public function deletePost($postID)
+    {
+        $post = $this->postRepo->getPost($postID);
+
+        if ($post == "") {
+            return "Error";
+        }
+
+        try{
+            $this->postRepo->deletePost($post);
+            $message = "L'article a bien été supprimé !";
+        } catch (\Exception $e) {
+            http_response_code(500);
+            $message =  "Attention : " . $e->getMessage();
+        }
+
+
+        return json_encode(array('message' => $message));
     }
 }

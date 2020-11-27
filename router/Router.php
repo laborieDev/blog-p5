@@ -67,18 +67,24 @@ class Router
                     echo $this->commentController->setCommentStatus($this->url[2], $this->url[3]);
                 }
                 //ARTICLE
-                else if ($this->url[1] == "article" && !empty($this->url[2])) {
-                    if ($this->url[2] == "new") {
-                        echo $this->postController->setPostPage();
-                    } elseif ($this->url[2] == "add") {
-                        echo $this->postController->addNewPost();
-                    } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
-                        echo $this->postController->setPostPage($this->url[3]);
-                    } elseif ($this->url[2] == "editArticle" && !empty($this->url[3])) {
-                        echo $this->postController->editPost($this->url[3]);
-                    }
-                    else{
-                        echo $this->requestController->get404Error();
+                else if ($this->url[1] == "article") {
+                    if (!empty($this->url[2])) {
+                        if ($this->url[2] == "new") {
+                            echo $this->postController->setPostPage();
+                        } elseif ($this->url[2] == "add") {
+                            echo $this->postController->addNewPost();
+                        } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
+                            echo $this->postController->setPostPage($this->url[3]);
+                        } elseif ($this->url[2] == "editArticle" && !empty($this->url[3])) {
+                            echo $this->postController->editPost($this->url[3]);
+                        } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
+                            echo $this->postController->deletePost($this->url[3]);
+                        }
+                        else{
+                            echo $this->requestController->get404Error();
+                        }
+                    } else {
+                        echo $this->postController->getDashboardPosts();
                     }
                 }
                 //DECONNEXION

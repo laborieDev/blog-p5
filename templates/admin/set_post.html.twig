@@ -78,7 +78,7 @@
 										{% endif %}
 									</div>
 									<div id="return-home" class="submit-btn" style="display:none">
-										<a href="{{domain}}/admin" class="main-btn btn-hover">Retourner au tableau de bord</a>
+										<a href="{{domain}}/admin/article" class="main-btn btn-hover">Retourner au tableau de bord</a>
 									</div>
 								</div>
 							</form>
@@ -96,7 +96,7 @@
 		{% set allCatsID = allCatsID ~ '' ~ catPost.id ~ ',' %}
 	{% endfor %}
 
-  	<script src="{{domain}}/assets/js/new-post-admin.js"></script>  
+  	<script src="{{domain}}/assets/js/admin/new-post-admin.js"></script>  
 	{% if postEdit is defined %}
 		<script>
 			allCatsID = "{{ allCatsID }}";
