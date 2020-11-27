@@ -81,14 +81,37 @@ class PostController
     }
 
     /**
-     * Page for to create a post
+     * Page for to create or edit a post
+     * @param int idPostEdit = -1 when this function is called for create an article
      * @return twigRender New Post Form
      */
-    public function addNewPostPage()
+    public function setPostPage($idPostEdit = -1)
     {
         $cats = $this->catRepo->getCategories();
 
-        return $this->twig->render('admin/new_post.html.twig', [
+        if ($idPostEdit != -1) {
+            $post = $this->postRepo->getPost($idPostEdit);
+            $postCats = $this->postRepo->getAllCategories($post);
+            $allCats = [];
+
+            foreach ($postCats as $catID) {
+                array_push($allCats, $this->catRepo->getCategory($catID));
+            }
+
+            if ($post == "") {
+                return $this->twig->render('website/errors_page.html.twig', [
+                    "error" => "Cet article n'existe pas !"
+                ]);
+            } else {
+                return $this->twig->render('admin/set_post.html.twig', [
+                    'postEdit' => $post,
+                    'postCats' => $allCats,
+                    'categories' => $cats
+                ]);
+            }
+        }     
+
+        return $this->twig->render('admin/set_post.html.twig', [
             'categories' => $cats
         ]);
     }
@@ -125,5 +148,42 @@ class PostController
         } else { 
           return "Error";
         }
+    }
+
+    /**
+     * AJAX -- Edit Post
+     * @param int postID
+     * @return string Ajax response
+     */
+    public function editPost($postID)
+    {
+        $post = $this->postRepo->getPost($postID);
+
+        if (!isset($_POST['title']) || $post == "") {
+            return "Error";
+        }
+
+        $post->setTitle($_POST['title']);
+        $post->setExtract($_POST['extract']);
+        $post->setContent($_POST['content']);
+
+        if(isset($_FILES['file'])){
+            $filename = $_FILES['file']['name'];
+            $location = "assets/img/single_post/".$filename;
+
+            if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
+                $post->setImg($filename);
+            }
+        }
+
+        $this->postRepo->updatePost($post);
+
+        $this->postRepo->deleteCatsPostRelation($post);
+        $cats = explode("," , $_POST['allCats']);
+        foreach ($cats as $cat) {
+            $this->postRepo->addPostCategory($post, $cat);
+        }
+
+        return "Edited";
     }
 }

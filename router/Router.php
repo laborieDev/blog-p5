@@ -69,9 +69,16 @@ class Router
                 //ARTICLE
                 else if ($this->url[1] == "article" && !empty($this->url[2])) {
                     if ($this->url[2] == "new") {
-                        echo $this->postController->addNewPostPage();
+                        echo $this->postController->setPostPage();
                     } elseif ($this->url[2] == "add") {
                         echo $this->postController->addNewPost();
+                    } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
+                        echo $this->postController->setPostPage($this->url[3]);
+                    } elseif ($this->url[2] == "editArticle" && !empty($this->url[3])) {
+                        echo $this->postController->editPost($this->url[3]);
+                    }
+                    else{
+                        echo $this->requestController->get404Error();
                     }
                 }
                 //DECONNEXION

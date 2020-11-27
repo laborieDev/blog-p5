@@ -85,3 +85,9 @@ select {
 
 #cat-selected span .lni-close{margin-left: 5px; cursor: pointer;}
 #cat-selected span .lni-close:hover{color: rgba(225,0,0,0.5);}
+
+img.img-mis-en-avant-edit{
+    max-height: 200px;
+    max-width: 50%;
+    margin-bottom: 20px;
+}

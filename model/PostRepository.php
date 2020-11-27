@@ -230,7 +230,17 @@ class PostRepository extends ClassPdo
     /**
      * @param Post post
      */
+    public function deleteCatsPostRelation($post){
+        $id = $post->getID();
+        $req = "DELETE FROM category_blog_post WHERE id_blog_post=$id";
+        ClassPdo::$monPdo->query($req);
+    }
+
+    /**
+     * @param Post post
+     */
     public function deletePost($post){
+        $this->deleteCatsPostRelation($post);
         $id = $post->getID();
         $req = "DELETE FROM blog_post WHERE id=$id";
         ClassPdo::$monPdo->query($req);
