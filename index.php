@@ -7,6 +7,7 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/router/Router.php';
 require __DIR__ . '/controller/PostController.php';
 require __DIR__ . '/controller/CommentController.php';
+require __DIR__ . '/controller/UserController.php';
 require __DIR__ . '/controller/RequestController.php';
 
 //Repositories Init

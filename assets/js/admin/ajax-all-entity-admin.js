@@ -1,20 +1,21 @@
-let postIDDelete = -1;
+let deleteID = -1;
 
 function getDeleteModal(postID){
-    postIDDelete = postID;
+    deleteID = postID;
     let modal = document.getElementById('modal-delete-post');
     if(modal.style.display == "none"){
         modal.style.display = "block";
     }
     else{
         modal.style.display = "none";
-        postIDDelete = -1;
+        deleteID = -1;
     }
 }
 
+// POSTS GESTION //
 function deleteThisPost(){
     let postsSection = document.getElementById("posts-data-dashboard");
-    let thisPostSection = document.getElementById("row-post-"+postIDDelete);
+    let thisPostSection = document.getElementById("row-post-"+deleteID);
     let alertMessage = document.getElementById("alert-message");
 
     //APPEL AJAX POUR EDITER LE COMMENTAIRE 
@@ -28,7 +29,7 @@ function deleteThisPost(){
             getDeleteModal(-1);
         }
     };
-    request.open("GET", thisAglDomain+"/admin/article/delete/"+postIDDelete);
+    request.open("GET", thisAglDomain+"/admin/article/delete/"+deleteID);
     request.send();
 }
 
@@ -54,5 +55,33 @@ function seeMorePosts(nbPage){
         }
     };
     request.open("GET", thisAglDomain+"admin/article/see-more/"+nbPage);
+    request.send();
+}
+
+// USER GESTION //
+function deleteThisUser(){
+    let postsSection = document.getElementById("users-data-dashboard");
+    let thisUserSection = document.getElementById("row-user-"+deleteID);
+    let alertMessage = document.getElementById("alert-message");
+
+    //APPEL AJAX POUR EDITER LE COMMENTAIRE 
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.responseText);
+            thisUserSection.style.display = "none";
+            alertMessage.classList.remove("alert-danger");;
+            alertMessage.style.display = "block";
+            alertMessage.innerText = response.message;
+            getDeleteModal(-1);
+        } else if (this.readyState == 4 && this.status == 500) {
+            response = JSON.parse(this.responseText);
+            alertMessage.style.display = "block";
+            alertMessage.classList.add("alert-danger");
+            alertMessage.innerText = response.message;
+            getDeleteModal(-1);
+        }
+    };
+    request.open("GET", thisAglDomain+"/admin/user/delete/"+deleteID);
     request.send();
 }

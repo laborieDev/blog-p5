@@ -11,6 +11,7 @@ class CommentController
     public function __construct()
     {
         $this->twig = new Environment(new FilesystemLoader('templates'));
+        $this->twig->addGlobal('session', $_SESSION);
         $this->postRepo = new PostRepository;
         $this->catRepo = new CategoryRepository;
         $this->commentRepo = new CommentRepository;
