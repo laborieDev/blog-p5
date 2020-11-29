@@ -97,6 +97,23 @@ class UserRepository extends ClassPdo
     }
 
     /**
+     * @param string email
+     * @return boolean true if this email exists for another user
+     */
+    public function emailExists($email)
+    {
+        $req = "SELECT COUNT(id) FROM user WHERE email='$email'";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetch();
+        
+        if ($value[0] >= 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return User user which is created
      */
     public function newUser()
@@ -121,10 +138,10 @@ class UserRepository extends ClassPdo
     public function updateUser($user)
     {
         $id = $user->getID();
-        $lastName = $user->getLastName();
-        $firstName = $user->getFirstName();
+        $lastName = addslashes($user->getLastName());
+        $firstName = addslashes($user->getFirstName());
         $email = $user->getEmail();
-        $password = $user->getPassword();
+        $password = addslashes($user->getPassword());
         $userType = $user->getUserType();
 
         $req = "UPDATE user SET last_name = '$lastName', first_name = '$firstName', email = '$email', password = '$password', user_type = '$userType' WHERE id = $id ";

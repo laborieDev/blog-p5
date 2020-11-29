@@ -9,6 +9,7 @@ class RequestController
     public function __construct()
     {
         $this->twig = new Environment(new FilesystemLoader('templates'));
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     /********* ADMIN CONNECTION *********/
@@ -19,7 +20,7 @@ class RequestController
     public function checkUser()
     {
         if (isset($_SESSION['user'])) {
-            return $_SESSION['user-type'];
+            return $_SESSION['userType'];
         } else {
             return "false";
         }
@@ -38,8 +39,8 @@ class RequestController
         }
         
         $_SESSION['user'] = $user->getLastName()." ".$user->getFirstName();
-        $_SESSION['user-type'] = $user->getUserType();
-        $_SESSION['user-id'] = $user->getID();
+        $_SESSION['userType'] = $user->getUserType();
+        $_SESSION['userID'] = $user->getID();
             
         return "Connected";
     }

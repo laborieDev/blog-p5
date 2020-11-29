@@ -1,0 +1,96 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block body %}
+    <!-- ========================= Start first section ========================= -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+	  	{% if userEdit is defined %}
+        	<h1 class="title-page">Modifier l'utilisateur "{{ userEdit.lastName }} {{ userEdit.firstName }}"</h1>
+		{% else %}
+			<h1 class="title-page">Ajouter un utilisateur</h1>
+		{% endif %}
+        <div class="row">
+			  	<div class="col-md-12">
+						<div class="contact-wrapper wow fadeInUp" data-wow-delay=".2s">
+							<form action="" id="new-user-form" class="contact-form">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="single-form">
+											{% if userEdit is defined %}
+												<input type="text" name="lastname" id="lastname" class="new-user-input form-input" placeholder="Nom" value="{{ userEdit.lastName }}">
+											{% else %}
+												<input type="text" name="lastname" id="lastname" class="new-user-input form-input" placeholder="Nom">
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="single-form">
+											{% if userEdit is defined %}
+												<input type="text" name="firstname" id="firstname" class="new-user-input form-input" placeholder="Prénom" value="{{ userEdit.firstName }}">
+											{% else %}
+												<input type="text" name="firstname" id="firstname" class="new-user-input form-input" placeholder="Prénom">
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-md-12">
+									<div class="single-form">
+                      					<select class="form-control new-user-input" id="userType" name="usertype" aglplaceholder="Type d'utilisateur">
+                      					    <option value="" selected disabled>Type d'utilisateur</option>
+                                            {% if userEdit is defined and userEdit.userType == "admin" %}
+                      					        <option id="cat-option" value="admin" selected>Administrateur</option>
+                                            {% else %}
+                      					        <option id="cat-option" value="admin">Administrateur</option>
+                                            {% endif %}
+                                            {% if userEdit is defined and userEdit.userType == "author" %}
+                      					        <option id="cat-option" value="author" selected>Auteur</option>
+                                            {% else %}
+                      					        <option id="cat-option" value="author">Auteur</option>
+                                            {% endif %}
+                      					</select>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+										{% if userEdit is defined %}
+											<input type="email" name="email" id="email" class="new-user-input form-input" placeholder="Email" value="{{ userEdit.email }}" readonly>
+										{% else %}
+											<input type="email" name="email" id="email" class="new-user-input form-input" placeholder="Email">
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+										<input type="password" name="password" id="password" class="new-user-input form-input" placeholder="Mot de passe">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="single-form">
+										<input type="password" name="confirmPassword" id="confirmPassword" class="new-user-input form-input" placeholder="Confirmer le mot de passe">
+									</div>
+								</div>
+                  				<div id="alert-message" class="alert" role="alert" style="display:none"></div>
+								<div class="col-md-12">
+									<div id="submit-btn" class="submit-btn">
+										{% if userEdit is defined %}
+											<input type="hidden" id="user-id-input" value="{{ userEdit.id }}">
+											<div class="main-btn btn-hover" onclick="sendEditUserForm()">Envoyer</div>
+										{% else %}
+											<div class="main-btn btn-hover" onclick="sendNewUserForm()">Envoyer</div>
+										{% endif %}
+									</div>
+									<div id="return-home" class="submit-btn" style="display:none">
+										<a href="{{domain}}/admin/user" class="main-btn btn-hover">Retourner au tableau de bord</a>
+									</div>
+								</div>
+							</form>
+						</div>
+          		</div>
+        	</div>
+      </div>
+    </section>
+    <!-- ========================= End first section ========================= -->
+{% endblock %}
+
+{% block javascripts %}
+  	<script src="{{domain}}/assets/js/admin/new-user-admin.js"></script>  
+{% endblock %}

@@ -3,6 +3,7 @@ class Router
 {
     public $postController;
     public $commentController;
+    public $userController;
     public $requestController;
     public $url;
 
@@ -10,6 +11,7 @@ class Router
     {
         $this->postController = new PostController;
         $this->commentController = new CommentController;
+        $this->userController = new UserController;
         $this->requestController = new RequestController;
 
         $this->url = '';
@@ -87,6 +89,28 @@ class Router
                         }
                     } else {
                         echo $this->postController->getDashboardPosts();
+                    }
+                }
+                // USERS 
+                else if ($this->url[1] == "user") {
+                    if ($checkUser == "admin") {
+                        if (!empty($this->url[2])) {
+                            if($this->url[2] == "new"){
+                                echo $this->userController->setUserPage();
+                            } elseif ($this->url[2] == "add") {
+                                echo $this->userController->addNewUser();
+                            } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
+                                echo $this->userController->setUserPage($this->url[3]);
+                            } elseif ($this->url[2] == "editUser" && !empty($this->url[3])) {
+                                echo $this->userController->editUser($this->url[3]);
+                            } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
+                                echo $this->userController->deleteUser($this->url[3]);
+                            } 
+                        } else {
+                            echo $this->userController->getDashboardUsers();
+                        }
+                    } else {
+                        echo $this->userController->getUserTypeError();
                     }
                 }
                 //DECONNEXION
