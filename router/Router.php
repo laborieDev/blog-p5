@@ -91,7 +91,7 @@ class Router
                         echo $this->postController->getDashboardPosts();
                     }
                 }
-                // USERS 
+                //USERS 
                 else if ($this->url[1] == "user") {
                     if ($checkUser == "admin") {
                         if (!empty($this->url[2])) {
@@ -111,6 +111,16 @@ class Router
                         }
                     } else {
                         echo $this->userController->getUserTypeError();
+                    }
+                }
+                //COMMENTAIRES
+                else if ($this->url[1] == "comment") {
+                    if (!empty($this->url[2])) {
+                        if ($this->url[2] == "see-more" && !empty($this->url[3])) {
+                            echo $this->commentController->seeMoreDashboardComments($this->url[3]);
+                        }
+                    } else {
+                        echo $this->commentController->getAllComments();
                     }
                 }
                 //DECONNEXION

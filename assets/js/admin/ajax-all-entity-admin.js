@@ -58,6 +58,31 @@ function seeMorePosts(nbPage){
     request.send();
 }
 
+function seeMoreComments(nbPage){
+    let preloader = document.getElementById('preloader-all-posts');
+    preloader.style.display = "block";
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let commentsSection = document.getElementById("comments-data-dashboard");
+            let btn = document.getElementById("see-more-post-btn");
+
+            response = JSON.parse(this.responseText);
+
+            preloader.style.display = "none";
+            commentsSection.innerHTML = commentsSection.innerHTML + response.data;
+            
+            if (response.nbPage == -1) {
+                btn.style.display = "none";
+            } else {
+                btn.setAttribute("onclick", "seeMoreComments("+response.nbPage+")");
+            }
+        }
+    };
+    request.open("GET", thisAglDomain+"admin/comment/see-more/"+nbPage);
+    request.send();
+}
+
 // USER GESTION //
 function deleteThisUser(){
     let postsSection = document.getElementById("users-data-dashboard");

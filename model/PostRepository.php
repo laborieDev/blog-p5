@@ -18,7 +18,7 @@ class PostRepository extends ClassPdo
 
     /**
      * @param int limit Limit of posts
-     * @param int maxID max of post ID
+     * @param int nbPage 
      * @return array allPosts 
      */
     public function getPosts($limit = 0, $nbPage = 1)
@@ -175,7 +175,7 @@ class PostRepository extends ClassPdo
 
     /**
      * @param int catID 
-     * @return int number of all views
+     * @return int min ID of all posts
      */
     public function getPostMinID($catID = 0)
     {
