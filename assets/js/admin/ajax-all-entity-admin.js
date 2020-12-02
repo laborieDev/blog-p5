@@ -1,4 +1,5 @@
 let deleteID = -1;
+let editID = -1;
 
 function getDeleteModal(postID){
     deleteID = postID;
@@ -18,7 +19,7 @@ function deleteThisPost(){
     let thisPostSection = document.getElementById("row-post-"+deleteID);
     let alertMessage = document.getElementById("alert-message");
 
-    //APPEL AJAX POUR EDITER LE COMMENTAIRE 
+    //APPEL AJAX POUR SUPPRIMER LE POST
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -85,11 +86,10 @@ function seeMoreComments(nbPage){
 
 // USER GESTION //
 function deleteThisUser(){
-    let postsSection = document.getElementById("users-data-dashboard");
     let thisUserSection = document.getElementById("row-user-"+deleteID);
     let alertMessage = document.getElementById("alert-message");
 
-    //APPEL AJAX POUR EDITER LE COMMENTAIRE 
+    //APPEL AJAX POUR SUPPRIMER L'UTILISATEUR
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -108,5 +108,78 @@ function deleteThisUser(){
         }
     };
     request.open("GET", thisAglDomain+"/admin/user/delete/"+deleteID);
+    request.send();
+}
+
+//COMMENT GESTION
+function setThisComment(id = -1, status=""){
+    let modal = document.getElementById('modal-edit-post');
+    if(modal.style.display == "none"){
+        editID = id;
+        document.getElementById('status-edit-comment').value = status;
+        modal.style.display = "block";
+    } else {
+        modal.style.display = "none";
+        editID = -1;
+        document.getElementById('status-edit-comment').value = "";
+    }
+}
+
+function updateThisComment(){
+    let status = document.getElementById('status-edit-comment').value;
+
+    let alertMessage = document.getElementById("alert-message");
+
+    //APPEL AJAX POUR EDITER LE COMMENTAIRE 
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.responseText);
+            alertMessage.style.display = "block";
+            alertMessage.innerText = response.message;
+        }
+    };
+    request.open("GET", thisAglDomain+"/admin/set-comment/"+editID+"/"+status+"/false");
+    request.send(); 
+
+    let statusCell = document.getElementById('statut-cell-'+editID);
+    statusCell.classList.remove('valid');
+    statusCell.classList.remove('waiting');
+    statusCell.classList.remove('reject');
+
+    switch (status) {
+        case "isValid" :
+                statusCell.classList.add('valid');
+                statusCell.innerText = "Validé";
+                break;
+        case "waiting" :
+                statusCell.classList.add('waiting');
+                statusCell.innerText = "En attente";
+                break;
+        case "isReject" :
+                statusCell.classList.add('reject');
+                statusCell.innerText = "Refusé";
+                break;
+    }
+
+    setThisComment();
+}
+
+function deleteThisComment(){
+    let thisCommentSection = document.getElementById("row-comment-"+deleteID);
+    let alertMessage = document.getElementById("alert-message");
+
+    //APPEL AJAX POUR SUPPRIMER LE POST
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.responseText);
+            thisCommentSection.style.display = "none";
+            alertMessage.style.display = "block";
+            alertMessage.innerText = response.message;
+            getDeleteModal(-1);
+        }
+    };
+    request.open("GET", thisAglDomain+"/admin/comment/delete/"+deleteID);
     request.send();
 }

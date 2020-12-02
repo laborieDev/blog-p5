@@ -18,20 +18,20 @@
             </thead>
             <tbody id="comments-data-dashboard">
             {% for comment in comments %}
-              <tr id="row-post-{{ comment.id }}">
+              <tr id="row-comment-{{ comment.id }}">
                 <th scope="row">{{ comment.addAt|date("d.m.Y") }}</th>
                 {% if comment.commentStatus == "isValid" %}
-                    <td class="statut-cell valid">Validé</td>
+                    <td id="statut-cell-{{comment.id}}" class="statut-cell valid">Validé</td>
                 {% elseif comment.commentStatus == "waiting" %}
-                    <td class="statut-cell waiting">En attente</td>
+                    <td id="statut-cell-{{comment.id}}" class="statut-cell waiting">En attente</td>
                 {% else %}
-                    <td class="statut-cell reject">Rejeté</td>
+                    <td id="statut-cell-{{comment.id}}" class="statut-cell reject">Rejeté</td>
                 {% endif %}
                 <td class="author-cell">{{ comment.authorName }}</td>
                 <td class="content-cell">{{ comment.content }}</td>
                 <td class="buttons-cell">
                   <a class="see" href="{{domain}}/article/{{ comment.post }}" target="_blank"><i class="lni lni-eye"></i></a>
-                  <a class="see" onclick="setThisComment({{ comment.id }})" href="#"><i class="lni lni-pencil-alt"></i></a>
+                  <a class="see" onclick="setThisComment({{ comment.id }}, '{{ comment.commentStatus }}')" href="#"><i class="lni lni-pencil-alt"></i></a>
                   <a class="delete" onclick="getDeleteModal({{ comment.id }})" href="#"><i class="lni lni-trash"></i></a>
                 </td>
               </tr>
@@ -78,6 +78,32 @@
 					    		<button onclick="getDeleteModal()" class="main-btn border-btn btn-hover">Non</button>
 					    	</div>
 					    </div>
+					</div>
+				</div>
+            </div>
+          </div>
+      </div>
+    </div>
+    
+     <!-- ========================= modal edition ========================= -->
+    <div id="modal-edit-post" class="modal-admin" style="display: none">
+      <div class="contact-wrapper content">
+        <div class="structure">
+            <i class="lni lni-close" onclick="setThisComment()"></i>
+            <div class="content-form">
+              <h2>Modifier ce commentaire</h2>
+              	<div id="login-form" class="contact-form">
+                  <br>
+					<div class="row">
+					    <div class="col-md-12">
+					    		<select id="status-edit-comment">
+                    <option value="isValid">Validé</option>
+                    <option value="waiting">En attente</option>
+                    <option value="isReject">Rejeté</option>
+                  </select>
+                  <div style="height: 30px"></div>
+                  <button onclick="updateThisComment()" class="main-btn btn-hover">Modifier</button>
+					    	</div>
 					</div>
 				</div>
             </div>

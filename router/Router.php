@@ -64,9 +64,9 @@ class Router
         $checkUser = $this->requestController->checkUser();
         if ($checkUser != "false") {
             if (isset($this->url[1])) {
-                //CHANGEMENT STATUS COMMENTAIRE
-                if ($this->url[1] == "set-comment" && !empty($this->url[2]) && !empty($this->url[3])) {
-                    echo $this->commentController->setCommentStatus($this->url[2], $this->url[3]);
+                //CHANGEMENT STATUS COMMENTAIRE DASHBOARD AND COMMENTS LIST
+                if ($this->url[1] == "set-comment" && !empty($this->url[2]) && !empty($this->url[3]) && !empty($this->url[4])) {
+                    echo $this->commentController->setCommentStatus($this->url[2], $this->url[3], $this->url[4]);
                 }
                 //ARTICLE
                 else if ($this->url[1] == "article") {
@@ -118,7 +118,9 @@ class Router
                     if (!empty($this->url[2])) {
                         if ($this->url[2] == "see-more" && !empty($this->url[3])) {
                             echo $this->commentController->seeMoreDashboardComments($this->url[3]);
-                        }
+                        } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
+                            echo $this->commentController->deleteComment($this->url[3]);
+                        } 
                     } else {
                         echo $this->commentController->getAllComments();
                     }
