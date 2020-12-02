@@ -158,6 +158,8 @@ class Router
             } else {
                 echo $this->requestController->seeCatPost($this->url[2]);
             }
+        } elseif ($this->url[1] == 'send-contact-form') {
+            echo $this->requestController->sendContactForm();
         }
         /**** NEW COMMENT SINGLE POST ****/
         elseif ($this->url[1] == 'new-comment') {
