@@ -92,6 +92,10 @@ img.img-mis-en-avant-edit{
     margin-bottom: 20px;
 }
 
+.valid{color: green;}
+.waiting{color: grey;}
+.reject{color: red;}
+
 /**** AJAX PRELOADER *****/
 .ajax-preloader{
     position: relative;

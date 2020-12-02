@@ -210,7 +210,7 @@ class PostController
         $post = $this->postRepo->getPost($postID);
 
         if ($post == "") {
-            return "Error";
+            return json_encode(array('message' => "L'article n'existe pas !"));
         }
 
         try{
