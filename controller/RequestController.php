@@ -239,6 +239,23 @@ class RequestController
         }
     }
 
+    /**
+     * AJAX Request 
+     * @return string Alert Message
+     */
+    function sendContactForm(){
+        $to = "acs.agl46@gmail.com";
+        $subject = $_POST['subject'];
+        $headers = "From: ".$_POST['email'];
+        $txt = "
+            Vous avez reçu un nouveau message de ".$_POST['name']." : ". $_POST['message'];
+
+        mail($to,$subject,$txt,$headers);
+
+        return "Send";
+    }
+
+
     /*** BAD REQUEST ***/
 
     /**

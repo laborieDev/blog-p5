@@ -12,6 +12,6 @@ function setThisComment(commentStatus,commentID){
             alertMessage.innerText = response.message;
         }
     };
-    request.open("GET", thisAglDomain+"/admin/set-comment/"+commentID+"/"+commentStatus);
+    request.open("GET", thisAglDomain+"/admin/set-comment/"+commentID+"/"+commentStatus+"/true");
     request.send();
 }

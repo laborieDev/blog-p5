@@ -114,3 +114,55 @@ function setCatMorePost(catID, nbPage = 1){
 
     request.send();
 }
+
+function sendContactForm(){
+    let alertSection = document.getElementById('alert-message-contact-form');
+
+    let allInputs = document.getElementsByClassName("contact-form-input");
+
+    for(let i = 0; i < allInputs.length; i++){
+        allInputs[i].style.border = "0";
+    }
+
+    for(let j = 0; j < allInputs.length; j++){
+        if(allInputs[j].value == ""){
+            allInputs[j].style.border = "solid 1px red";
+            alertSection.classList.add("alert-danger");
+            alertSection.style.display = "block";
+            alertSection.innerText = "Vous devez rentrer toutes les informations.";
+
+            return ;
+        }
+    }
+
+    // ENVOYER TOUS LES INPUTS 
+    let formData = new FormData();           
+    formData.append("name", contactname.value);
+    formData.append("email", email.value);
+    formData.append("subject", subject.value);
+    formData.append("number", number.value);
+    formData.append("number", number.value);
+    formData.append("message", message.value);
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "Send") {
+                alertSection.classList.remove("alert-danger");
+                alertSection.classList.add("alert-success");
+                alertSection.style.display = "block";
+                alertSection.innerText = "Merci ! Votre message a bien été envoyé !";
+
+                document.getElementById('submit-form-btn').style.display = "none";
+                document.getElementById('return-home').style.display = "block";
+            } else {
+                alertSection.classList.add("alert-danger");
+                alertSection.style.display = "block";
+                alertSection.innerText = "Désolé... Une erreur est survenue.";
+            }
+        }
+    };
+
+    request.open("POST", thisAglDomain+"ajax/send-contact-form", true);
+    request.send(formData);
+}

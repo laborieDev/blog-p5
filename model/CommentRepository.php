@@ -17,11 +17,18 @@ class CommentRepository extends ClassPdo
     }
 
     /**
+     * @param int limit Limit of comments
+     * @param int nbPage
      * @return array allComments
      */
-    public function getComments()
+    public function getComments($limit = 0, $nbPage = 1)
     {
-        $req = "SELECT id FROM comment";
+        if ($limit != 0) {
+            $page = ($nbPage - 1) * $limit;
+            $req = "SELECT id FROM comment ORDER BY id DESC LIMIT $page, $limit";
+        } else {
+            $req = "SELECT id FROM comment";
+        }
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetchAll();
 
@@ -79,6 +86,18 @@ class CommentRepository extends ClassPdo
     public function getNumberComment()
     {
         $req = "SELECT count(id) FROM comment WHERE comment_status = 'waiting' OR comment_status = 'isValid'";
+        $rs = ClassPdo::$monPdo->query($req);
+        $value = $rs->fetch();
+
+        return $value[0];
+    }
+
+    /**
+     * @return int min ID of all comments
+     */
+    public function getCommentMinID($catID = 0)
+    {
+        $req = "SELECT MIN(id) FROM comment";
         $rs = ClassPdo::$monPdo->query($req);
         $value = $rs->fetch();
 

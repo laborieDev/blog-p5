@@ -58,7 +58,7 @@
                 En alternance avec OpenClassrooms - Limoges
               </p>
                <a class="main-btn btn-hover wow fadeInUp page-scroll" href="#about" rel="nofollow" data-wow-delay=".6s">En savoir plus</a>
-               <a class="main-btn main-btn-blue btn-hover wow fadeInUp" target="_blank" href="#about" rel="nofollow" data-wow-delay=".6s">Voir mon CV</a>
+               <a class="main-btn main-btn-blue btn-hover wow fadeInUp" target="_blank" href="{{domain}}/assets/cv_anthony_laborie.pdf" rel="nofollow" data-wow-delay=".6s">Voir mon CV</a>
             </div>
 					</div>
 					<div class="col-lg-12">
@@ -103,7 +103,6 @@
 							<div class="section-title">
 								<h1 class="mb-30 wow fadeInUp" data-wow-delay=".2s">Tout le monde devrait apprendre à programmer. Apprendre un langage de programmation, c’est apprendre à penser.</h1>
 								<p class="mb-40 wow fadeInUp" data-wow-delay=".4s">Steve JOBS - Co-fondateur Apple </p>
-								<a href="javascript:void(0)" class="main-btn btn-hover border-btn wow fadeInUp" data-wow-delay=".6s">Voir mes travaux</a>
 							</div>
 						</div>
 					</div>
@@ -331,41 +330,42 @@
 				<div class="row">
 					<div class="col-lg-7">
 						<div class="contact-wrapper wow fadeInUp" data-wow-delay=".2s">
-							<form action="#" method="POST" id="contact-form" class="contact-form">
+							<div id="contact-form" class="contact-form">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="single-form">
-											<input type="text" name="name" id="name" class="form-input" placeholder="Votre nom">
+											<input type="text" name="name" id="contactname" class="contact-form-input form-input" placeholder="Votre nom" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="single-form">
-											<input type="email" name="email" id="email" class="form-input" placeholder="Votre email">
+											<input type="email" name="email" id="email" class="contact-form-input form-input" placeholder="Votre email" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="single-form">
-											<input type="text" name="subject" id="subject" class="form-input" placeholder="Sujet">
+											<input type="text" name="subject" id="subject" class="contact-form-input form-input" placeholder="Sujet" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="single-form">
-											<input type="text" name="number" id="number" class="form-input" placeholder="Téléphone">
+											<input type="text" name="number" id="number" class="contact-form-input form-input" placeholder="Téléphone" required>
 										</div>
 									</div>
 
 									<div class="col-md-12">
 										<div class="single-form">
-											<textarea name="message" id="message" class="form-input" rows="7" placeholder="Message"></textarea>
+											<textarea name="message" id="message" class="contact-form-input form-input" rows="7" placeholder="Message" required></textarea>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="submit-btn">
-											<button class="main-btn btn-hover" type="submit">Envoyer</button>
+											<div id="alert-message-contact-form" class="alert alert-success" role="alert" style="display:none"></div>
+											<button id="submit-form-btn" class="main-btn btn-hover" onclick="sendContactForm()">Envoyer</button>
 										</div>
 									</div>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 
