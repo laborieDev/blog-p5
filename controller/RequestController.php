@@ -107,11 +107,15 @@ class RequestController
             $title = $post->title;
             $img = $post->img;
             $extract = $post->extract;
+            $date = date_create($post->getAddAt());
+            $date = date_format($date, 'd.m.Y');
+            
             $section .= "
                         <div class='single single-{$i} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
 							<div class='infos'>
 								<div>
-									<h2>{$title}</h2>
+                                    <h2>{$title}</h2>
+                                    <p class='date'>{$date}</p>
 									<p class='extract'>{$extract}</p>
 									<a href='article/{$id}' class='btn view-more'>En voir plus</a>
 								</div>
@@ -149,11 +153,14 @@ class RequestController
             $title = $post->title;
             $img = $post->img;
             $extract = $post->extract;
+            $date = date_create($post->getAddAt());
+            $date = date_format($date, 'd.m.Y');
             $section .= "
                         <div class='single single-{$i} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
 							<div class='infos'>
 								<div>
 									<h2>{$title}</h2>
+                                    <p class='date'>{$date}</p>
 									<p class='extract'>{$extract}</p>
 									<a href='article/{$id}' class='btn view-more'>En voir plus</a>
 								</div>

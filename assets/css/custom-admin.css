@@ -44,7 +44,7 @@ footer{
 .content-cell{padding: 0.5em 1em !important;}
 
 .buttons-cell a.see:hover{color: grey;}
-.buttons-cell a.valid:hover{color: green;}
+.buttons-cell a.valid_icon:hover{color: green;}
 .buttons-cell a.delete:hover{color: red;}
 
     /** TABLE RESPONSIVE **/
