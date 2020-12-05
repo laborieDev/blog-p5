@@ -254,9 +254,13 @@ class PostController
                     <td class='last-edit-cell'>$lastEditAt</td>
                     <td class='buttons-cell'>
                       <a class='see' href='../article/$id' target='_blank'><i class='lni lni-eye'></i></a>
-                      <a class='see' href='../admin/article/edit/$id' href='#'><i class='lni lni-pencil-alt'></i></a>
-                      <a class='delete' onclick='getDeleteModal($id)' href='#'><i class='lni lni-trash'></i></a>
-                    </td>
+                      <a class='see' href='../admin/article/edit/$id' href='#'><i class='lni lni-pencil-alt'></i></a> ";
+                      
+            if ($_SESSION['userType'] == "admin") {
+                $section .= "<a class='delete' onclick='getDeleteModal($id)' href='#'><i class='lni lni-trash'></i></a>";
+            }
+            
+            $section .= "</td>
                 </tr>
             ";
             $i++;
