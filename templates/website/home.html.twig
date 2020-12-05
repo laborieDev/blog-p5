@@ -281,6 +281,7 @@
 							<div class="infos">
 								<div>
 									<h2>{{ post.title }}</h2>
+									<p class="date">{{ post.addAt|date("d.m.Y") }}
 									<p class="extract">{{ post.extract }}</p>
 									<a href="{{ domain }}/article/{{ post.id }}" class="btn view-more">En voir plus</a>
 								</div>
