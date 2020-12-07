@@ -51,7 +51,6 @@ class CommentController
             $addAt = date_create($comment->getAddAt());
             $addAt = date_format($addAt,"d.m.Y");
             $postID = $comment->getPost();
-
             switch ($status) {
                 case "isValid":
                     $statusMessage = "Validé";
@@ -61,7 +60,7 @@ class CommentController
                     $statusMessage = "En attente";
                     $statusClass = "waiting";
                     break;
-                case "isRejected":
+                case "isReject":
                     $statusMessage = "Rejeté";
                     $statusClass = "reject";
                     break;
