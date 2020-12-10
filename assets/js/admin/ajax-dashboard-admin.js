@@ -5,8 +5,8 @@ function setThisComment(commentStatus,commentID){
     //APPEL AJAX POUR EDITER LE COMMENTAIRE 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            response = JSON.parse(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+            let response = JSON.parse(this.responseText);
             commentsSection.innerHTML = response.data;
             alertMessage.style.display = "block";
             alertMessage.innerText = response.message;

@@ -46,7 +46,7 @@ async function sendNewPostForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             if (this.responseText == "Added") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
@@ -93,7 +93,7 @@ async function sendEditPostForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             if (this.responseText == "Edited") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");

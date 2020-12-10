@@ -3,18 +3,19 @@ html{
     width: 100vw;
     top: 0;
     left: 0;
-    overflow-x : hidden;
+    overflow-x: hidden;
 }
+
 body{
-    --agl-primary-color: #286ADE;
+    --agl-primary-color: #286ade;
     --agl-second-blue: #5193f4;
 }
 
-.navbar {
+.navbar{
     padding: 10px;
     margin-bottom: 30px;
 }
-.navbar-nav .nav-item a {
+.navbar-nav .nav-item a{
     color: black !important;
 }
 
@@ -24,7 +25,7 @@ body{
 
 footer{
     position: fixed;
-    bottom : 0;
+    bottom: 0;
     left: 0;
     width: 100vw;
     z-index: 10;
@@ -32,9 +33,11 @@ footer{
 
 /********** DASHBOARD ************/
 .title-page, .container{margin-bottom: 50px;}
+
 .container h1, .container h2{
     text-align: center;
 }
+
 .container h2{margin-bottom: 20px;}
 
 .result{
@@ -44,25 +47,32 @@ footer{
 .content-cell{padding: 0.5em 1em !important;}
 
 .buttons-cell a.see:hover{color: grey;}
+
 .buttons-cell a.valid_icon:hover{color: green;}
+
 .buttons-cell a.delete:hover{color: red;}
 
     /** TABLE RESPONSIVE **/
-@media screen and (max-width : 580px){
+@media screen and (max-width: 580px){
     thead, td.author-cell, th.author-cell{display: none !important;}
+
     td, th{
         display: block;
         width: 100%;
     }
+
     td{border: 0;}
+
     .buttons-cell{text-align: center;}
+
     .buttons-cell a{margin: 0 10px;}
-    .scroll-top {bottom: 0; right: 0;}
+
+    .scroll-top{bottom: 0; right: 0;}
 } 
 
 
 /*** FORMS ****/
-select {
+select{
     width: 100% !important;
     border-radius: 30px !important;
     background: #fff !important;
@@ -84,6 +94,7 @@ select {
 }
 
 #cat-selected span .lni-close{margin-left: 5px; cursor: pointer;}
+
 #cat-selected span .lni-close:hover{color: rgba(225,0,0,0.5);}
 
 img.img-mis-en-avant-edit{
@@ -93,7 +104,9 @@ img.img-mis-en-avant-edit{
 }
 
 .valid{color: green;}
+
 .waiting{color: grey;}
+
 .reject{color: red;}
 
 /**** AJAX PRELOADER *****/
@@ -102,6 +115,7 @@ img.img-mis-en-avant-edit{
     height: 100px;
     display: none;
 }
+
 .ajax-preloader .preloader{
     position: absolute;
     left: calc(50% - 50px);
@@ -140,6 +154,7 @@ img.img-mis-en-avant-edit{
     width: 100%;
     display: table;
 }
+
 .modal-admin .content .structure .content-form{
     display: table-cell;
     vertical-align: middle;
@@ -147,6 +162,7 @@ img.img-mis-en-avant-edit{
 }
 
 .modal-admin .content .structure .content-form h1{margin-bottom: 20px}
+
 .modal-admin .content .structure .content-form input[type="sumit"]{margin-top: 20px}
 
 .modal-admin .content .structure .content-form input{
@@ -204,13 +220,14 @@ img.img-mis-en-avant-edit{
 }
 
 .modal-admin .content .btn-delete:hover{
-    background-color: #EC7063 !important;
+    background-color: #ec7063 !important;
 }
 
-@media screen and (max-width : 555px){
-    .modal-admin .content {
+@media screen and (max-width: 555px){
+    .modal-admin .content{
         width: 250px;
         left: calc(50% - 125px);
     }
+    
     .modal-admin .content h1{font-size: 33px;}
 }

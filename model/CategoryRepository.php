@@ -1,6 +1,6 @@
 <?php
-include_once("model/ClassPdo.php");
-include_once("entity/Category.php");
+include_once "model/ClassPdo.php";
+include_once "entity/Category.php";
 
 class CategoryRepository extends ClassPdo
 {
@@ -22,8 +22,8 @@ class CategoryRepository extends ClassPdo
     public function getCategories()
     {
         $req = "SELECT id FROM category";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allCat = [];
 
@@ -35,14 +35,14 @@ class CategoryRepository extends ClassPdo
     }
 
     /**
-     * @param int id Category's ID
+     * @param int catID Category's ID
      * @return Category cat
      */
-    public function getCategory($id)
+    public function getCategory($catID)
     {
-        $req = "SELECT * FROM category WHERE id = $id";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $req = "SELECT * FROM category WHERE id = $catID";
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         $cat = new Category();
         $cat->setID($value['id']);
@@ -57,11 +57,11 @@ class CategoryRepository extends ClassPdo
     public function newCategory()
     {
         $req = "INSERT INTO category(name) VALUES ('')";
-        $rs = ClassPdo::$monPdo->query($req);
+        $result = ClassPdo::$monPdo->query($req);
 
         $req = "SELECT MAX(id) FROM category";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         $cat = new Category();
         $cat->setID($value[0]);
@@ -77,8 +77,8 @@ class CategoryRepository extends ClassPdo
     {
         $catID = $cat->getID();
         $req = "SELECT id_blog_post FROM category_blog_post WHERE id_category = $catID";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allPosts = [];
         foreach($value as $postID){
@@ -93,10 +93,10 @@ class CategoryRepository extends ClassPdo
      */
     public function updateCategory($cat)
     {
-        $id = $cat->getID();
+        $catID = $cat->getID();
         $name = $cat->getName();
 
-        $req = "UPDATE category SET name = '$name' WHERE id = $id ";
+        $req = "UPDATE category SET name = '$name' WHERE id = $catID ";
         ClassPdo::$monPdo->query($req);
     }
 

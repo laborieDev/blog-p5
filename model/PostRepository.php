@@ -1,6 +1,6 @@
 <?php
-include_once("model/ClassPdo.php");
-include_once("entity/Post.php");
+include_once "model/ClassPdo.php";
+include_once "entity/Post.php";
 
 class PostRepository extends ClassPdo
 {
@@ -23,15 +23,15 @@ class PostRepository extends ClassPdo
      */
     public function getPosts($limit = 0, $nbPage = 1)
     {
+        $req = "SELECT id FROM blog_post";
+
         if ($limit != 0) {
             $page = ($nbPage - 1) * $limit;
             $req = "SELECT id FROM blog_post ORDER BY id DESC LIMIT $page, $limit";
-        } else {
-            $req = "SELECT id FROM blog_post";
-        }
+        } 
 
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allPosts = [];
 
@@ -49,8 +49,8 @@ class PostRepository extends ClassPdo
     public function getPost($id)
     {
         $req = "SELECT * FROM blog_post WHERE id = $id";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         if (!isset($value['id'])) {
             return null;
@@ -85,8 +85,8 @@ class PostRepository extends ClassPdo
             $req .= " ORDER BY p.id DESC LIMIT $page, $limit";
         }
         
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $posts = [];
 
@@ -105,8 +105,8 @@ class PostRepository extends ClassPdo
     {
         $postID = $post->getID();
         $req = "SELECT id_category FROM category_blog_post WHERE id_blog_post = $postID";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allCats = [];
         foreach($value as $catID){
@@ -124,8 +124,8 @@ class PostRepository extends ClassPdo
     {
         $postID = $post->getID();
         $req = "SELECT id FROM comment WHERE id_blog_post = $postID";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allComments = [];
         foreach($value as $catID){
@@ -150,8 +150,8 @@ class PostRepository extends ClassPdo
             $req .= " ORDER BY id DESC LIMIT $limit";
         }
 
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allComments = [];
         foreach($value as $catID){
@@ -167,8 +167,8 @@ class PostRepository extends ClassPdo
     public function getAllViews()
     {
         $req = "SELECT SUM(views) FROM blog_post";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         return $value[0];
     }
@@ -185,8 +185,8 @@ class PostRepository extends ClassPdo
             $req = "SELECT MIN(id) FROM blog_post";
         }
         
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         return $value[0];
     }
@@ -210,11 +210,11 @@ class PostRepository extends ClassPdo
     public function newPost($idAuthor)
     {
         $req = "INSERT INTO blog_post(title, extract, content, img, views, add_at, last_edit_at, id_author) VALUES ('','','','', 0, NOW(),NOW(), $idAuthor)";
-        $rs = ClassPdo::$monPdo->query($req);
+        $result = ClassPdo::$monPdo->query($req);
 
         $req = "SELECT id, views, add_at, last_edit_at, id_author FROM blog_post WHERE id = (SELECT MAX(id) FROM blog_post)";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         $post = new Post();
         $post->setID($value['id']);
