@@ -4,14 +4,16 @@ use Twig\Loader\FilesystemLoader;
 
 class CommentController
 {
+    private $sessionObject;
     private $twig;
     private $postRepo;
     private $catRepo;
 
     public function __construct()
     {
+        $this->sessionObject = new SessionObject;
         $this->twig = new Environment(new FilesystemLoader('templates'));
-        $this->twig->addGlobal('session', $_SESSION);
+        $this->twig->addGlobal('session', $this->sessionObject->getAll());
         $this->postRepo = new PostRepository;
         $this->catRepo = new CategoryRepository;
         $this->commentRepo = new CommentRepository;

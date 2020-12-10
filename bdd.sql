@@ -11,32 +11,32 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `openclassrooms_p5`
+-- Database: 'openclassrooms_p5'
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_post`
+-- Table structure for table 'blog_post'
 --
 
-CREATE TABLE `blog_post` (
-  `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `extract` mediumtext NOT NULL,
-  `content` longtext NOT NULL,
-  `img` varchar(255) NOT NULL,
-  `views` int(11) NOT NULL,
-  `add_at` date NOT NULL,
-  `last_edit_at` date NOT NULL,
-  `id_author` int(11) NOT NULL
+CREATE TABLE 'blog_post' (
+  'id' int(11) NOT NULL,
+  'title' varchar(100) NOT NULL,
+  'extract' mediumtext NOT NULL,
+  'content' longtext NOT NULL,
+  'img' varchar(255) NOT NULL,
+  'views' int(11) NOT NULL,
+  'add_at' date NOT NULL,
+  'last_edit_at' date NOT NULL,
+  'id_author' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `blog_post`
+-- Dumping data for table 'blog_post'
 --
 
-INSERT INTO `blog_post` (`id`, `title`, `extract`, `content`, `img`, `views`, `add_at`, `last_edit_at`, `id_author`) VALUES
+INSERT INTO 'blog_post' ('id', 'title', 'extract', 'content', 'img', 'views', 'add_at', 'last_edit_at', 'id_author') VALUES
 (1, 'Le parralax', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', 21, '2020-11-16', '2020-11-28', 1),
 (2, 'Le smartphone', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'article-1.jpg', 15, '2020-11-16', '2020-11-28', 1),
 (3, 'Le disque dur', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ultrices orci. Fusce quam augue, ultrices sit amet massa vitae, porta suscipit lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla tellus eu sapien placerat, sed sollicitudin dolor aliquam.', 'bram-naus-n8Qb1ZAkK88-unsplash.jpg', 10, '2020-11-16', '2020-11-23', 1),
@@ -52,19 +52,19 @@ INSERT INTO `blog_post` (`id`, `title`, `extract`, `content`, `img`, `views`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table 'category'
 --
 
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(55) NOT NULL
+CREATE TABLE 'category' (
+  'id' int(11) NOT NULL,
+  'name' varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table 'category'
 --
 
-INSERT INTO `category` (`id`, `name`) VALUES
+INSERT INTO 'category' ('id', 'name') VALUES
 (1, 'Mes travaux'),
 (2, 'Veille technologique'),
 (3, 'Veille juridique');
@@ -72,19 +72,19 @@ INSERT INTO `category` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_blog_post`
+-- Table structure for table 'category_blog_post'
 --
 
-CREATE TABLE `category_blog_post` (
-  `id_category` int(11) NOT NULL,
-  `id_blog_post` int(11) NOT NULL
+CREATE TABLE 'category_blog_post' (
+  'id_category' int(11) NOT NULL,
+  'id_blog_post' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category_blog_post`
+-- Dumping data for table 'category_blog_post'
 --
 
-INSERT INTO `category_blog_post` (`id_category`, `id_blog_post`) VALUES
+INSERT INTO 'category_blog_post' ('id_category', 'id_blog_post') VALUES
 (1, 1),
 (2, 1),
 (1, 2),
@@ -102,23 +102,23 @@ INSERT INTO `category_blog_post` (`id_category`, `id_blog_post`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Table structure for table 'comment'
 --
 
-CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
-  `author_name` varchar(55) NOT NULL,
-  `content` longtext NOT NULL,
-  `comment_status` varchar(10) NOT NULL,
-  `add_at` date NOT NULL,
-  `id_blog_post` int(11) NOT NULL
+CREATE TABLE 'comment' (
+  'id' int(11) NOT NULL,
+  'author_name' varchar(55) NOT NULL,
+  'content' longtext NOT NULL,
+  'comment_status' varchar(10) NOT NULL,
+  'add_at' date NOT NULL,
+  'id_blog_post' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comment`
+-- Dumping data for table 'comment'
 --
 
-INSERT INTO `comment` (`id`, `author_name`, `content`, `comment_status`, `add_at`, `id_blog_post`) VALUES
+INSERT INTO 'comment' ('id', 'author_name', 'content', 'comment_status', 'add_at', 'id_blog_post') VALUES
 (1, 'Michel BLANE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'isValid', '2020-11-18', 1),
 (2, 'Anna SALESSE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'isValid', '2020-11-18', 1),
 (3, 'Michelle BLIVE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur tortor lacus, ac bibendum sapien venenatis a. Suspendisse suscipit ipsum non lacus venenatis, nec sagittis nisl aliquam. Ut tempor gravida dui vitae suscipit. Vestibulum aliquet lobortis mi tempor rhoncus. Proin eget dolor sed tortor condimentum lacinia.', 'isValid', '2020-11-18', 1),
@@ -149,24 +149,24 @@ INSERT INTO `comment` (`id`, `author_name`, `content`, `comment_status`, `add_at
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table 'user'
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `last_name` varchar(55) NOT NULL,
-  `first_name` varchar(55) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `add_at` date NOT NULL,
-  `user_type` varchar(6) NOT NULL
+CREATE TABLE 'user' (
+  'id' int(11) NOT NULL,
+  'last_name' varchar(55) NOT NULL,
+  'first_name' varchar(55) NOT NULL,
+  'email' varchar(100) NOT NULL,
+  'password' varchar(50) NOT NULL,
+  'add_at' date NOT NULL,
+  'user_type' varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table 'user'
 --
 
-INSERT INTO `user` (`id`, `last_name`, `first_name`, `email`, `password`, `add_at`, `user_type`) VALUES
+INSERT INTO 'user' ('id', 'last_name', 'first_name', 'email', 'password', 'add_at', 'user_type') VALUES
 (1, 'LABORIE', 'Anthony', 'acs.agl46@gmail.com', 'admin', '2020-11-16', 'admin'),
 (27, 'Company', 'AGL', 'antho.labo@gmail.com', 'alertMessagealertMessage', '2020-11-29', 'author');
 
@@ -175,85 +175,85 @@ INSERT INTO `user` (`id`, `last_name`, `first_name`, `email`, `password`, `add_a
 --
 
 --
--- Indexes for table `blog_post`
+-- Indexes for table 'blog_post'
 --
-ALTER TABLE `blog_post`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_author` (`id_author`);
+ALTER TABLE 'blog_post'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'id_author' ('id_author');
 
 --
--- Indexes for table `category`
+-- Indexes for table 'category'
 --
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'category'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `category_blog_post`
+-- Indexes for table 'category_blog_post'
 --
-ALTER TABLE `category_blog_post`
-  ADD PRIMARY KEY (`id_category`,`id_blog_post`),
-  ADD KEY `id_blog_post` (`id_blog_post`);
+ALTER TABLE 'category_blog_post'
+  ADD PRIMARY KEY ('id_category','id_blog_post'),
+  ADD KEY 'id_blog_post' ('id_blog_post');
 
 --
--- Indexes for table `comment`
+-- Indexes for table 'comment'
 --
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_blog_post` (`id_blog_post`);
+ALTER TABLE 'comment'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'id_blog_post' ('id_blog_post');
 
 --
--- Indexes for table `user`
+-- Indexes for table 'user'
 --
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'user'
+  ADD PRIMARY KEY ('id');
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `blog_post`
+-- AUTO_INCREMENT for table 'blog_post'
 --
-ALTER TABLE `blog_post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE 'blog_post'
+  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT for table 'category'
 --
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE 'category'
+  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `comment`
+-- AUTO_INCREMENT for table 'comment'
 --
-ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE 'comment'
+  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table 'user'
 --
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE 'user'
+  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `blog_post`
+-- Constraints for table 'blog_post'
 --
-ALTER TABLE `blog_post`
-  ADD CONSTRAINT `blog_post_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `user` (`id`);
+ALTER TABLE 'blog_post'
+  ADD CONSTRAINT 'blog_post_ibfk_1' FOREIGN KEY ('id_author') REFERENCES 'user' ('id');
 
 --
--- Constraints for table `category_blog_post`
+-- Constraints for table 'category_blog_post'
 --
-ALTER TABLE `category_blog_post`
-  ADD CONSTRAINT `category_blog_post_ibfk_1` FOREIGN KEY (`id_blog_post`) REFERENCES `blog_post` (`id`),
-  ADD CONSTRAINT `category_blog_post_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
+ALTER TABLE 'category_blog_post'
+  ADD CONSTRAINT 'category_blog_post_ibfk_1' FOREIGN KEY ('id_blog_post') REFERENCES 'blog_post' ('id'),
+  ADD CONSTRAINT 'category_blog_post_ibfk_2' FOREIGN KEY ('id_category') REFERENCES 'category' ('id');
 
 --
--- Constraints for table `comment`
+-- Constraints for table 'comment'
 --
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_blog_post`) REFERENCES `blog_post` (`id`);
+ALTER TABLE 'comment'
+  ADD CONSTRAINT 'comment_ibfk_1' FOREIGN KEY ('id_blog_post') REFERENCES 'blog_post' ('id');

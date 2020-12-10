@@ -1,25 +1,26 @@
 /********** ALL PAGES ************/
-html{
+html {
     width: 100vw;
     top: 0;
     left: 0;
-    overflow-x : hidden;
+    overflow-x: hidden;
 }
-body{
-    --agl-primary-color: #286ADE;
+
+body {
+    --agl-primary-color: #286ade;
     --agl-second-blue: #5193f4;
 }
 
-.main-btn i{margin-left: 5px;}
+.main-btn i {margin-left: 5px;}
 
-.main-btn-blue{
+.main-btn-blue {
     background-color: transparent!important;
     border: solid 1px white;
     color: white!important;
 }
 
 /***** FOOTER *****/
-.footer-widget{
+.footer-widget {
     text-align: center;
 }
 
@@ -27,9 +28,8 @@ body{
     display: inline-flex;
 }
 
-
 /***** MODAL LOGIN ******/
-#modal-login{
+#modal-login {
     position: fixed;
     top: 0;
     left: 0;
@@ -39,7 +39,7 @@ body{
     z-index: 100;
 }
 
-#modal-login .content{
+#modal-login .content {
     width: 500px;
     height: 400px;
     background-color: white;
@@ -51,39 +51,41 @@ body{
     display: table;
 }
 
-#modal-login .content .structure{
+#modal-login .content .structure {
     position: relative;
     height: 100%;
     width: 100%;
     display: table;
 }
-#modal-login .content .structure .content-form{
+
+#modal-login .content .structure .content-form {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
 }
 
-#modal-login .content .structure .content-form h1{margin-bottom: 20px}
-#modal-login .content .structure .content-form input[type="sumit"]{margin-top: 20px}
+#modal-login .content .structure .content-form h1 { margin-bottom: 20px; }
 
-#modal-login .content .structure .content-form input{
+#modal-login .content .structure .content-form input[type="sumit"] { margin-top: 20px; }
+
+#modal-login .content .structure .content-form input {
     width: 100%;
     border-radius: 30px;
     background: #fff;
     box-shadow: 0px 0px 45px rgba(181, 181, 181, 2.16);
     padding: 18px 30px;
     line-height: 1;
-    color: #5B657E;
+    color: #5b657e;
     border: 1px solid transparent;
     transition: all 0.3s ease-out 0s;
     margin: 10px auto;
 }
 
-#modal-login .content .structure .content-form .password-input-section{
+#modal-login .content .structure .content-form .password-input-section {
     position: relative;
 }
 
-#modal-login .content .structure .content-form .eye{
+#modal-login .content .structure .content-form .eye {
     position: absolute;
     right: 30px;
     height: 25px;
@@ -93,11 +95,11 @@ body{
     cursor: pointer;
 }
 
-#modal-login .content .structure .content-form .eye:hover{
+#modal-login .content .structure .content-form .eye:hover {
     color: var(--agl-second-blue);
 }
 
-#modal-login .content .structure .content-form .eye .lni-eye.active::after{
+#modal-login .content .structure .content-form .eye .lni-eye.active::after {
     content: "";
     background-color: #5b657e;
     width: 25px;
@@ -109,11 +111,11 @@ body{
     transition: all 0.5s;
 }
 
-#modal-login .content .structure .content-form .eye:hover .lni-eye.active::after{
+#modal-login .content .structure .content-form .eye:hover .lni-eye.active::after {
     background-color: var(--agl-second-blue);
 }
 
-#modal-login .content .structure .lni-close{
+#modal-login .content .structure .lni-close {
     position: absolute;
     right: 0;
     top: 0;
@@ -122,16 +124,23 @@ body{
 /********** HOME ************/
 
 /* HOME - FIRST IMG */
-@media screen and (min-width: 1810px){
-    #home.hero-section{background-size: 101%!important;}
+@media screen and (min-width: 1810px) {
+    #home.hero-section {background-size: 101%!important;}
 }
-#home .main-btn{
+
+#home .main-btn {
     margin: 10px;
 }
+
 /* HOME - QUOTATION AND LANGAGES */
-.single-service:hover circle, .single-service:hover rect{fill: white;}
-.single-service:hover .text{fill: #286ade !important;}
-.quote{
+.single-service:hover circle, 
+.single-service:hover rect {
+    fill: white;
+}
+
+.single-service:hover .text {fill: #286ade !important;}
+
+.quote {
     position: absolute;
     height: 100px;
     margin-top: -50px;
@@ -140,14 +149,16 @@ body{
     opacity: 0.5;
 }
 
-.single-service .content p{min-height: 60px;}
+.single-service .content p { min-height: 60px; }
 
 /* HOME - ABOUT ME */
-#about .profil{
+#about .profil {
     position: relative;
 }
-#about .profil div{float: left;}
-#about .profil-img{
+
+#about .profil div {float: left;}
+
+#about .profil-img {
     width: 300px;
     height: 300px;
     background-size: cover;
@@ -157,27 +168,28 @@ body{
     border-bottom-left-radius: 50px;
     margin-right: 50px;
 }
-#about .profil-data{width: calc(100% - 350px);}
+
+#about .profil-data { width: calc(100% - 350px); }
 
 /* HOME - BLOG */
-#blog h1{margin-bottom: 20px; text-align: center;}
+#blog h1 { margin-bottom: 20px; text-align: center; }
 
-#blog .cats{position: relative;}
-#blog .see-cats-btn{
+#blog .cats { position: relative; }
+#blog .see-cats-btn {
     width: 100%;
     margin: 15px 0;
     transition: all 0.5s;
     z-index: 0;
 }
 
-#blog #cat-blog-btn.active{
+#blog #cat-blog-btn.active {
     text-align: left;
     background-color: rgba(81,147,244,0.3);
 }
 
-#blog #cat-blog-btn.active ~ #blog-cats{opacity: 1;}
+#blog #cat-blog-btn.active ~ #blog-cats {opacity: 1;}
 
-#blog #blog-cats{
+#blog #blog-cats {
     text-align: center;
     position: absolute;
     top: 33px;
@@ -187,50 +199,61 @@ body{
     z-index: 1;
     opacity: 0;
 }
-#blog #blog-cats a{
+
+#blog #blog-cats a {
     margin: 0 20px;
     font-size: 20px;
     font-weight: 700;
-    color: #286ADE;
+    color: #286ade;
     cursor: pointer;
 }
 
-#blog .cats:hover .see-cats-btn, #blog .cats.active .see-cats-btn{
-    text-align : left;
+#blog .cats:hover .see-cats-btn, 
+#blog .cats.active .see-cats-btn {
+    text-align: left;
     background-color: #ccdcf7;
 }
-#blog .cats:hover #blog-cats, #blog .cats.active #blog-cats{
+
+#blog .cats:hover #blog-cats, 
+#blog .cats.active #blog-cats {
     opacity: 1;
 }
 
-#blog #blog-cats a:hover, #blog #blog-cats a.active{
+#blog #blog-cats a:hover, 
+#blog #blog-cats a.active {
     color: white;
 }
-#blog #blog-cats a:hover i, #blog #blog-cats a.active i{
+
+#blog #blog-cats a:hover i, 
+#blog #blog-cats a.active i {
     transform: rotate(90deg);
 }
 
-#blog .single{
+#blog .single {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     position: relative;
 }
-#blog .single-1{
+
+#blog .single-1 {
     height: 600px;
 }
-#blog .single-2{
+
+#blog .single-2 {
     height: 400px;
 }
-#blog .single-3{
+
+#blog .single-3 {
     height: 350px;
 }
-#blog .single-4{
+
+#blog .single-4 {
     height: 550px;
     margin-top: -200px;
 }
 
-#blog .single .infos{
+#blog .single .infos {
     background-color: rgba(81,147,244,0.8);
     position: absolute;
     height: 100%;
@@ -241,9 +264,10 @@ body{
     opacity: 0;
     transition: all 0.5s;
 }
-#blog .single:hover .infos{opacity: 1;}
 
-#blog .single .infos div{
+#blog .single:hover .infos { opacity: 1; }
+
+#blog .single .infos div {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -251,10 +275,12 @@ body{
     padding: 20px;
 }
 
-#blog .single .infos h2{color: white}
-#blog .single .infos .cat{margin-bottom: 20px;}
-#blog .single .infos .btn{
-    margin : 20px auto;
+#blog .single .infos h2 { color: white; }
+
+#blog .single .infos .cat { margin-bottom: 20px; }
+
+#blog .single .infos .btn {
+    margin: 20px auto;
     padding: 10px 20px;
     border: solid 1px white;
     border-top-left-radius: 20px;
@@ -263,24 +289,26 @@ body{
     color: white;
     font-size: 18px;
 }
-#blog .single .infos .btn:hover{
+
+#blog .single .infos .btn:hover {
     border-radius: 10px;
 }
 
-#blog .see-more-btn{
+#blog .see-more-btn {
     max-width: 300px;
     margin: 40px auto 0 auto;
 }
 
 /* SKILLS */
-#skills .progress{
+#skills .progress {
     height: 60px;
     border-bottom-right-radius: 15px;
     border-top-left-radius: 15px;
     margin-bottom: 40px;
     position: relative;
 }
-#skills .progress .progress-bar{
+
+#skills .progress .progress-bar {
     border-radius: 5px;
     position: absolute;
     top: 0;
@@ -288,35 +316,39 @@ body{
     line-height: 60px;
     animation: animate-positive 5s;
 }
-#skills .progress .progress-value{
+
+#skills .progress .progress-value {
     font-size: 14px;
     color: #fff;
     padding: 0 15px;
     float: right;
 }
-#skills .progress .progressbar-title{
+
+#skills .progress .progressbar-title {
     font-size: 14px;
     color: #fff;
     padding: 0 15px;
     float: left;
     position: absolute;
 }
-@-webkit-keyframes animate-positive{
-    0% { width: 0%;}
+
+@-webkit-keyframes animate-positive {
+    0% { width: 0%; }
 }
-@keyframes animate-positive{
+
+@keyframes animate-positive {
     0% { width:0%; }
 }
 
 /********** 404 ERROR PAGE ************/
-#error_404_content{
+#error_404_content {
     height: 100vh;
     width: 100vw;
     position: fixed;
     color: white;
 }
 
-#error_404_content .container{
+#error_404_content .container {
     position: absolute;
     top: 0;
     left: 0;
@@ -327,18 +359,19 @@ body{
     display: table;
 }
 
-#error_404_content .container .content{
+#error_404_content .container .content {
     color: white;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
 }
-#error_404_content .container .content h1{color: white;}
+
+#error_404_content .container .content h1 { color: white; }
 
 /********** SINGLE POST ************/
 
 /* FIRST IMG */
-#single_post.hero-section{
+#single_post.hero-section {
     background-image: none;
     height: 50vh;
     min-height: 300px;
@@ -346,7 +379,7 @@ body{
     position: relative;
 }
 
-#single_post.hero-section .container{
+#single_post.hero-section .container {
     position: absolute;
     top: 0;
     left: 0;
@@ -357,93 +390,113 @@ body{
     display: table;
 }
 
-#single_post.hero-section .container .content{
+#single_post.hero-section .container .content {
     color: white;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
 }
-#single_post.hero-section .container .content h1{color: white;}
+
+#single_post.hero-section .container .content h1 { color: white; }
 
 /* COMMENTS */
-#comment .all-comments .comment-single{
+#comment .all-comments .comment-single {
     margin: 20px auto;
     padding: 15px;
     background-color: #eaebed;
     border-radius: 15px;
 }
 
-#comment .all-comments .comment-single .author-name p, #comment .all-comments .comment-single .date p{
+#comment .all-comments .comment-single .author-name p, 
+#comment .all-comments .comment-single .date p {
     font-size: 17px;
     font-weight: 700;
 }
-#comment .all-comments .comment-single .date{
+
+#comment .all-comments .comment-single .date {
     text-align: right;
 }
-#comment .all-comments .comment-single .content{
+
+#comment .all-comments .comment-single .content {
     margin: 10px 0;
 }
 
 
 /***** RESPONSIVE *****/
-@media screen and (min-width : 992px){
-    #blog .blog-cats.mobile{
+@media screen and (min-width: 992px) {
+    #blog .blog-cats.mobile {
         display: none;
     }
-    #blog .blog-cats.mobile .main-btn{display: block;}
+    #blog .blog-cats.mobile .main-btn {display: block;}
 }
-@media screen and (max-width : 991px){
-    .col-md-6{
+
+@media screen and (max-width: 991px) {
+    .col-md-6 {
         width: 100%!important;
         float: none!important;
     }
-    #about .profil-img{
+
+    #about .profil-img {
         max-width: 300px;
         margin: 20px auto;
     }
-    #skills .progress-value{
+
+    #skills .progress-value {
         font-size: 0px!important;
     }
-    #blog-list .single{
+
+    #blog-list .single {
         height: 300px!important;
         display: block;
         margin: 10px 0;
     }
-    #blog-list .single .infos{
+
+    #blog-list .single .infos {
         opacity: 1;
     }
-    #blog-list .single .extract{
+
+    #blog-list .single .extract {
         height: 75px;
         overflow: hidden;
     }
-    .quote{margin-left: 0;}
 
-    #blog #blog-cats, #blog .see-cats-btn{
+    .quote {margin-left: 0;}
+
+    #blog #blog-cats, 
+    #blog .see-cats-btn {
         display: none;
     }
-    #blog .blog-cats.mobile{
+
+    #blog .blog-cats.mobile {
         display: block;
         text-align:center;
     }
-    #blog .blog-cats.mobile .main-btn{display: block; width: 100%; margin-bottom: -5px!important;}
+
+    #blog .blog-cats.mobile .main-btn {
+        display: block; 
+        width: 100%; 
+        margin-bottom: -5px!important;
+    }
 }
 
 /* LOGIN MODAL */
-@media screen and (max-width : 555px){
+@media screen and (max-width: 555px) {
     #modal-login .content {
         width: 250px;
         left: calc(50% - 125px);
     }
-    #modal-login .content h1{font-size: 33px;}
+
+    #modal-login .content h1 { font-size: 33px; }
 }
 
 /**** AJAX PRELOADER *****/
-.ajax-preloader{
+.ajax-preloader {
     position: relative;
     height: 100px;
     display: none;
 }
-.ajax-preloader .preloader{
+
+.ajax-preloader .preloader {
     position: absolute;
     left: calc(50% - 50px);
     width: 100px;

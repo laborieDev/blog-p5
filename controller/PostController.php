@@ -4,14 +4,18 @@ use Twig\Loader\FilesystemLoader;
 
 class PostController
 {
+    private $sessionObject;
     private $twig;
     private $postRepo;
     private $catRepo;
+    private $commentRepo;
+    private $userRepo;
 
     public function __construct()
     {
+        $this->sessionObject = new SessionObject;
         $this->twig = new Environment(new FilesystemLoader('templates'));
-        $this->twig->addGlobal('session', $_SESSION);
+        $this->twig->addGlobal('session', $this->sessionObject->getAll());
         $this->postRepo = new PostRepository;
         $this->catRepo = new CategoryRepository;
         $this->commentRepo = new CommentRepository;
@@ -26,7 +30,7 @@ class PostController
         $posts = $this->postRepo->getPosts(4);
         $cats = $this->catRepo->getCategories();
 
-        if (isset($_SESSION['user'])) {
+        if ($this->sessionObject->getVariable('user') !== false) {
             return $this->twig->render('website/home.html.twig',[
                 'posts' => $posts,
                 'cats' => $cats,
@@ -44,9 +48,9 @@ class PostController
      * @param int id Post's id
      * @return twigRender Single Post with all post's comments and author datas
      */
-    public function getArticleContent($id)
+    public function getArticleContent($postID)
     {
-        $post = $this->postRepo->getPost($id);
+        $post = $this->postRepo->getPost($postID);
         
         if ($post == null) {
             return $this->twig->render('website/errors_page.html.twig', [
@@ -65,7 +69,7 @@ class PostController
         }
         $author = $this->userRepo->getUser($post->getAuthor());
 
-        if (isset($_SESSION['user'])) {
+        if ($this->sessionObject->getVariable('user') !== false) {
             return $this->twig->render('website/single_post.html.twig',[
                 'post' => $post,
                 'comments' => $allComments,
@@ -86,7 +90,7 @@ class PostController
      */
     public function getDashboardPosts()
     {
-        $posts = $this->postRepo->getPosts($limit = 10);
+        $posts = $this->postRepo->getPosts(10);
 
         return $this->twig->render('admin/all_posts.html.twig',[
             'posts' => $posts
@@ -115,13 +119,13 @@ class PostController
                 return $this->twig->render('website/errors_page.html.twig', [
                     "error" => "Cet article n'existe pas !"
                 ]);
-            } else {
-                return $this->twig->render('admin/set_post.html.twig', [
-                    'postEdit' => $post,
-                    'postCats' => $allCats,
-                    'categories' => $cats
-                ]);
             }
+
+            return $this->twig->render('admin/set_post.html.twig', [
+                'postEdit' => $post,
+                'postCats' => $allCats,
+                'categories' => $cats
+            ]);
         }     
 
         return $this->twig->render('admin/set_post.html.twig', [
@@ -135,7 +139,11 @@ class PostController
      */
     public function addNewPost()
     {
-        if (!isset($_POST['title'])) {
+        $title = filter_input(INPUT_POST, "title");
+        $extract = filter_input(INPUT_POST, "extract");
+        $content = filter_input(INPUT_POST, "content");
+
+        if ((!isset($title)) || (!isset($extract)) || (!isset($content))) {
             return "Error";
         }
 
@@ -144,14 +152,14 @@ class PostController
 
         if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
           
-            $post = $this->postRepo->newPost($_SESSION['user-id']);
-            $post->setTitle($_POST['title']);
-            $post->setExtract($_POST['extract']);
-            $post->setContent($_POST['content']);
+            $post = $this->postRepo->newPost($this->sessionObject->getVariable('userID'));
+            $post->setTitle($title);
+            $post->setExtract($extract);
+            $post->setContent($content);
             $post->setImg($filename);
             $this->postRepo->updatePost($post);
 
-            $cats = explode("," , $_POST['allCats']);
+            $cats = explode("," , filter_input(INPUT_POST,'allCats'));
             foreach ($cats as $cat) {
                 $this->postRepo->addPostCategory($post, $cat);
             }
@@ -172,13 +180,18 @@ class PostController
     {
         $post = $this->postRepo->getPost($postID);
 
-        if (!isset($_POST['title']) || $post == "") {
+        $title = filter_input(INPUT_POST, "title");
+        $extract = filter_input(INPUT_POST, "extract");
+        $content = filter_input(INPUT_POST, "content");
+        $allCats = filter_input(INPUT_POST, 'allCats');
+
+        if ( (!isset($title)) || (!isset($extract)) || (!isset($content)) || (!isset($allCats)) || ($post == "") ) {
             return "Error";
         }
 
-        $post->setTitle($_POST['title']);
-        $post->setExtract($_POST['extract']);
-        $post->setContent($_POST['content']);
+        $post->setTitle($title);
+        $post->setExtract($extract);
+        $post->setContent($content);
 
         if(isset($_FILES['file'])){
             $filename = $_FILES['file']['name'];
@@ -192,7 +205,7 @@ class PostController
         $this->postRepo->updatePost($post);
 
         $this->postRepo->deleteCatsPostRelation($post);
-        $cats = explode("," , $_POST['allCats']);
+        $cats = explode("," , $allCats);
         foreach ($cats as $cat) {
             $this->postRepo->addPostCategory($post, $cat);
         }
@@ -238,33 +251,31 @@ class PostController
         $allMinID = $postRepo->getPostMinID();
 
         $section = "";
-        $i = 1;
         $minID;
         foreach ($posts as $post) {
-            $id = $post->id;
+            $postID = $post->id;
             $title = $post->title;
             $addAt = date_create($post->addAt);
             $addAt = date_format($addAt,"d.m.Y");
             $lastEditAt = date_create($post->lastEditAt);
             $lastEditAt = date_format($lastEditAt,"d.m.Y");
             $section .= "
-                <tr id='row-post-$id'>
+                <tr id='row-post-$postID'>
                     <th scope='row'>$addAt</th>
                     <td class='title-cell'>$title</td>
                     <td class='last-edit-cell'>$lastEditAt</td>
                     <td class='buttons-cell'>
-                      <a class='see' href='../article/$id' target='_blank'><i class='lni lni-eye'></i></a>
-                      <a class='see' href='../admin/article/edit/$id' href='#'><i class='lni lni-pencil-alt'></i></a> ";
+                      <a class='see' href='../article/$postID' target='_blank'><i class='lni lni-eye'></i></a>
+                      <a class='see' href='../admin/article/edit/$postID' href='#'><i class='lni lni-pencil-alt'></i></a> ";
                       
-            if ($_SESSION['userType'] == "admin") {
-                $section .= "<a class='delete' onclick='getDeleteModal($id)' href='#'><i class='lni lni-trash'></i></a>";
+            if ($this->sessionObject->getVariable('userType') == "admin") {
+                $section .= "<a class='delete' onclick='getDeleteModal($postID)' href='#'><i class='lni lni-trash'></i></a>";
             }
             
             $section .= "</td>
                 </tr>
             ";
-            $i++;
-            $minID = $id;
+            $minID = $postID;
         }
         $nbPage ++;
 

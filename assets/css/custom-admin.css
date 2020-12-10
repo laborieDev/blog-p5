@@ -1,80 +1,91 @@
 /********** ALL PAGES ************/
-html{
+html { 
     width: 100vw;
     top: 0;
     left: 0;
-    overflow-x : hidden;
+    overflow-x: hidden;
 }
-body{
-    --agl-primary-color: #286ADE;
+
+body { 
+    --agl-primary-color: #286ade;
     --agl-second-blue: #5193f4;
 }
 
-.navbar {
+.navbar { 
     padding: 10px;
     margin-bottom: 30px;
 }
-.navbar-nav .nav-item a {
+
+.navbar-nav .nav-item a { 
     color: black !important;
 }
 
-.space{
+.space { 
     height: 100px;
 }
 
-footer{
+footer { 
     position: fixed;
-    bottom : 0;
+    bottom: 0;
     left: 0;
     width: 100vw;
     z-index: 10;
 }
 
 /********** DASHBOARD ************/
-.title-page, .container{margin-bottom: 50px;}
-.container h1, .container h2{
-    text-align: center;
-}
-.container h2{margin-bottom: 20px;}
+.title-page, .container { margin-bottom: 50px; }
 
-.result{
+.container h1, .container h2 { 
     text-align: center;
 }
 
-.content-cell{padding: 0.5em 1em !important;}
+.container h2 { margin-bottom: 20px; }
 
-.buttons-cell a.see:hover{color: grey;}
-.buttons-cell a.valid_icon:hover{color: green;}
-.buttons-cell a.delete:hover{color: red;}
+.result { 
+    text-align: center;
+}
+
+.content-cell { padding: 0.5em 1em !important; }
+
+.buttons-cell a.see:hover { color: grey; }
+
+.buttons-cell a.valid_icon:hover { color: green; }
+
+.buttons-cell a.delete:hover { color: red; }
 
     /** TABLE RESPONSIVE **/
-@media screen and (max-width : 580px){
-    thead, td.author-cell, th.author-cell{display: none !important;}
-    td, th{
+@media screen and (max-width: 580px) { 
+    thead, td.author-cell, th.author-cell { display: none !important; }
+
+    td, th { 
         display: block;
         width: 100%;
     }
-    td{border: 0;}
-    .buttons-cell{text-align: center;}
-    .buttons-cell a{margin: 0 10px;}
-    .scroll-top {bottom: 0; right: 0;}
+
+    td { border: 0; }
+
+    .buttons-cell { text-align: center; }
+
+    .buttons-cell a { margin: 0 10px; }
+
+    .scroll-top { bottom: 0; right: 0; }
 } 
 
 
 /*** FORMS ****/
-select {
+select { 
     width: 100% !important;
     border-radius: 30px !important;
     background: #fff !important;
     box-shadow: 0px 0px 45px rgba(181, 181, 181, 0.16) !important;
     padding: 18px 30px !important;
     line-height: 1.25 !important;
-    color: #5B657E !important;
+    color: #5b657e !important;
     border: 1px solid transparent !important;
     transition: all 0.3s ease-out 0s !important;
 }
 
-#cat-selected span{
+#cat-selected span { 
     background-color: var(--agl-second-blue);
     color: white;
     padding: 10px;
@@ -83,26 +94,30 @@ select {
     display: inline-block;
 }
 
-#cat-selected span .lni-close{margin-left: 5px; cursor: pointer;}
-#cat-selected span .lni-close:hover{color: rgba(225,0,0,0.5);}
+#cat-selected span .lni-close { margin-left: 5px; cursor: pointer; }
 
-img.img-mis-en-avant-edit{
+#cat-selected span .lni-close:hover { color: rgba(225,0,0,0.5); }
+
+img.img-mis-en-avant-edit { 
     max-height: 200px;
     max-width: 50%;
     margin-bottom: 20px;
 }
 
-.valid{color: green;}
-.waiting{color: grey;}
-.reject{color: red;}
+.valid { color: green; } 
+
+.waiting { color: grey; }
+
+.reject { color: red; }
 
 /**** AJAX PRELOADER *****/
-.ajax-preloader{
+.ajax-preloader { 
     position: relative;
     height: 100px;
     display: none;
 }
-.ajax-preloader .preloader{
+
+.ajax-preloader .preloader { 
     position: absolute;
     left: calc(50% - 50px);
     width: 100px;
@@ -112,7 +127,7 @@ img.img-mis-en-avant-edit{
 }
 
 /*** BOITES MODAL ***/
-.modal-admin{
+.modal-admin { 
     position: fixed;
     top: 0;
     left: 0;
@@ -122,7 +137,7 @@ img.img-mis-en-avant-edit{
     z-index: 100;
 }
 
-.modal-admin .content{
+.modal-admin .content { 
     width: 500px;
     height: 300px;
     background-color: white;
@@ -134,39 +149,41 @@ img.img-mis-en-avant-edit{
     display: table;
 }
 
-.modal-admin .content .structure{
+.modal-admin .content .structure { 
     position: relative;
     height: 100%;
     width: 100%;
     display: table;
 }
-.modal-admin .content .structure .content-form{
+
+.modal-admin .content .structure .content-form { 
     display: table-cell;
     vertical-align: middle;
     text-align: center;
 }
 
-.modal-admin .content .structure .content-form h1{margin-bottom: 20px}
-.modal-admin .content .structure .content-form input[type="sumit"]{margin-top: 20px}
+.modal-admin .content .structure .content-form h1 { margin-bottom: 20px; }
 
-.modal-admin .content .structure .content-form input{
+.modal-admin .content .structure .content-form input[type="sumit"] { margin-top: 20px; }
+
+.modal-admin .content .structure .content-form input { 
     width: 100%;
     border-radius: 30px;
     background: #fff;
     box-shadow: 0px 0px 45px rgba(181, 181, 181, 2.16);
     padding: 18px 30px;
     line-height: 1;
-    color: #5B657E;
+    color: #5b657e;
     border: 1px solid transparent;
     transition: all 0.3s ease-out 0s;
     margin: 10px auto;
 }
 
-.modal-admin .content .structure .content-form .password-input-section{
+.modal-admin .content .structure .content-form .password-input-section { 
     position: relative;
 }
 
-.modal-admin .content .structure .content-form .eye{
+.modal-admin .content .structure .content-form .eye { 
     position: absolute;
     right: 30px;
     height: 25px;
@@ -176,11 +193,11 @@ img.img-mis-en-avant-edit{
     cursor: pointer;
 }
 
-.modal-admin .content .structure .content-form .eye:hover{
+.modal-admin .content .structure .content-form .eye:hover { 
     color: var(--agl-second-blue);
 }
 
-.modal-admin .content .structure .content-form .eye .lni-eye.active::after{
+.modal-admin .content .structure .content-form .eye .lni-eye.active::after { 
     content: "";
     background-color: #5b657e;
     width: 25px;
@@ -192,25 +209,26 @@ img.img-mis-en-avant-edit{
     transition: all 0.5s;
 }
 
-.modal-admin .content .structure .content-form .eye:hover .lni-eye.active::after{
+.modal-admin .content .structure .content-form .eye:hover .lni-eye.active::after { 
     background-color: var(--agl-second-blue);
 }
 
-.modal-admin .content .structure .lni-close{
+.modal-admin .content .structure .lni-close { 
     position: absolute;
     right: 0;
     top: 0;
     cursor: pointer;
 }
 
-.modal-admin .content .btn-delete:hover{
-    background-color: #EC7063 !important;
+.modal-admin .content .btn-delete:hover { 
+    background-color: #ec7063 !important;
 }
 
-@media screen and (max-width : 555px){
-    .modal-admin .content {
+@media screen and (max-width: 555px) { 
+    .modal-admin .content { 
         width: 250px;
         left: calc(50% - 125px);
     }
-    .modal-admin .content h1{font-size: 33px;}
+    
+    .modal-admin .content h1 { font-size: 33px; }
 }
