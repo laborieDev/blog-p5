@@ -20,7 +20,7 @@ class RequestController
     public function checkUser()
     {
         if (isset($_SESSION['user'])) {
-            return $_SESSION['userType'];
+            return filter_var($_SESSION['userType']);
         } else {
             return "false";
         }
@@ -32,9 +32,9 @@ class RequestController
     public function connectUser()
     {
         $userRepo = new UserRepository;
-        $user = $userRepo->getUserParameter('email', $_POST['email']);
+        $user = $userRepo->getUserParameter('email', filter_input(INPUT_POST,'email'));
 
-        if ($user == "" || $user->getPassword() != $_POST['password']) {
+        if ($user == "" || $user->getPassword() != filter_input(INPUT_POST,'password')) {
             return "Error";
         }
         
@@ -50,8 +50,8 @@ class RequestController
      */
     public function disconnectAdmin()
     {
-        session_destroy();
-        echo "<script> document.location.href='/blog-p5'; </script>"; 
+        session_unset();
+        return  "<script> document.location.href='/blog-p5'; </script>"; 
     }
 
     /**
@@ -100,7 +100,7 @@ class RequestController
         $allMinID = $postRepo->getPostMinID();
 
         $section = "";
-        $i = 1;
+        $indice = 1;
         $minID;
         foreach ($posts as $post) {
             $id = $post->id;
@@ -111,7 +111,7 @@ class RequestController
             $date = date_format($date, 'd.m.Y');
             
             $section .= "
-                        <div class='single single-{$i} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
+                        <div class='single single-{$indice} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
 							<div class='infos'>
 								<div>
                                     <h2>{$title}</h2>
@@ -122,7 +122,7 @@ class RequestController
 							</div>
                         </div>
             ";
-            $i++;
+            $indice++;
             $minID = $id;
         }
         $nbPage ++;
@@ -146,7 +146,7 @@ class RequestController
         $allMinID = $postRepo->getPostMinID($catID);
 
         $section = "";
-        $i = 1;
+        $indice = 1;
         $minID;
         foreach ($posts as $post) {
             $id = $post->id;
@@ -156,7 +156,7 @@ class RequestController
             $date = date_create($post->getAddAt());
             $date = date_format($date, 'd.m.Y');
             $section .= "
-                        <div class='single single-{$i} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
+                        <div class='single single-{$indice} col-lg-6' style='background-image:url(\"assets/img/single_post/{$img}\")'>
 							<div class='infos'>
 								<div>
 									<h2>{$title}</h2>
@@ -167,7 +167,7 @@ class RequestController
 							</div>
                         </div>
             ";
-            $i++;
+            $indice++;
             $minID = $id;
         }
 
@@ -187,16 +187,18 @@ class RequestController
     public function saveNewComment()
     {
         try {
-            $commentRepo = new CommentRepository;
-            $comment = $commentRepo->newComment($_POST['postID']);
-            $comment->setAuthorName($_POST['authorName']);
-            $comment->setContent($_POST['message']);
-            $commentRepo->updateComment($comment);
-            http_response_code(200);
+            if (isset($_POST['postID'])) {
+                $commentRepo = new CommentRepository;
+                $comment = $commentRepo->newComment(filter_input(INPUT_POST, 'postID'));
+                $comment->setAuthorName(filter_input(INPUT_POST, 'authorName'));
+                $comment->setContent(filter_input(INPUT_POST, 'message'));
+                $commentRepo->updateComment($comment);
+                http_response_code(200);
+            }
         }
         catch (\Exception $e) {
             http_response_code(500);
-            echo "Attention : " . $e->getMessage();
+            return "Attention : " . $e->getMessage();
         }
     }
 
@@ -213,7 +215,7 @@ class RequestController
         $allCommentsID = $postRepo->getAllValidComments($post, 5, $maxID);
 
         $section = "";
-        $i = 1;
+        $indice = 1;
         $minID;
         foreach ($allCommentsID as $commentID) {
             $comment = $commentRepo->getComment($commentID);
@@ -235,11 +237,11 @@ class RequestController
                     </div>
                 </div>
             ";
-            $i++;
+            $indice++;
             $minID = $id;
         }
         
-        if ($i < 5) {
+        if ($indice < 5) {
             return json_encode(array('data' => $section, 'minID' => -1));
         } else { 
             return json_encode(array('data' => $section, 'minID' => $minID));
@@ -252,10 +254,10 @@ class RequestController
      */
     function sendContactForm(){
         $to = "acs.agl46@gmail.com";
-        $subject = $_POST['subject'];
-        $headers = "From: ".$_POST['email'];
+        $subject = filter_input(INPUT_POST,'subject');
+        $headers = "From: ".filter_input(INPUT_POST,'email');
         $txt = "
-            Vous avez reçu un nouveau message de ".$_POST['name']." : ". $_POST['message'];
+            Vous avez reçu un nouveau message de ".filter_input(INPUT_POST,'name')." : ". filter_input(INPUT_POST,'message');
 
         mail($to,$subject,$txt,$headers);
 

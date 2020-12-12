@@ -41,15 +41,15 @@ class UserController
         if ($idUserEdit != -1) {
             $user = $this->userRepo->getUser($idUserEdit);
 
-            if ($user == "") {
+            if ($user == false) {
                 return $this->twig->render('website/errors_page.html.twig', [
                     "error" => "Cet utilisateur n'existe pas !"
                 ]);
-            } else {
-                return $this->twig->render('admin/set_user.html.twig', [
-                    'userEdit' => $user
-                ]);
             }
+            
+            return $this->twig->render('admin/set_user.html.twig', [
+                    'userEdit' => $user
+            ]);
         }     
 
         return $this->twig->render('admin/set_user.html.twig');
@@ -71,13 +71,15 @@ class UserController
             return "Attention ! Cet email est déjà asssocié à un utilisateur !";
         }
 
-        $user = $this->userRepo->newUser();
-        $user->setLastName($_POST['lastname']);
-        $user->setFirstName($_POST['firstname']);
-        $user->setEmail($_POST['email']);
-        $user->setPassword($_POST['password']);
-        $user->setUserType($_POST['usertype']);
-        $this->userRepo->updateUser($user);
+        if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['usertype']) && isset($_POST['email']) && isset($_POST['password'])) {
+            $user = $this->userRepo->newUser();
+            $user->setLastName(filter_input(INPUT_POST, 'lastname'));
+            $user->setFirstName(filter_input(INPUT_POST, 'firstname'));
+            $user->setEmail(filter_input(INPUT_POST, 'email'));
+            $user->setPassword(filter_input(INPUT_POST, 'password'));
+            $user->setUserType(filter_input(INPUT_POST, 'usertype'));
+            $this->userRepo->updateUser($user);
+        }
 
         return "Added";
     }
@@ -94,12 +96,15 @@ class UserController
         }
           
         $user = $this->userRepo->getUser($id);
-        $user->setLastName($_POST['lastname']);
-        $user->setFirstName($_POST['firstname']);
-        $user->setUserType($_POST['usertype']);
+
+        if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['usertype'])) {
+            $user->setLastName(filter_input(INPUT_POST, 'lastname'));
+            $user->setFirstName(filter_input(INPUT_POST, 'firstname'));
+            $user->setUserType(filter_input(INPUT_POST, 'usertype'));
+        }
 
         if (isset($_POST['password'])) {
-            $user->setPassword($_POST['password']);
+            $user->setPassword(filter_input(INPUT_POST, 'password'));
         }
 
         $this->userRepo->updateUser($user);
@@ -114,7 +119,7 @@ class UserController
      */
     public function deleteUser($userID)
     {
-        if ($userID == $_SESSION['userID']) {
+        if ($userID == filter_var($_SESSION['userID'])) {
             http_response_code(500);
             return json_encode(array('message' => "Vous ne pouvait pas supprimé votre propre utilisateur !"));
         }
@@ -145,7 +150,8 @@ class UserController
     }
 
     /****** GET ERROR PAGE  ****/
-    function getUserTypeError(){
+    public function getUserTypeError()
+    {
         return $this->twig->render('website/errors_page.html.twig', [
             "error" => "Vous n'êtes pas autorisé à accéder ici !"
         ]);

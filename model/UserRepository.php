@@ -1,6 +1,6 @@
 <?php
-include_once("model/ClassPdo.php");
-include_once("entity/User.php");
+include_once "model/ClassPdo.php";
+include_once "entity/User.php";
 
 class UserRepository extends ClassPdo
 {
@@ -22,8 +22,8 @@ class UserRepository extends ClassPdo
     public function getUsers()
     {
         $req = "SELECT id FROM user";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allUsers = [];
 
@@ -35,25 +35,29 @@ class UserRepository extends ClassPdo
     }
 
     /**
-     * @param int id User's ID
+     * @param int userID User's ID
      * @return User user
      */
-    public function getUser($id)
+    public function getUser($userID)
     {
-        $req = "SELECT * FROM user WHERE id = $id";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $req = "SELECT * FROM user WHERE id = $userID";
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
-        $user = new User();
-        $user->setID($value['id']);
-        $user->setLastName($value['last_name']);
-        $user->setFirstName($value['first_name']);
-        $user->setEmail($value['email']);
-        $user->setPassword($value['password']);
-        $user->setAddAt($value['add_at']);
-        $user->setUserType($value['user_type']);
+        if (isset($value['id'])) {
+            $user = new User();
+            $user->setID($value['id']);
+            $user->setLastName($value['last_name']);
+            $user->setFirstName($value['first_name']);
+            $user->setEmail($value['email']);
+            $user->setPassword($value['password']);
+            $user->setAddAt($value['add_at']);
+            $user->setUserType($value['user_type']);
 
-        return $user;
+            return $user;
+        }
+
+        return false;
     }
 
     /**
@@ -65,8 +69,8 @@ class UserRepository extends ClassPdo
     public function getUserParameter($dataName, $dataValue)
     {
         $req = "SELECT id FROM user WHERE $dataName = '$dataValue'";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         if (!isset($value[0]['id'])) {
             return ;
@@ -85,8 +89,8 @@ class UserRepository extends ClassPdo
     {
         $userID = $user->getID();
         $req = "SELECT id FROM blog_post WHERE id_author = $userID";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetchAll();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetchAll();
 
         $allPosts = [];
         foreach($value as $postID){
@@ -103,8 +107,8 @@ class UserRepository extends ClassPdo
     public function emailExists($email)
     {
         $req = "SELECT COUNT(id) FROM user WHERE email='$email'";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
         
         if ($value[0] >= 1) {
             return true;
@@ -119,11 +123,11 @@ class UserRepository extends ClassPdo
     public function newUser()
     {
         $req = "INSERT INTO user(last_name, first_name, email, password, add_at, user_type) VALUES ('','','','',NOW(),'author')";
-        $rs = ClassPdo::$monPdo->query($req);
+        $result = ClassPdo::$monPdo->query($req);
 
         $req = "SELECT id, add_at FROM user WHERE id = (SELECT MAX(id) FROM user)";
-        $rs = ClassPdo::$monPdo->query($req);
-        $value = $rs->fetch();
+        $result = ClassPdo::$monPdo->query($req);
+        $value = $result->fetch();
 
         $user = new User();
         $user->setID($value['id']);
@@ -137,14 +141,14 @@ class UserRepository extends ClassPdo
      */
     public function updateUser($user)
     {
-        $id = $user->getID();
+        $userID = $user->getID();
         $lastName = addslashes($user->getLastName());
         $firstName = addslashes($user->getFirstName());
         $email = $user->getEmail();
         $password = addslashes($user->getPassword());
         $userType = $user->getUserType();
 
-        $req = "UPDATE user SET last_name = '$lastName', first_name = '$firstName', email = '$email', password = '$password', user_type = '$userType' WHERE id = $id ";
+        $req = "UPDATE user SET last_name = '$lastName', first_name = '$firstName', email = '$email', password = '$password', user_type = '$userType' WHERE id = $userID ";
         ClassPdo::$monPdo->query($req);
     }
 
@@ -153,8 +157,8 @@ class UserRepository extends ClassPdo
      */
     public function deleteUser($user)
     {
-        $id = $user->getID();
-        $req = "DELETE FROM user WHERE id=$id";
+        $userID = $user->getID();
+        $req = "DELETE FROM user WHERE id=$userID";
         ClassPdo::$monPdo->query($req);
     }
 }

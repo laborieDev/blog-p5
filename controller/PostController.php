@@ -144,14 +144,14 @@ class PostController
 
         if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
           
-            $post = $this->postRepo->newPost($_SESSION['user-id']);
-            $post->setTitle($_POST['title']);
-            $post->setExtract($_POST['extract']);
-            $post->setContent($_POST['content']);
+            $post = $this->postRepo->newPost($_SESSION['userID']);
+            $post->setTitle(filter_input(INPUT_POST,'title'));
+            $post->setExtract(filter_input(INPUT_POST, 'extract'));
+            $post->setContent(filter_input(INPUT_POST,'content'));
             $post->setImg($filename);
             $this->postRepo->updatePost($post);
 
-            $cats = explode("," , $_POST['allCats']);
+            $cats = explode("," , filter_input(INPUT_POST,'allCats'));
             foreach ($cats as $cat) {
                 $this->postRepo->addPostCategory($post, $cat);
             }
@@ -176,9 +176,9 @@ class PostController
             return "Error";
         }
 
-        $post->setTitle($_POST['title']);
-        $post->setExtract($_POST['extract']);
-        $post->setContent($_POST['content']);
+        $post->setTitle(filter_input(INPUT_POST,'title'));
+        $post->setExtract(filter_input(INPUT_POST, 'extract'));
+        $post->setContent(filter_input(INPUT_POST,'content'));
 
         if(isset($_FILES['file'])){
             $filename = $_FILES['file']['name'];
@@ -192,7 +192,7 @@ class PostController
         $this->postRepo->updatePost($post);
 
         $this->postRepo->deleteCatsPostRelation($post);
-        $cats = explode("," , $_POST['allCats']);
+        $cats = explode("," , filter_input(INPUT_POST, 'allCats'));
         foreach ($cats as $cat) {
             $this->postRepo->addPostCategory($post, $cat);
         }
@@ -241,30 +241,30 @@ class PostController
         $i = 1;
         $minID;
         foreach ($posts as $post) {
-            $id = $post->id;
+            $postID = $post->id;
             $title = $post->title;
             $addAt = date_create($post->addAt);
             $addAt = date_format($addAt,"d.m.Y");
             $lastEditAt = date_create($post->lastEditAt);
             $lastEditAt = date_format($lastEditAt,"d.m.Y");
             $section .= "
-                <tr id='row-post-$id'>
+                <tr id='row-post-$postID'>
                     <th scope='row'>$addAt</th>
                     <td class='title-cell'>$title</td>
                     <td class='last-edit-cell'>$lastEditAt</td>
                     <td class='buttons-cell'>
-                      <a class='see' href='../article/$id' target='_blank'><i class='lni lni-eye'></i></a>
-                      <a class='see' href='../admin/article/edit/$id' href='#'><i class='lni lni-pencil-alt'></i></a> ";
+                      <a class='see' href='../article/$postID' target='_blank'><i class='lni lni-eye'></i></a>
+                      <a class='see' href='../admin/article/edit/$postID' href='#'><i class='lni lni-pencil-alt'></i></a> ";
                       
-            if ($_SESSION['userType'] == "admin") {
-                $section .= "<a class='delete' onclick='getDeleteModal($id)' href='#'><i class='lni lni-trash'></i></a>";
+            if (filter_var($_SESSION['userType']) == "admin") {
+                $section .= "<a class='delete' onclick='getDeleteModal($postID)' href='#'><i class='lni lni-trash'></i></a>";
             }
             
             $section .= "</td>
                 </tr>
             ";
             $i++;
-            $minID = $id;
+            $minID = $postID;
         }
         $nbPage ++;
 

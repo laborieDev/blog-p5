@@ -3,8 +3,9 @@ html{
     width: 100vw;
     top: 0;
     left: 0;
-    overflow-x : hidden;
+    overflow-x: hidden;
 }
+
 body{
     --agl-primary-color: #286ADE;
     --agl-second-blue: #5193f4;
@@ -23,7 +24,7 @@ body{
     text-align: center;
 }
 
-.footer .widget-wrapper .footer-widget .socials {
+.footer .widget-wrapper .footer-widget .socials{
     display: inline-flex;
 }
 
@@ -57,6 +58,7 @@ body{
     width: 100%;
     display: table;
 }
+
 #modal-login .content .structure .content-form{
     display: table-cell;
     vertical-align: middle;
@@ -125,9 +127,11 @@ body{
 @media screen and (min-width: 1810px){
     #home.hero-section{background-size: 101%!important;}
 }
+
 #home .main-btn{
     margin: 10px;
 }
+
 /* HOME - QUOTATION AND LANGAGES */
 .single-service:hover circle, .single-service:hover rect{fill: white;}
 .single-service:hover .text{fill: #286ade !important;}
@@ -146,7 +150,9 @@ body{
 #about .profil{
     position: relative;
 }
+
 #about .profil div{float: left;}
+
 #about .profil-img{
     width: 300px;
     height: 300px;
@@ -187,6 +193,7 @@ body{
     z-index: 1;
     opacity: 0;
 }
+
 #blog #blog-cats a{
     margin: 0 20px;
     font-size: 20px;
@@ -196,9 +203,10 @@ body{
 }
 
 #blog .cats:hover .see-cats-btn, #blog .cats.active .see-cats-btn{
-    text-align : left;
+    text-align: left;
     background-color: #ccdcf7;
 }
+
 #blog .cats:hover #blog-cats, #blog .cats.active #blog-cats{
     opacity: 1;
 }
@@ -206,6 +214,7 @@ body{
 #blog #blog-cats a:hover, #blog #blog-cats a.active{
     color: white;
 }
+
 #blog #blog-cats a:hover i, #blog #blog-cats a.active i{
     transform: rotate(90deg);
 }
@@ -216,15 +225,19 @@ body{
     background-position: center center;
     position: relative;
 }
+
 #blog .single-1{
     height: 600px;
 }
+
 #blog .single-2{
     height: 400px;
 }
+
 #blog .single-3{
     height: 350px;
 }
+
 #blog .single-4{
     height: 550px;
     margin-top: -200px;
@@ -241,6 +254,7 @@ body{
     opacity: 0;
     transition: all 0.5s;
 }
+
 #blog .single:hover .infos{opacity: 1;}
 
 #blog .single .infos div{
@@ -252,9 +266,11 @@ body{
 }
 
 #blog .single .infos h2{color: white}
+
 #blog .single .infos .cat{margin-bottom: 20px;}
+
 #blog .single .infos .btn{
-    margin : 20px auto;
+    margin: 20px auto;
     padding: 10px 20px;
     border: solid 1px white;
     border-top-left-radius: 20px;
@@ -263,6 +279,7 @@ body{
     color: white;
     font-size: 18px;
 }
+
 #blog .single .infos .btn:hover{
     border-radius: 10px;
 }
@@ -280,6 +297,7 @@ body{
     margin-bottom: 40px;
     position: relative;
 }
+
 #skills .progress .progress-bar{
     border-radius: 5px;
     position: absolute;
@@ -288,12 +306,14 @@ body{
     line-height: 60px;
     animation: animate-positive 5s;
 }
+
 #skills .progress .progress-value{
     font-size: 14px;
     color: #fff;
     padding: 0 15px;
     float: right;
 }
+
 #skills .progress .progressbar-title{
     font-size: 14px;
     color: #fff;
@@ -301,11 +321,13 @@ body{
     float: left;
     position: absolute;
 }
+
 @-webkit-keyframes animate-positive{
-    0% { width: 0%;}
+    0%{ width: 0%;}
 }
+
 @keyframes animate-positive{
-    0% { width:0%; }
+    0%{ width:0%; }
 }
 
 /********** 404 ERROR PAGE ************/
@@ -333,6 +355,7 @@ body{
     display: table-cell;
     vertical-align: middle;
 }
+
 #error_404_content .container .content h1{color: white;}
 
 /********** SINGLE POST ************/
@@ -363,6 +386,7 @@ body{
     display: table-cell;
     vertical-align: middle;
 }
+
 #single_post.hero-section .container .content h1{color: white;}
 
 /* COMMENTS */
@@ -377,63 +401,75 @@ body{
     font-size: 17px;
     font-weight: 700;
 }
+
 #comment .all-comments .comment-single .date{
     text-align: right;
 }
+
 #comment .all-comments .comment-single .content{
     margin: 10px 0;
 }
 
 
 /***** RESPONSIVE *****/
-@media screen and (min-width : 992px){
+@media screen and (min-width: 992px){
     #blog .blog-cats.mobile{
         display: none;
     }
     #blog .blog-cats.mobile .main-btn{display: block;}
 }
-@media screen and (max-width : 991px){
+
+@media screen and (max-width: 991px){
     .col-md-6{
         width: 100%!important;
         float: none!important;
     }
+
     #about .profil-img{
         max-width: 300px;
         margin: 20px auto;
     }
+
     #skills .progress-value{
         font-size: 0px!important;
     }
+
     #blog-list .single{
         height: 300px!important;
         display: block;
         margin: 10px 0;
     }
+
     #blog-list .single .infos{
         opacity: 1;
     }
+
     #blog-list .single .extract{
         height: 75px;
         overflow: hidden;
     }
+
     .quote{margin-left: 0;}
 
     #blog #blog-cats, #blog .see-cats-btn{
         display: none;
     }
+
     #blog .blog-cats.mobile{
         display: block;
         text-align:center;
     }
+
     #blog .blog-cats.mobile .main-btn{display: block; width: 100%; margin-bottom: -5px!important;}
 }
 
 /* LOGIN MODAL */
-@media screen and (max-width : 555px){
-    #modal-login .content {
+@media screen and (max-width: 555px){
+    #modal-login .content{
         width: 250px;
         left: calc(50% - 125px);
     }
+
     #modal-login .content h1{font-size: 33px;}
 }
 
@@ -443,6 +479,7 @@ body{
     height: 100px;
     display: none;
 }
+
 .ajax-preloader .preloader{
     position: absolute;
     left: calc(50% - 50px);
