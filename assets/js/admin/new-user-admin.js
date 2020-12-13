@@ -1,23 +1,29 @@
 /** ENVOYER LE FORMULAIRE - ADD USER **/
 async function sendNewUserForm(){
-    let alertSection = document.getElementById('alert-message');
-    let allInputs = document.getElementsByClassName('new-user-input');
+
+    if(document.getElementById("alert-message") === undefined && document.getElementsByClassName("new-user-input") === undefined){
+        return ;
+    }
+
+    let alertSection = document.getElementById("alert-message");
+    let allInputs = document.getElementsByClassName("new-user-input");
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value == ""){
+        if(allInputs[i].value === ""){
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
-            if(allInputs[i].placeholder == undefined)
+            if(allInputs[i].placeholder === undefined){
                 // alertSection.innerText = "Le type d'utilisateur n'a pas été renseigné(e) !";
                 alertSection.innerText = allInputs[i].getAttribute('aglplaceholder')+" n'a pas été renseigné(e) !";
-            else
+            } else {
                 alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
+            }
             
             return ;
         }
     } 
 
-    let passwordInput = document.getElementById('password');
-    let passwordConfirmInput = document.getElementById('confirmPassword');
+    let passwordInput = document.getElementById("password");
+    let passwordConfirmInput = document.getElementById("confirmPassword");
 
     if(passwordInput.value.length < 8){
         alertSection.classList.add("alert-danger");
@@ -29,7 +35,7 @@ async function sendNewUserForm(){
         return ;
     }
 
-    if(passwordInput.value != passwordConfirmInput.value){
+    if(passwordInput.value !== passwordConfirmInput.value){
         alertSection.classList.add("alert-danger");
         alertSection.style.display = "block";
         alertSection.innerText = " Les mots de passe ne sont pas identiques !";
@@ -48,15 +54,15 @@ async function sendNewUserForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             if (this.responseText == "Added") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
                 alertSection.innerText = "L'utlisateur a bien été ajouté !";
 
-                document.getElementById('submit-btn').style.display = "none";
-                document.getElementById('return-home').style.display = "block";
+                document.getElementById("submit-btn").style.display = "none";
+                document.getElementById("return-home").style.display = "block";
             } else {
                 alertSection.classList.add("alert-danger");
                 alertSection.style.display = "block";
@@ -72,12 +78,12 @@ async function sendNewUserForm(){
 
 /** ENVOYER LE FORMULAIRE - EDIT POST **/
 async function sendEditPostForm(){
-    let postID = document.getElementById('post-id-input').value;
+    let postID = document.getElementById("post-id-input").value;
 
     let alertSection = document.getElementById('alert-message');
     let allInputs = document.getElementsByClassName('new-post-input');
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value == "" && allInputs[i].placeholder != "Image mise en avant"){
+        if(allInputs[i].value === "" && allInputs[i].placeholder !== "Image mise en avant"){
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
             alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
@@ -130,7 +136,7 @@ async function sendEditUserForm(){
             }
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
-            if(allInputs[i].placeholder == undefined)
+            if(allInputs[i].placeholder === undefined)
                 // alertSection.innerText = "Le type d'utilisateur n'a pas été renseigné(e) !";
                 alertSection.innerText = allInputs[i].getAttribute('aglplaceholder')+" n'a pas été renseigné(e) !";
             else
@@ -161,7 +167,7 @@ async function sendEditUserForm(){
 
         return ;
     } 
-    else if(passwordInput.value != passwordConfirmInput.value){
+    else if(passwordInput.value !== passwordConfirmInput.value){
         alertSection.classList.add("alert-danger");
         alertSection.style.display = "block";
         alertSection.innerText = " Les mots de passe ne sont pas identiques !";
@@ -172,7 +178,7 @@ async function sendEditUserForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             if (this.responseText == "Edited") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");

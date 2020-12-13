@@ -3,6 +3,8 @@ session_start();
 //Twig init
 require __DIR__ . '/vendor/autoload.php';
 
+require __DIR__ . '/router/SessionObject.php';
+
 //Router and Controllers init
 require __DIR__ . '/router/Router.php';
 require __DIR__ . '/controller/PostController.php';
