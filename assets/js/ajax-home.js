@@ -1,13 +1,13 @@
 function seeMorePosts(nbPage){
-    let preloader = document.getElementById('preloader-blog-home');
+    let preloader = document.getElementById("preloader-blog-home");
     preloader.style.display = "block";
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             let blogSection = document.getElementById("blog-list");
             let btn = document.getElementById("see-more-post-btn");
 
-            response = JSON.parse(this.responseText);
+            let response = JSON.parse(this.responseText);
 
             preloader.style.display = "none";
             blogSection.innerHTML = blogSection.innerHTML + response.data;
@@ -24,7 +24,7 @@ function seeMorePosts(nbPage){
 }
 
 function setCatPost(element, setOff = false){
-    let preloader = document.getElementById('preloader-blog-home');
+    let preloader = document.getElementById("preloader-blog-home");
     preloader.style.display = "block";
 
     let catID = element.getAttribute("categoryid");
@@ -39,7 +39,7 @@ function setCatPost(element, setOff = false){
     let catBtn = document.getElementById("cat-blog-btn");
     let thisCatBtn = document.getElementById("set-cat-btn-"+catID);
     let thisCatBtnMobile = document.getElementById("set-cat-btn-mobile-"+catID);
-    if (setOff == false) {
+    if (setOff === false) {
         catBtn.classList.add("active");
         thisCatBtn.classList.add("active");
         thisCatBtnMobile.classList.add("active");
@@ -58,7 +58,7 @@ function setCatPost(element, setOff = false){
             let blogSection = document.getElementById("blog-list");
             let btn = document.getElementById("see-more-post-btn");
 
-            response = JSON.parse(this.responseText);
+            let response = JSON.parse(this.responseText);
 
             preloader.style.display = "none";
             blogSection.innerHTML = response.data;
@@ -66,7 +66,7 @@ function setCatPost(element, setOff = false){
             //Gestion du bouton Charger Plus
             if (response.nbPage <= 1) {
                 btn.style.display = "none";
-            } else if(setOff == true) {
+            } else if(setOff === true) {
                 btn.setAttribute("onclick", "seeMorePosts("+response.nbPage+")");
                 btn.style.display = "block";
             } else {
@@ -76,7 +76,7 @@ function setCatPost(element, setOff = false){
         }
     };
     //Gestion de la requête à envoyer
-    if(setOff == true) {
+    if(setOff === true) {
         request.open("GET", "ajax/see-all-post/");
     } else {
         request.open("GET", "ajax/see-cat-post/"+catID);
@@ -86,16 +86,16 @@ function setCatPost(element, setOff = false){
 }
 
 function setCatMorePost(catID, nbPage = 1){
-    let preloader = document.getElementById('preloader-blog-home');
+    let preloader = document.getElementById("preloader-blog-home");
     preloader.style.display = "block";
     
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             let blogSection = document.getElementById("blog-list");
             let btn = document.getElementById("see-more-post-btn");
 
-            response = JSON.parse(this.responseText);
+            let response = JSON.parse(this.responseText);
 
             preloader.style.display = "none";
             blogSection.innerHTML = blogSection.innerHTML + response.data;
@@ -116,7 +116,7 @@ function setCatMorePost(catID, nbPage = 1){
 }
 
 function sendContactForm(){
-    let alertSection = document.getElementById('alert-message-contact-form');
+    let alertSection = document.getElementById("alert-message-contact-form");
 
     let allInputs = document.getElementsByClassName("contact-form-input");
 
@@ -125,7 +125,7 @@ function sendContactForm(){
     }
 
     for(let j = 0; j < allInputs.length; j++){
-        if(allInputs[j].value == ""){
+        if(allInputs[j].value === ""){
             allInputs[j].style.border = "solid 1px red";
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
@@ -146,15 +146,15 @@ function sendContactForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText == "Send") {
+        if (this.readyState === 4 && this.status === 200) {
+            if (this.responseText === "Send") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
                 alertSection.innerText = "Merci ! Votre message a bien été envoyé !";
 
-                document.getElementById('submit-form-btn').style.display = "none";
-                document.getElementById('return-home').style.display = "block";
+                document.getElementById("submit-form-btn").style.display = "none";
+                document.getElementById("return-home").style.display = "block";
             } else {
                 alertSection.classList.add("alert-danger");
                 alertSection.style.display = "block";

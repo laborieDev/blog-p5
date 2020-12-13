@@ -4,12 +4,14 @@ use Twig\Loader\FilesystemLoader;
 
 class RequestController
 {
+    private $sessionObject;
     private $twig;
 
     public function __construct()
     {
+        $this->sessionObject = new SessionObject;
         $this->twig = new Environment(new FilesystemLoader('templates'));
-        $this->twig->addGlobal('session', $_SESSION);
+        $this->twig->addGlobal('session', $this->sessionObject->getAll());
     }
 
     /********* ADMIN CONNECTION *********/
@@ -19,8 +21,8 @@ class RequestController
      */
     public function checkUser()
     {
-        if (isset($_SESSION['user'])) {
-            return filter_var($_SESSION['userType']);
+        if ($this->sessionObject->getVariable('user') !== false) {
+            return $this->sessionObject->getVariable('userType');
         } else {
             return "false";
         }
@@ -38,9 +40,9 @@ class RequestController
             return "Error";
         }
         
-        $_SESSION['user'] = $user->getLastName()." ".$user->getFirstName();
-        $_SESSION['userType'] = $user->getUserType();
-        $_SESSION['userID'] = $user->getID();
+        $this->sessionObject->addVariable('user', $user->getLastName()." ".$user->getFirstName());
+        $this->sessionObject->addVariable('userType', $user->getUserType());
+        $this->sessionObject->addVariable('userID', $user->getID());
             
         return "Connected";
     }
@@ -187,7 +189,8 @@ class RequestController
     public function saveNewComment()
     {
         try {
-            if (isset($_POST['postID'])) {
+            $postID = filter_input(INPUT_POST, 'postID');
+            if (isset($postID)) {
                 $commentRepo = new CommentRepository;
                 $comment = $commentRepo->newComment(filter_input(INPUT_POST, 'postID'));
                 $comment->setAuthorName(filter_input(INPUT_POST, 'authorName'));

@@ -1,7 +1,7 @@
 function sendCommentForm(button){
     let url = window.location.href;
-    let urlIndex = url.indexOf('article/');
-    let postID = parseInt(url.substring(urlIndex+8));
+    let urlIndex = url.indexOf("article/");
+    let postID = parseInt(url.substring(urlIndex+8), 10);
 
     let commentForm = document.getElementById("comment-form");
     let nameInput = document.getElementById("name");
@@ -22,8 +22,8 @@ function sendCommentForm(button){
     //APPEL AJAX POUR SAUVEGARDER LE COMMENTAIRE 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 ) {
-            if (this.status == 200) {
+        if (this.readyState === 4 ) {
+            if (this.status === 200) {
                 alertMessage.style.display = "block";
                 alertMessage.classList.remove("alert-danger");
                 alertMessage.classList.add("alert-success");
@@ -43,18 +43,18 @@ function sendCommentForm(button){
 
 function seeMoreComments(minID){
     let url = window.location.href;
-    let urlIndex = url.indexOf('article/');
+    let urlIndex = url.indexOf("article/");
     let postID = parseInt(url.substring(urlIndex+8));
 
-    let preloader = document.getElementById('preloader-comments-post');
+    let preloader = document.getElementById("preloader-comments-post");
     preloader.style.display = "block";
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             let commentsSection = document.getElementById("all-comments-single-post");
             let btn = document.getElementById("see-more-comment-btn");
 
-            response = JSON.parse(this.responseText);
+            let response = JSON.parse(this.responseText);
 
             preloader.style.display = "none";
             commentsSection.innerHTML = commentsSection.innerHTML + response.data;

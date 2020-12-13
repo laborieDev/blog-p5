@@ -27,12 +27,12 @@ class Router
     public function getRoute()
     { 
         if ($this->url == '') {
-            print_r($this->postController->getHomePage());
+            print($this->postController->getHomePage());
         }
 
         //ARTICLE SINGLE
         elseif ($this->url[0] == 'article' && !empty($this->url[1])) {
-            print_r($this->postController->getArticleContent($this->url[1]));
+            print($this->postController->getArticleContent($this->url[1]));
         }
 
         //AJAX REQUEST
@@ -42,7 +42,7 @@ class Router
 
         //ADMIN CONNECTION - AJAX
         elseif ($this->url[0] == 'user-connect') {
-            print_r($this->requestController->connectUser());
+            print($this->requestController->connectUser());
         }
 
         //ADMIN 
@@ -52,7 +52,7 @@ class Router
 
         //ERROR 404
         else {
-            print_r($this->requestController->get404Error());
+            print($this->requestController->get404Error());
         }
     }   
 
@@ -66,29 +66,29 @@ class Router
             if (isset($this->url[1])) {
                 //CHANGEMENT STATUS COMMENTAIRE DASHBOARD AND COMMENTS LIST
                 if ($this->url[1] == "set-comment" && !empty($this->url[2]) && !empty($this->url[3]) && !empty($this->url[4])) {
-                    print_r($this->commentController->setCommentStatus($this->url[2], $this->url[3], $this->url[4]));
+                    print($this->commentController->setCommentStatus($this->url[2], $this->url[3], $this->url[4]));
                 }
                 //ARTICLE
                 else if ($this->url[1] == "article") {
                     if (!empty($this->url[2])) {
                         if ($this->url[2] == "new") {
-                            print_r($this->postController->setPostPage());
+                            print($this->postController->setPostPage());
                         } elseif ($this->url[2] == "add") {
-                            print_r($this->postController->addNewPost());
+                            print($this->postController->addNewPost());
                         } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
-                            print_r($this->postController->setPostPage($this->url[3]));
+                            print($this->postController->setPostPage($this->url[3]));
                         } elseif ($this->url[2] == "editArticle" && !empty($this->url[3])) {
-                            print_r($this->postController->editPost($this->url[3]));
+                            print($this->postController->editPost($this->url[3]));
                         } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
-                            print_r($this->postController->deletePost($this->url[3]));
+                            print($this->postController->deletePost($this->url[3]));
                         } elseif ($this->url[2] == "see-more" && !empty($this->url[3])) {
-                            print_r($this->postController->seeMoreDashboardPosts($this->url[3]));
+                            print($this->postController->seeMoreDashboardPosts($this->url[3]));
                         }
                         else{
-                            print_r($this->requestController->get404Error());
+                            print($this->requestController->get404Error());
                         }
                     } else {
-                        print_r($this->postController->getDashboardPosts());
+                        print($this->postController->getDashboardPosts());
                     }
                 }
                 //USERS 
@@ -96,47 +96,47 @@ class Router
                     if ($checkUser == "admin") {
                         if (!empty($this->url[2])) {
                             if($this->url[2] == "new"){
-                                print_r($this->userController->setUserPage());
+                                print($this->userController->setUserPage());
                             } elseif ($this->url[2] == "add") {
-                                print_r($this->userController->addNewUser());
+                                print($this->userController->addNewUser());
                             } elseif ($this->url[2] == "edit" && !empty($this->url[3])) {
-                                print_r($this->userController->setUserPage($this->url[3]));
+                                print($this->userController->setUserPage($this->url[3]));
                             } elseif ($this->url[2] == "editUser" && !empty($this->url[3])) {
-                                print_r($this->userController->editUser($this->url[3]));
+                                print($this->userController->editUser($this->url[3]));
                             } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
-                                print_r($this->userController->deleteUser($this->url[3]));
+                                print($this->userController->deleteUser($this->url[3]));
                             } 
                         } else {
-                            print_r($this->userController->getDashboardUsers());
+                            print($this->userController->getDashboardUsers());
                         }
                     } else {
-                        print_r($this->userController->getUserTypeError());
+                        print($this->userController->getUserTypeError());
                     }
                 }
                 //COMMENTAIRES
                 else if ($this->url[1] == "comment") {
                     if (!empty($this->url[2])) {
                         if ($this->url[2] == "see-more" && !empty($this->url[3])) {
-                            print_r($this->commentController->seeMoreDashboardComments($this->url[3]));
+                            print($this->commentController->seeMoreDashboardComments($this->url[3]));
                         } elseif ($this->url[2] == "delete" && !empty($this->url[3])) {
-                            print_r($this->commentController->deleteComment($this->url[3]));
+                            print($this->commentController->deleteComment($this->url[3]));
                         } 
                     } else {
-                        print_r($this->commentController->getAllComments());
+                        print($this->commentController->getAllComments());
                     }
                 }
                 //DECONNEXION
                 else if ($this->url[1] == "disconnection") {
-                    print_r($this->requestController->disconnectAdmin());
+                    print($this->requestController->disconnectAdmin());
                 }
                 else {
-                    print_r($this->requestController->getAdminDashboard());
+                    print($this->requestController->getAdminDashboard());
                 }
             } else {
-                print_r($this->requestController->getAdminDashboard());
+                print($this->requestController->getAdminDashboard());
             }
         } else {
-            print_r($this->requestController->getErrorAdminConnection());
+            print($this->requestController->getErrorAdminConnection());
         }
     }
 
@@ -147,23 +147,23 @@ class Router
     {
         /**** BLOG POSTS HOME PAGE ****/
         if ($this->url[1] == 'more-post' && !empty($this->url[2])) {
-            print_r($this->requestController->seeMorePost($this->url[2]));
+            print($this->requestController->seeMorePost($this->url[2]));
         } elseif ($this->url[1] == 'more-comment' && !empty($this->url[2]) && !empty($this->url[3])) {
-            print_r($this->requestController->seeMoreComment($this->url[2], $this->url[3]));
+            print($this->requestController->seeMoreComment($this->url[2], $this->url[3]));
         } elseif ($this->url[1] == 'see-all-post') {
-            print_r($this->requestController->seeMorePost());
+            print($this->requestController->seeMorePost());
         } elseif ($this->url[1] == 'see-cat-post' && !empty($this->url[2])) {
             if (!empty($this->url[3])) {
-                print_r($this->requestController->seeCatPost($this->url[2], $this->url[3]));
+                print($this->requestController->seeCatPost($this->url[2], $this->url[3]));
             } else {
-                print_r($this->requestController->seeCatPost($this->url[2]));
+                print($this->requestController->seeCatPost($this->url[2]));
             }
         } elseif ($this->url[1] == 'send-contact-form') {
-            print_r($this->requestController->sendContactForm());
+            print($this->requestController->sendContactForm());
         }
         /**** NEW COMMENT SINGLE POST ****/
         elseif ($this->url[1] == 'new-comment') {
-            print_r($this->requestController->saveNewComment());
+            print($this->requestController->saveNewComment());
         }
     }
 }

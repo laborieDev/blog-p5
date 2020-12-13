@@ -4,15 +4,18 @@ use Twig\Loader\FilesystemLoader;
 
 class UserController
 {
+    private $sessionObject;
     private $twig;
     private $postRepo;
     private $catRepo;
+    private $commentRepo;
+    private $userRepo;
 
     public function __construct()
     {
+        $this->sessionObject = new SessionObject;
         $this->twig = new Environment(new FilesystemLoader('templates'));
-        $this->twig->addGlobal('session', $_SESSION);
-
+        $this->twig->addGlobal('session', $this->sessionObject->getAll());
         $this->postRepo = new PostRepository;
         $this->catRepo = new CategoryRepository;
         $this->commentRepo = new CommentRepository;
@@ -63,23 +66,27 @@ class UserController
      */
     public function addNewUser()
     {
-        if (!isset($_POST['lastname'])) {
+        $lastName = filter_input(INPUT_POST, 'lastname');
+        $firstName = filter_input(INPUT_POST, 'firstname');
+        $userType = filter_input(INPUT_POST, 'usertype');
+        $email = filter_input(INPUT_POST, 'email');
+        $password = filter_input(INPUT_POST, 'password');
+
+        if ((!isset($lastName)) || (!isset($firstName)) || (!isset($userType)) || (!isset($email)) || (!isset($password))) {
             return "Une erreur est survenue !";
         }
 
-        if ($this->userRepo->emailExists($_POST['email'])) {
+        if ($this->userRepo->emailExists($email)) {
             return "Attention ! Cet email est déjà asssocié à un utilisateur !";
         }
 
-        if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['usertype']) && isset($_POST['email']) && isset($_POST['password'])) {
-            $user = $this->userRepo->newUser();
-            $user->setLastName(filter_input(INPUT_POST, 'lastname'));
-            $user->setFirstName(filter_input(INPUT_POST, 'firstname'));
-            $user->setEmail(filter_input(INPUT_POST, 'email'));
-            $user->setPassword(filter_input(INPUT_POST, 'password'));
-            $user->setUserType(filter_input(INPUT_POST, 'usertype'));
-            $this->userRepo->updateUser($user);
-        }
+        $user = $this->userRepo->newUser();
+        $user->setLastName(filter_input(INPUT_POST, 'lastname'));
+        $user->setFirstName(filter_input(INPUT_POST, 'firstname'));
+        $user->setEmail(filter_input(INPUT_POST, 'email'));
+        $user->setPassword(filter_input(INPUT_POST, 'password'));
+        $user->setUserType(filter_input(INPUT_POST, 'usertype'));
+        $this->userRepo->updateUser($user);
 
         return "Added";
     }
@@ -89,22 +96,24 @@ class UserController
      * @param int User's ID
      * @return string Ajax response
      */
-    public function editUser($id)
+    public function editUser($userID)
     {
-        if (!isset($_POST['lastname'])) {
+        $lastName = filter_input(INPUT_POST, 'lastname');
+        $firstName = filter_input(INPUT_POST, 'firstname');
+        $userType = filter_input(INPUT_POST, 'usertype');
+        $password = filter_input(INPUT_POST, 'password');
+
+        if ((!isset($lastName)) || (!isset($firstName)) || (!isset($userType))) {
             return "Error";
         }
           
-        $user = $this->userRepo->getUser($id);
+        $user = $this->userRepo->getUser($userID);
+        $user->setLastName($lastName);
+        $user->setFirstName($firstName);
+        $user->setUserType($userType);
 
-        if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['usertype'])) {
-            $user->setLastName(filter_input(INPUT_POST, 'lastname'));
-            $user->setFirstName(filter_input(INPUT_POST, 'firstname'));
-            $user->setUserType(filter_input(INPUT_POST, 'usertype'));
-        }
-
-        if (isset($_POST['password'])) {
-            $user->setPassword(filter_input(INPUT_POST, 'password'));
+        if (isset($password)) {
+            $user->setPassword($password);
         }
 
         $this->userRepo->updateUser($user);
@@ -119,7 +128,7 @@ class UserController
      */
     public function deleteUser($userID)
     {
-        if ($userID == filter_var($_SESSION['userID'])) {
+        if ($userID == $this->sessionObject->getVariable('userID')) {
             http_response_code(500);
             return json_encode(array('message' => "Vous ne pouvait pas supprimé votre propre utilisateur !"));
         }
