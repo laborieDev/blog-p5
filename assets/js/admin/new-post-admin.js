@@ -7,7 +7,7 @@ function setCats(select){
     let catID = select.value;
     let catTitle = document.getElementById("cat-option-"+catID).innerText;
 
-    if(allCats.indexOf(catID) === -1){
+    if(allCats.indexOf(catID) == -1){
         allCats.push(catID);
         allCatsListSection.innerHTML = allCatsListSection.innerHTML + "<span id='cat-list-item-"+catID+"'>"+catTitle+"<i class='lni lni-close' onclick='removeThisCat(\""+catID+"\")'></i>";
     }
@@ -27,7 +27,7 @@ async function sendNewPostForm(){
     let alertSection = document.getElementById("alert-message");
     let allInputs = document.getElementsByClassName("new-post-input");
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value === ""){
+        if("" === allInputs[i].value){
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
             alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
@@ -37,6 +37,12 @@ async function sendNewPostForm(){
     } 
 
     // ENVOYER TOUS LES INPUTS 
+    let title = document.getElementById("title");
+    let extract = document.getElementById("extract");
+    let content = document.getElementById("content");
+    let allCats = document.getElementById("allCats");
+    let img = document.getElementById("img");
+
     let formData = new FormData();           
     formData.append("title", title.value);
     formData.append("extract", extract.value);
@@ -47,7 +53,7 @@ async function sendNewPostForm(){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText == "Added") {
+            if ("Added" === this.responseText) {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
@@ -63,6 +69,7 @@ async function sendNewPostForm(){
         }
     };
 
+    let thisAglDomain = new WebSite().getDomain();
     request.open("POST", thisAglDomain+"admin/article/add", true);
     request.send(formData);
 }
@@ -74,7 +81,7 @@ async function sendEditPostForm(){
     let alertSection = document.getElementById("alert-message");
     let allInputs = document.getElementsByClassName("new-post-input");
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value == "" && allInputs[i].placeholder != "Image mise en avant"){
+        if("" === allInputs[i].value &&  "Image mise en avant" !== allInputs[i].placeholder){
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
             alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
@@ -84,6 +91,12 @@ async function sendEditPostForm(){
     } 
 
     // ENVOYER TOUS LES INPUTS 
+    let title = document.getElementById("title");
+    let extract = document.getElementById("extract");
+    let content = document.getElementById("content");
+    let allCats = document.getElementById("allCats");
+    let img = document.getElementById("img");
+
     let formData = new FormData();           
     formData.append("title", title.value);
     formData.append("extract", extract.value);
@@ -93,15 +106,15 @@ async function sendEditPostForm(){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText == "Edited") {
+        if (this.readyState == 4 && this.status == 200) {
+            if ("Edited" === this.responseText) {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
                 alertSection.innerText = "L'article a bien été modifié !";
 
-                document.getElementById('submit-btn').style.display = "none";
-                document.getElementById('return-home').style.display = "block";
+                document.getElementById("submit-btn").style.display = "none";
+                document.getElementById("return-home").style.display = "block";
             } else {
                 alertSection.classList.add("alert-danger");
                 alertSection.style.display = "block";
@@ -110,6 +123,9 @@ async function sendEditPostForm(){
         }
     };
 
+    let thisAglDomain = new WebSite().getDomain();
+
     request.open("POST", thisAglDomain+"admin/article/editArticle/"+postID, true);
     request.send(formData);
 }
+

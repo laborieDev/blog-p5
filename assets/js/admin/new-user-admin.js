@@ -1,19 +1,19 @@
 /** ENVOYER LE FORMULAIRE - ADD USER **/
 async function sendNewUserForm(){
 
-    if(document.getElementById("alert-message") === undefined && document.getElementsByClassName("new-user-input") === undefined){
+    if((typeof document.getElementById("alert-message") === "undefined") && (typeof document.getElementsByClassName("new-user-input") === "undefined")){
         return ;
     }
 
     let alertSection = document.getElementById("alert-message");
     let allInputs = document.getElementsByClassName("new-user-input");
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value === ""){
+        if("" === allInputs[i].value){
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
             if(allInputs[i].placeholder === undefined){
                 // alertSection.innerText = "Le type d'utilisateur n'a pas été renseigné(e) !";
-                alertSection.innerText = allInputs[i].getAttribute('aglplaceholder')+" n'a pas été renseigné(e) !";
+                alertSection.innerText = allInputs[i].getAttribute("aglplaceholder")+" n'a pas été renseigné(e) !";
             } else {
                 alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
             }
@@ -44,6 +44,12 @@ async function sendNewUserForm(){
         return ;
     }
 
+    let lastname = document.getElementById("lastname");
+    let firstname = document.getElementById("firstname");
+    let userType = document.getElementById("userType");
+    let email = document.getElementById("email");
+    let password = document.getElementById("password");
+
     // ENVOYER TOUS LES INPUTS 
     let formData = new FormData();           
     formData.append("lastname", lastname.value);
@@ -55,7 +61,7 @@ async function sendNewUserForm(){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText == "Added") {
+            if ( "Added" === this.responseText) {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
@@ -71,66 +77,20 @@ async function sendNewUserForm(){
         }
     };
 
+    let thisAglDomain = new WebSite().getDomain();
+
     request.open("POST", thisAglDomain+"admin/user/add", true);
-    request.send(formData);
-}
-
-
-/** ENVOYER LE FORMULAIRE - EDIT POST **/
-async function sendEditPostForm(){
-    let postID = document.getElementById("post-id-input").value;
-
-    let alertSection = document.getElementById('alert-message');
-    let allInputs = document.getElementsByClassName('new-post-input');
-    for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value === "" && allInputs[i].placeholder !== "Image mise en avant"){
-            alertSection.classList.add("alert-danger");
-            alertSection.style.display = "block";
-            alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
-
-            return ;
-        }
-    } 
-
-    // ENVOYER TOUS LES INPUTS 
-    let formData = new FormData();           
-    formData.append("title", title.value);
-    formData.append("extract", extract.value);
-    formData.append("content", content.value);
-    formData.append("allCats", allCats);
-    formData.append("file", img.files[0]);
-
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText == "Edited") {
-                alertSection.classList.remove("alert-danger");
-                alertSection.classList.add("alert-success");
-                alertSection.style.display = "block";
-                alertSection.innerText = "L'article a bien été modifié !";
-
-                document.getElementById('submit-btn').style.display = "none";
-                document.getElementById('return-home').style.display = "block";
-            } else {
-                alertSection.classList.add("alert-danger");
-                alertSection.style.display = "block";
-                alertSection.innerText = "Une erreur est survenue !";
-            }
-        }
-    };
-
-    request.open("POST", thisAglDomain+"admin/article/editArticle/"+postID, true);
     request.send(formData);
 }
 
 /** ENVOYER LE FORMULAIRE - EDIT USER **/
 async function sendEditUserForm(){
-    let userID = document.getElementById('user-id-input').value;
+    let userID = document.getElementById("user-id-input").value;
 
-    let alertSection = document.getElementById('alert-message');
-    let allInputs = document.getElementsByClassName('new-user-input');
+    let alertSection = document.getElementById("alert-message");
+    let allInputs = document.getElementsByClassName("new-user-input");
     for(let i = 0; i < allInputs.length; i++){
-        if(allInputs[i].value == ""){
+        if("" === allInputs[i].value){
             if(allInputs[i].placeholder == "Mot de passe"){
                 break;
             }
@@ -138,7 +98,7 @@ async function sendEditUserForm(){
             alertSection.style.display = "block";
             if(allInputs[i].placeholder === undefined)
                 // alertSection.innerText = "Le type d'utilisateur n'a pas été renseigné(e) !";
-                alertSection.innerText = allInputs[i].getAttribute('aglplaceholder')+" n'a pas été renseigné(e) !";
+                alertSection.innerText = allInputs[i].getAttribute("aglplaceholder")+" n'a pas été renseigné(e) !";
             else
                 alertSection.innerText = allInputs[i].placeholder+" n'a pas été renseigné(e) !";
             
@@ -147,13 +107,18 @@ async function sendEditUserForm(){
     } 
 
     // ENVOYER TOUS LES INPUTS 
+    let lastname = document.getElementById("lastname");
+    let firstname = document.getElementById("firstname");
+    let userType = document.getElementById("userType");
+    let password = document.getElementById("password");
+
     let formData = new FormData();           
     formData.append("lastname", lastname.value);
     formData.append("firstname", firstname.value);
     formData.append("usertype", userType.value);
 
-    let passwordInput = document.getElementById('password');
-    let passwordConfirmInput = document.getElementById('confirmPassword');
+    let passwordInput = document.getElementById("password");
+    let passwordConfirmInput = document.getElementById("confirmPassword");
 
     if(passwordInput.value.length > 8) {
         formData.append("password", password.value);
@@ -179,14 +144,14 @@ async function sendEditUserForm(){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText == "Edited") {
+            if (this.responseText === "Edited") {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
                 alertSection.innerText = "L'utlisateur a bien été modifié !";
 
-                document.getElementById('submit-btn').style.display = "none";
-                document.getElementById('return-home').style.display = "block";
+                document.getElementById("submit-btn").style.display = "none";
+                document.getElementById("return-home").style.display = "block";
             } else {
                 alertSection.classList.add("alert-danger");
                 alertSection.style.display = "block";
@@ -194,6 +159,8 @@ async function sendEditUserForm(){
             }
         }
     };
+
+    let thisAglDomain = new WebSite().getDomain();
 
     request.open("POST", thisAglDomain+"admin/user/editUser/"+userID, true);
     request.send(formData);

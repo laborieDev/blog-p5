@@ -29,6 +29,7 @@ function deleteThisPost(){
             getDeleteModal(-1);
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"/admin/article/delete/"+deleteID);
     request.send();
 }
@@ -54,6 +55,7 @@ function seeMorePosts(nbPage){
             }
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"admin/article/see-more/"+nbPage);
     request.send();
 }
@@ -72,13 +74,14 @@ function seeMoreComments(nbPage){
             preloader.style.display = "none";
             commentsSection.innerHTML = commentsSection.innerHTML + response.data;
             
-            if (response.nbPage == -1) {
+            if (response.nbPage === -1) {
                 btn.style.display = "none";
             } else {
                 btn.setAttribute("onclick", "seeMoreComments("+response.nbPage+")");
             }
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"admin/comment/see-more/"+nbPage);
     request.send();
 }
@@ -106,6 +109,7 @@ function deleteThisUser(){
             getDeleteModal(-1);
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"/admin/user/delete/"+deleteID);
     request.send();
 }
@@ -113,7 +117,7 @@ function deleteThisUser(){
 //COMMENT GESTION
 function setThisComment(id = -1, status=""){
     let modal = document.getElementById("modal-edit-post");
-    if(modal.style.display == "none"){
+    if(modal.style.display === "none"){
         editID = id;
         document.getElementById("status-edit-comment").value = status;
         modal.style.display = "block";
@@ -138,6 +142,7 @@ function updateThisComment(){
             alertMessage.innerText = response.message;
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"/admin/set-comment/"+editID+"/"+status+"/false");
     request.send(); 
 
@@ -179,6 +184,7 @@ function deleteThisComment(){
             getDeleteModal(-1);
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"/admin/comment/delete/"+deleteID);
     request.send();
 }

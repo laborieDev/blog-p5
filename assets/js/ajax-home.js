@@ -54,7 +54,7 @@ function setCatPost(element, setOff = false){
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             let blogSection = document.getElementById("blog-list");
             let btn = document.getElementById("see-more-post-btn");
 
@@ -125,7 +125,7 @@ function sendContactForm(){
     }
 
     for(let j = 0; j < allInputs.length; j++){
-        if(allInputs[j].value === ""){
+        if("" === allInputs[j].value){
             allInputs[j].style.border = "solid 1px red";
             alertSection.classList.add("alert-danger");
             alertSection.style.display = "block";
@@ -136,18 +136,23 @@ function sendContactForm(){
     }
 
     // ENVOYER TOUS LES INPUTS 
+    let contactname = document.getElementById("contactname");
+    let email = document.getElementById("email");
+    let subject = document.getElementById("subject");
+    let number = document.getElementById("number");
+    let message = document.getElementById("message");
+
     let formData = new FormData();           
     formData.append("name", contactname.value);
     formData.append("email", email.value);
     formData.append("subject", subject.value);
-    formData.append("number", number.value);
     formData.append("number", number.value);
     formData.append("message", message.value);
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText === "Send") {
+            if ("Send" === this.responseText) {
                 alertSection.classList.remove("alert-danger");
                 alertSection.classList.add("alert-success");
                 alertSection.style.display = "block";
@@ -163,6 +168,7 @@ function sendContactForm(){
         }
     };
 
+    let thisAglDomain = new WebSite().getDomain();
     request.open("POST", thisAglDomain+"ajax/send-contact-form", true);
     request.send(formData);
 }

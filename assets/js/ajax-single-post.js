@@ -36,6 +36,7 @@ function sendCommentForm(button){
             }
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("POST", thisAglDomain+"ajax/new-comment/");
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.send("postID="+postID+"&authorName="+nameInput.value+"&message="+messageInput.value);
@@ -66,6 +67,7 @@ function seeMoreComments(minID){
             }
         }
     };
+    let thisAglDomain = new WebSite().getDomain();
     request.open("GET", thisAglDomain+"ajax/more-comment/"+postID+"/"+minID);
     request.send();
 }

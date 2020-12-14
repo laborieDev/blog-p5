@@ -6,7 +6,10 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/router/SessionObject.php';
 
 //Router and Controllers init
+require __DIR__ . '/router/AdminRouter.php';
+require __DIR__ . '/router/AjaxRouter.php';
 require __DIR__ . '/router/Router.php';
+
 require __DIR__ . '/controller/PostController.php';
 require __DIR__ . '/controller/CommentController.php';
 require __DIR__ . '/controller/UserController.php';
